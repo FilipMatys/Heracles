@@ -1,6 +1,6 @@
 {
   "name": "@heracles/core",
-  "version": "1.0.10",
+  "version": "0.0.1",
   "description": "Core module of Heracles framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FilipMatys/geph.git"
+    "url": "https://github.com/FilipMatys/Heracles.git"
   },
   "keywords": [
     "preston"
