@@ -1,7 +1,7 @@
 {
-  "name": "@heracles/serializable",
-  "version": "0.0.1",
-  "description": "Serializable module of Heracles framework.",
+  "name": "@calf/serializable",
+  "version": "0.0.2",
+  "description": "Serializable module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

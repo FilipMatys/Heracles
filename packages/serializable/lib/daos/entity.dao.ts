@@ -1,6 +1,9 @@
 // Classes
 import { ISerializable } from "../classes/serializable.class";
 
+// Interfaces
+import { IQuery } from "../interfaces";
+
 /**
  * Entity dao
  * @description 
@@ -23,9 +26,10 @@ export interface IEntityDao<T extends ISerializable> {
 
     /**
      * Get list of entities
+     * @param query
      * @param args 
      */
-    getList(...args: any[]): Promise<T[]>;
+    getList(query: IQuery, ...args: any[]): Promise<T[]>;
 
     /**
      * Remove entity
@@ -33,4 +37,17 @@ export interface IEntityDao<T extends ISerializable> {
      * @param args 
      */
     remove(entity: T, ...args: any[]): Promise<T>;
+
+    /**
+     * Remove list of entities
+     * @param query 
+     * @param args 
+     */
+    removeList(query: IQuery, ...args: any[]): Promise<any>;
+
+    /**
+     * Count entities
+     * @param args 
+     */
+    count(...args: any[]): Promise<number>;
 }
