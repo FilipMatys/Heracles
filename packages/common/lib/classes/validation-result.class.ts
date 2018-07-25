@@ -248,6 +248,16 @@ export class ValidationResult<T, M> {
     }
 
     /**
+     * Is match
+     * @param selector 
+     * @param regexp 
+     * @param error 
+     */
+    public isMatch(selector: (d: T) => string, regexp: RegExp, error: M): boolean {
+        return this.processResult(regexp.test(selector(this.data as T)), error);
+    }
+
+    /**
      * Process result
      * @param result 
      * @param message 

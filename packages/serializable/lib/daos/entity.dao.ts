@@ -32,22 +32,24 @@ export interface IEntityDao<T extends ISerializable> {
     getList(query: IQuery, ...args: any[]): Promise<T[]>;
 
     /**
-     * Remove entity
-     * @param entity 
-     * @param args 
-     */
-    remove(entity: T, ...args: any[]): Promise<T>;
-
-    /**
-     * Remove list of entities
+     * Remove
      * @param query 
      * @param args 
      */
-    removeList(query: IQuery, ...args: any[]): Promise<any>;
+    remove(query: IQuery, ...args: any[]): Promise<any>;
 
     /**
      * Count entities
+     * @param query
      * @param args 
      */
-    count(...args: any[]): Promise<number>;
+    count(query: IQuery, ...args: any[]): Promise<number>;
+
+    /**
+     * Update
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    update(query: IQuery, payload: any, ...args: any[]): Promise<any>;
 }

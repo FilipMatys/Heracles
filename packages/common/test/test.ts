@@ -3,13 +3,41 @@ import { expect } from "chai";
 
 import { ValidationResult } from "../lib/common";
 
-describe("Validation result JSON", () => {
-    it("Should contain public properties", () => {
+describe("ValidationResult", () => {
+    // Init validation
+    const validation = new ValidationResult<{
+        text: string,
+        isTrue: boolean,
+        defined: any,
+        notDefined: any
+    }, string>({
+        text: "sometext",
+        isTrue: true,
+        defined: "sf",
+        notDefined: undefined
+    });
 
-        const validation = new ValidationResult<any, string>();
+    it("isTrue [Success]", () => {
+        expect(validation.isTrue(t => t.isTrue, "")).equal(true);
+    });
 
-        console.log(JSON.stringify(validation));
+    it("isTrue [Fail]", () => {
+        expect(validation.isTrue(t => !t.isTrue, "")).equal(false);
+    });
 
-        expect(true).equal(true);
+    it("isFalse [Success]", () => {
+        expect(validation.isFalse(t => !t.isTrue, "")).equal(true);
+    });
+
+    it("isFalse [Fail]", () => {
+        expect(validation.isFalse(t => t.isTrue, "")).equal(false);
+    });
+
+    it("isDefined [Success]", () => {
+        expect(validation.isDefined(t => t.defined, "")).equal(true);
+    });
+
+    it("isDefined [Fail]", () => {
+        expect(validation.isDefined(t => t.notDefined, "")).equal(false);
     });
 });
