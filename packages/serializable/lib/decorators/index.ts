@@ -4,3 +4,4 @@ export * from "./property.decorator";
 export * from "./required.decorator";
 export * from "./unique.decorator";
 export * from "./timestamp.decorator";
+export * from "./array.decorator";

@@ -7,12 +7,14 @@ import { IProperty } from "../interfaces/property.interface";
 import { IDefault } from "../interfaces/default.interface";
 import { IRequired } from "../interfaces/required.interface";
 import { IUnique } from "../interfaces/unique.interface";
+import { IArray } from "../interfaces/array.interface";
 
 // Symbols
 import { DEFAULT_METADATA_KEY } from "../symbols/default.symbol";
 import { PROPERTY_METADATA_KEY } from "../symbols/property.symbol";
 import { REQUIRED_METADATA_KEY } from "../symbols/required.symbol";
 import { UNIQUE_METADATA_KEY } from "../symbols/unique.symbol";
+import { ARRAY_METADATA_KEY } from "../symbols/array.symbol";
 
 // Parsers
 import { BaseParser } from "./base.parser";
@@ -46,8 +48,11 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
         // Unique
         let unique = this.getUnique(target, name);
 
+        // Array
+        let array = this.getArray(target, name);
+
         // Now merge those into one
-        return Object.assign({}, property, lDefault, required, unique);
+        return Object.assign({}, property, lDefault, required, unique, array);
     }
 
     /**
@@ -97,5 +102,18 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
 
         // Assign data from metadata
         return Object.assign(unique, Reflect.getMetadata(UNIQUE_METADATA_KEY, target, name) || {});
+    }
+
+    /**
+     * Get array
+     * @param target 
+     * @param name 
+     */
+    private getArray(target: Object, name: string): IArray {
+        // Init array definition
+        let array: IArray = { isArray: false };
+
+        // Assign data from metadata
+        return Object.assign(array, Reflect.getMetadata(ARRAY_METADATA_KEY, target, name) || {});
     }
 }

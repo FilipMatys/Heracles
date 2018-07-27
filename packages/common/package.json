@@ -19,7 +19,7 @@
   "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
   "license": "MIT",
   "peerDependencies": {
-    "@calf/serializable": "0.0.2"
+    "@calf/serializable": "0.0.4"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
