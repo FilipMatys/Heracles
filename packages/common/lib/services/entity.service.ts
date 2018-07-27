@@ -241,6 +241,221 @@ export abstract class EntityService<T extends ISerializable, M> {
     }
 
     /**
+     * Remove
+     * @param query 
+     * @param args 
+     */
+    public remove(query: IQuery, ...args: any[]): Promise<ValidationResult<any, M>> {
+        // Init validation
+        const validation = new ValidationResult<any, M>();
+
+        // Create new promise
+        return new Promise<ValidationResult<any, M>>((resolve) => {
+            // Call pre remove hook
+            this.preRemove(validation, query, ...args)
+                // Call peri remove hook
+                .then((validation) => this.periRemove(validation, query, ...args))
+                // Call post remove hook
+                .then((validation) => this.postRemove(validation, query, ...args))
+                // Resolve
+                .then((validation) => resolve(validation))
+                // Catch and resolve
+                .catch((validation) => resolve(validation));
+        });
+    }
+
+    /**
+     * Pre remove hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected preRemove(validation: ValidationResult<any, M>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Peri remove hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected periRemove(validation: ValidationResult<any, M>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, M>> {
+        // Create new promise
+        return new Promise((resolve, reject) => {
+            // Remove 
+            this.dao.remove(query, ...args)
+                .then((result) => {
+                    // Assign Data
+                    validation.data = result;
+
+                    // Resolve
+                    return resolve(validation);
+                })
+                .catch((error) => {
+                    // Handle error
+                    this.handleRemoveError(validation, error)
+                        .then((validation) => resolve(validation))
+                        .catch((validation) => reject(validation));
+                });
+        });
+    }
+
+    /**
+     * Post remove hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected postRemove(validation: ValidationResult<any, M>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Change state
+     * @param entity 
+     * @param args 
+     */
+    public changeState(entity: T, ...args: any[]): Promise<ValidationResult<T, M>> {
+        // Init validation
+        const validation = new ValidationResult<T, M>(entity);
+
+        // Create new promise
+        return new Promise<ValidationResult<T, M>>((resolve) => {
+            // Call pre change state hook
+            this.preChangeState(validation, ...args)
+                // Call peri change state
+                .then((validation) => this.periChangeState(validation, ...args))
+                // Call post change state
+                .then((validation) => this.postChangeState(validation, ...args))
+                // Resolve
+                .then((validation) => resolve(validation))
+                // Catch and resolve
+                .catch((validation) => resolve(validation));
+        });
+    }
+
+    /**
+     * Pre change state hook
+     * @param validation 
+     * @param args 
+     */
+    protected preChangeState(validation: ValidationResult<T, M>, ...args: any[]): Promise<ValidationResult<T, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Peri change state
+     * @param validation 
+     * @param args 
+     */
+    protected periChangeState(validation: ValidationResult<T, M>, ...args: any[]): Promise<ValidationResult<T, M>> {
+        throw new Error("[@calf:entity.service] Change state not implemented!");
+    }
+
+    /**
+     * Post change state
+     * @param validation 
+     * @param args 
+     */
+    protected postChangeState(validation: ValidationResult<T, M>, ...args: any[]): Promise<ValidationResult<T, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Update 
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    public update(query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, M>> {
+        // Init validation
+        const validation = new ValidationResult<any, M>();
+
+        // Create new promise
+        return new Promise((resolve) => {
+            // Call pre update hook
+            this.preUpdate(validation, query, payload, ...args)
+                // Call peri update hook
+                .then((validation) => this.periUpdate(validation, query, payload, ...args))
+                // Call post update hook
+                .then((validation) => this.postUpdate(validation, query, payload, ...args))
+                // Resolve
+                .then((validation) => resolve(validation))
+                // Catch and resolve
+                .catch((validation) => resolve(validation));
+        });
+    }
+
+    /**
+     * Pre update hook
+     * @param validation 
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    protected preUpdate(validation: ValidationResult<any, M>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Peri update hook
+     * @param validation 
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    protected periUpdate(validation: ValidationResult<any, M>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, M>> {
+        // Create new promise
+        return new Promise((resolve, reject) => {
+            // Update
+            this.dao.update(query, payload, ...args)
+                .then((result) => {
+                    // Assign Data
+                    validation.data = result;
+
+                    // Resolve
+                    return resolve(validation);
+                })
+                .catch((error) => {
+                    // Handle error
+                    this.handleUpdateError(validation, error)
+                        .then((validation) => resolve(validation))
+                        .catch((validation) => reject(validation));
+                });
+        });
+    }
+
+    /**
+     * Post update hook
+     * @param validation 
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    protected postUpdate(validation: ValidationResult<any, M>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, M>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Handle update error
+     * @param validation 
+     * @param error 
+     */
+    protected handleUpdateError<E>(validation: ValidationResult<T, M>, error: E): Promise<ValidationResult<T, M>> {
+        return this.handleDaoError<E>(validation, error);
+    }
+
+    /**
+     * Handle change state error
+     * @param validation 
+     * @param error 
+     */
+    protected handleChangeStateError<E>(validation: ValidationResult<T, M>, error: E): Promise<ValidationResult<T, M>> {
+        return this.handleDaoError<E>(validation, error);
+    }
+
+    /**
      * Handle save error
      * @param error 
      */
@@ -263,6 +478,15 @@ export abstract class EntityService<T extends ISerializable, M> {
      * @param error 
      */
     protected handleGetListError<E>(validation: ValidationResult<IQueryResult<T>, M>, error: E): Promise<ValidationResult<IQueryResult<T>, M>> {
+        return this.handleDaoError<E>(validation, error);
+    }
+
+    /**
+     * Handle remove error
+     * @param validation 
+     * @param error 
+     */
+    protected handleRemoveError<E>(validation: ValidationResult<any, M>, error: E): Promise<ValidationResult<any, M>> {
         return this.handleDaoError<E>(validation, error);
     }
 
