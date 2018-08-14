@@ -9,5 +9,6 @@ export enum PropertyType {
     BOOLEAN,
     MIXED,
     REFERENCE,
-    OID
+    OID,
+    EMBEDED
 }

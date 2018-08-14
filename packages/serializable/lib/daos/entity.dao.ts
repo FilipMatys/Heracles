@@ -1,5 +1,5 @@
 // Classes
-import { ISerializable } from "../classes/serializable.class";
+import { Serializable } from "../classes/serializable.class";
 
 // Interfaces
 import { IQuery } from "../interfaces";
@@ -8,7 +8,7 @@ import { IQuery } from "../interfaces";
  * Entity dao
  * @description 
  */
-export interface IEntityDao<T extends ISerializable> {
+export interface IEntityDao<T extends Serializable> {
 
     /**
      * Save entity

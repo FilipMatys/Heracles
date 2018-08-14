@@ -1,7 +1,9 @@
 /**
- * Serializable interface
- * @description Contains object identifier
+ * Serializable class
+ * @description Contains object identifier and timestamp
  */
-export interface ISerializable {
+export class Serializable {
     _id?: any;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

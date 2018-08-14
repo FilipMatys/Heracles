@@ -1,5 +1,5 @@
 // External modules
-import { ISerializable, IEntityDao, IQuery } from "@calf/serializable";
+import { IEntityDao, IQuery, Serializable } from "@calf/serializable";
 
 // Classes
 import { ValidationResult } from "../classes/validation-result.class";
@@ -10,7 +10,7 @@ import { IQueryResult } from "../interfaces/query-result.interface";
 /**
  * Entity service
  */
-export abstract class EntityService<T extends ISerializable, M> {
+export abstract class EntityService<T extends Serializable, M> {
 
     /**
      * Constructor
