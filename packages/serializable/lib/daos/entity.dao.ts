@@ -2,7 +2,8 @@
 import { Serializable } from "../classes/serializable.class";
 
 // Interfaces
-import { IQuery } from "../interfaces";
+import { IQuery } from "../interfaces/query.interface";
+import { IPopulate } from "../interfaces/populate.interface";
 
 /**
  * Entity dao
@@ -22,7 +23,7 @@ export interface IEntityDao<T extends Serializable> {
      * @param entity 
      * @param args 
      */
-    get(entity: T, ...args: any[]): Promise<T>;
+    get(entity: T, populate: IPopulate[], ...args: any[]): Promise<T>;
 
     /**
      * Get list of entities

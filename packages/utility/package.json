@@ -1,7 +1,7 @@
 {
-  "name": "@calf/core",
+  "name": "@calf/utility",
   "version": "0.0.1",
-  "description": "Core module of Calf framework.",
+  "description": "Utility module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FilipMatys/Heracles.git"
+    "url": "https://github.com/FilipMatys/Calf.git"
   },
   "keywords": [
     "preston"
