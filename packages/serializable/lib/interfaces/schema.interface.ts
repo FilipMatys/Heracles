@@ -3,7 +3,7 @@ import { IEntityDefinition } from "./entity-definition.interface";
 import { IPropertyDefinition } from "./property-definition.interface";
 
 // Schema interface
-export interface ISchema {
+export interface ISchema<T> {
     entity?: IEntityDefinition;
-    properties?: { [name: string]: IPropertyDefinition };
+    properties?: { [name: string]: T };
 }

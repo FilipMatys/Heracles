@@ -1,20 +1,21 @@
 // Data
 import { ISchema } from "../interfaces/schema.interface";
+import { IPropertyDefinition } from "../interfaces/property-definition.interface";
 
 // Parsers
 import { BaseParser } from "./base.parser";
 import { EntityParser } from "./entity.parser";
 import { PropertyParser } from "./property.parser";
 
-export class SchemaParser extends BaseParser<ISchema> {
+export class SchemaParser extends BaseParser<ISchema<IPropertyDefinition>> {
 
     /**
      * Parse target
      * @param target 
      */
-    public parse(target: new () => any): ISchema {
+    public parse(target: new () => any): ISchema<IPropertyDefinition> {
         // Initialize schema
-        const schema: ISchema = { 
+        const schema: ISchema<IPropertyDefinition> = { 
             entity: {},
             properties: {}
         };
