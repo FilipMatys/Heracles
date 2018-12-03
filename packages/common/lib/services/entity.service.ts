@@ -91,7 +91,7 @@ export abstract class EntityService<T extends Serializable, M> {
      * @param entity 
      * @param args 
      */
-    protected get(entity: T, ...args: any[]): Promise<ValidationResult<T, M>> {
+    public get(entity: T, ...args: any[]): Promise<ValidationResult<T, M>> {
         // Init validation
         const validation = new ValidationResult<T, M>(entity);
 
