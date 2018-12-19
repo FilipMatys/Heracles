@@ -1,0 +1,151 @@
+// External modules
+import { Serializable, IEntityDao, IQuery, IPopulate } from "@calf/serializable";
+import { Model, model, Schema } from "mongoose";
+
+// Parsers
+import { SchemaParser } from "../parsers/schema.parser";
+
+export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
+
+    /**
+     * Database model
+     */
+    protected model: Model<any>;
+
+    /**
+     * Constructor
+     * @param entity 
+     */
+    constructor(entity: new () => T) {
+        // Init parser
+        const parser: SchemaParser = new SchemaParser();
+
+        // Get schema
+        let schema = parser.parse(entity);
+
+        // Create model
+        this.model = model(schema.entity.name, new Schema(schema.properties, {
+            _id: true,
+            timestamps: !!schema.entity.isTimeStamped
+        }))
+    }
+
+    /**
+     * Save entity
+     * @param entity 
+     * @param args 
+     */
+    public async save(entity: T, ...args: any[]): Promise<T> {
+        // Check if entity is new
+        const isNew = !entity._id;
+
+        // Create model
+        let model = new this.model(entity);
+        // Set 'new' flag
+        model.isNew = isNew;
+
+        // Save model
+        return await model.save() as T;
+    }
+
+    /**
+     * Get entity
+     * @param entity 
+     * @param populate
+     * @param args 
+     */
+    public async get(entity: T, populate: IPopulate[], ...args: any[]): Promise<T> {
+        // Init query
+        const queryToExecute = this.model.findById(entity._id).lean();
+
+        // Check for populate
+        if (populate && populate.length) {
+            // Set populate
+            queryToExecute.populate(populate);
+        }
+
+        // Execute query
+        return await queryToExecute.exec() as T;
+    }
+
+    /**
+     * Get list of entities
+     * @param query 
+     * @param args 
+     */
+    public async getList(query: IQuery, ...args: any[]): Promise<T[]> {
+        // First make sure query is set
+        query = query || {};
+
+        // Init query to execute
+        let queryToExecute = this.model.find(query.filter || {}).lean();
+
+        // Check for populate
+        if (query.populate && query.populate.length) {
+            queryToExecute.populate(query.populate);
+        }
+
+        // Check for limit
+        if (query.limit) {
+            queryToExecute.limit(query.limit);
+        }
+
+        // Check for skip
+        if (query.skip) {
+            queryToExecute.skip(query.skip);
+        }
+
+        // Check for select
+        if (query.select && query.select.length) {
+            queryToExecute.select(query.select)
+        }
+
+        // Check for sort
+        if (query.sort && query.sort.length) {
+            queryToExecute.sort(query.sort);
+        }
+
+        // Execute query
+        return await queryToExecute.exec() as T[];
+    }
+
+    /**
+     * Remove list
+     * @param query 
+     * @param args 
+     */
+    public async remove(query: IQuery, ...args: any[]): Promise<any> {
+        // Make sure query is set
+        query = query || {};
+
+        // Get count
+        return await this.model.remove(query.filter || {}).exec();
+    }
+
+    /**
+     * Count entities
+     * @param query 
+     * @param args 
+     */
+    public async count(query: IQuery, ...args: any[]): Promise<number> {
+        // Make sure query is set
+        query = query || {};
+
+        // Get count
+        return await this.model.count(query.filter || {}).exec();
+    }
+
+    /**
+     * Update entities
+     * @param query 
+     * @param payload 
+     * @param args 
+     */
+    public async update(query: IQuery, payload: any, options?: any, ...args: any[]): Promise<any> {
+        // Make sure query is set
+        query = query || {};
+
+        // Get count
+        return await this.model.update(query.filter || {}, { $set: payload }, options || {}).exec();
+    }
+}

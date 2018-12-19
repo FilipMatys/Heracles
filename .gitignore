@@ -6,3 +6,5 @@ packages/common/node_modules
 packages/common/dist
 packages/sqlite/node_modules
 packages/sqlite/dist
+packages/mongoose/node_modules
+packages/mongoose/dist
