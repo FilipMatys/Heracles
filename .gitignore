@@ -8,3 +8,5 @@ packages/sqlite/node_modules
 packages/sqlite/dist
 packages/mongoose/node_modules
 packages/mongoose/dist
+packages/express/node_modules
+packages/express/dist
