@@ -8,6 +8,7 @@ import { IDefault } from "../interfaces/default.interface";
 import { IRequired } from "../interfaces/required.interface";
 import { IUnique } from "../interfaces/unique.interface";
 import { IArray } from "../interfaces/array.interface";
+import { IIndexed } from "../interfaces/indexed.interface";
 
 // Symbols
 import { DEFAULT_METADATA_KEY } from "../symbols/default.symbol";
@@ -15,6 +16,7 @@ import { PROPERTY_METADATA_KEY } from "../symbols/property.symbol";
 import { REQUIRED_METADATA_KEY } from "../symbols/required.symbol";
 import { UNIQUE_METADATA_KEY } from "../symbols/unique.symbol";
 import { ARRAY_METADATA_KEY } from "../symbols/array.symbol";
+import { INDEXED_METADATA_KEY } from "../symbols/indexed.symbol";
 
 // Parsers
 import { BaseParser } from "./base.parser";
@@ -51,8 +53,11 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
         // Array
         let array = this.getArray(target, name);
 
+        // Indexed
+        let indexed = this.getIndexed(target, name);
+
         // Now merge those into one
-        return Object.assign({}, property, lDefault, required, unique, array);
+        return Object.assign({}, property, lDefault, required, unique, array, indexed);
     }
 
     /**
@@ -115,5 +120,18 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
 
         // Assign data from metadata
         return Object.assign(array, Reflect.getMetadata(ARRAY_METADATA_KEY, target, name) || {});
+    }
+
+    /**
+     * Get indexed
+     * @param target 
+     * @param name 
+     */
+    private getIndexed(target: Object, name: string): IIndexed {
+        // Init indexed definition
+        let indexed: IIndexed = { isIndexed: false };
+
+        // Assign data from metadata
+        return Object.assign(indexed, Reflect.getMetadata(INDEXED_METADATA_KEY, target, name) || {});
     }
 }

@@ -4,11 +4,13 @@ import "reflect-metadata";
 // Symbols
 import { ENTITY_METADATA_KEY } from "../symbols/entity.symbol";
 import { TIMESTAMP_METADATA_KEY } from "../symbols/timestamp.symbol";
+import { INDEXES_METADATA_KEY } from "../symbols/indexes.symbol";
 
 // Data
 import { IEntityDefinition } from "../interfaces/entity-definition.interface";
 import { IEntity } from "../interfaces/entity.interface";
 import { ITimestamp } from "../interfaces/timestamp.interface";
+import { IIndexes } from "../interfaces/indexes.interface";
 
 // Parsers
 import { BaseParser } from "./base.parser";
@@ -35,8 +37,11 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
         // Timestamp
         let timestamp = this.getTimestamp(target);
 
+        // Get indexes
+        let indexes = this.getIndexes(target);
+
         // Merge definitions
-        return Object.assign({}, entity, timestamp);
+        return Object.assign<IEntityDefinition, IEntity, ITimestamp>({ indexes: indexes }, entity, timestamp);
     }
 
     /**
@@ -58,4 +63,13 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
         // Assign data from metadata
         return Object.assign(timestamp, Reflect.getMetadata(TIMESTAMP_METADATA_KEY, target) || {});
     } 
+
+    /**
+     * Get indexes
+     * @param target 
+     */
+    private getIndexes(target: Object): IIndexes {
+        // Get metadata
+        return Reflect.getMetadata(INDEXES_METADATA_KEY, target) || [];
+    }
 }

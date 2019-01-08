@@ -5,3 +5,5 @@ export * from "./required.decorator";
 export * from "./unique.decorator";
 export * from "./timestamp.decorator";
 export * from "./array.decorator";
+export * from "./indexed.decorator";
+export * from "./indexes.decorator";
