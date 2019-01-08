@@ -17,7 +17,7 @@ export function Entity(name: string, config?: IEntityConfig)  {
     // Init entity
     let entity: IEntity = { 
         name: name,
-        config: Object.assign<IEntityConfig, IEntityConfig>({ autoIndexId: true }, config || {}) 
+        config: Object.assign<IEntityConfig, IEntityConfig>({ autoIndexId: true, _id: true }, config || {}) 
     };
 
     // Set metadata

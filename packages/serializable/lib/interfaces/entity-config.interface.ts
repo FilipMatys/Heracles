@@ -2,8 +2,14 @@
 export interface IEntityConfig {
 
     /**
-     * Whether to generate entity _id on insert
+     * Whether generate automatic index
      * @default true
      */
     autoIndexId?: boolean;
+
+    /**
+     * Whether to generate entity identifier
+     * @default true
+     */
+    _id?: boolean;
 }
