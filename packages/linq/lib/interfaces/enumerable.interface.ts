@@ -35,6 +35,17 @@ export interface IEnumerable<T> {
     any(func: (item: T) => boolean): boolean;
 
     /**
+     * Append item
+     * @param item 
+     */
+    append(item: T): IEnumerable<T>;
+
+    /**
+     * Return current implementation enumerable
+     */
+    asEnumerable(): IEnumerable<T>;
+
+    /**
      * Calculate average
      */
     average(): number;
@@ -44,6 +55,13 @@ export interface IEnumerable<T> {
      * @param select 
      */
     average(select: (item: T) => number): number;
+
+    /**
+     * Check whether enumerable contains given item
+     * @param item 
+     * @param cmp 
+     */
+    contains(item: T, cmp?: (a: T, b: T) => boolean): boolean
 
     /**
      * Get number of elements
@@ -57,8 +75,31 @@ export interface IEnumerable<T> {
     count(func: (item: T) => boolean): number;
 
     /**
+     * Create enumerable from given data
+     * @param data 
+     */
+    from<V>(data?: V[] | number | string): IEnumerable<V | number | string>;
+
+    /**
      * Get elements thay satisfy given function
      * @param func 
      */
-    where(func: (item: T, index: number) => boolean): IEnumerable<T>;
+    where(func: (item: T, index?: number) => boolean): IEnumerable<T>;
+
+    /**
+     * Skip given number of elements
+     * @param count 
+     */
+    skip(count: number): IEnumerable<T>; 
+
+    /**
+     * Get sum of items transformed by given function
+     * @param func 
+     */
+    sum(func?: (item: T) => number): number;
+
+    /**
+     * Convert enumerable to array
+     */
+    toArray(): T[];
 }
