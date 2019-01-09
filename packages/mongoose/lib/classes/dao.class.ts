@@ -23,11 +23,21 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
         // Get schema
         let schema = parser.parse(entity);
 
+        // Init model schema
+        let mSchema = new Schema(schema.properties, {
+            _id: !!(schema.entity.config || { _id: true })._id,
+            timestamps: !!schema.entity.isTimeStamped,
+            autoIndex: !!(schema.entity.config || { autoIndexId: true }).autoIndexId,
+        });
+
+        // Check for indexes
+        if ((schema.entity.indexes || []).length) {
+            // Add indexes
+            schema.entity.indexes.forEach(i => mSchema.index(i.fields, i.options));
+        }
+
         // Create model
-        this.model = model(schema.entity.name, new Schema(schema.properties, {
-            _id: true,
-            timestamps: !!schema.entity.isTimeStamped
-        }))
+        this.model = model(schema.entity.name, mSchema);
     }
 
     /**

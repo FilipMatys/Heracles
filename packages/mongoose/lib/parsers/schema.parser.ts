@@ -113,6 +113,7 @@ export class SchemaParser extends BaseSchemaParser {
             // Boolean values
             sTypeOptions.required = !!definition.isRequired;
             sTypeOptions.unique = !!definition.isUnique;
+            sTypeOptions.index = !!definition.isIndexed;
 
             // Check for default
             if (typeof definition.default !== "undefined") {
