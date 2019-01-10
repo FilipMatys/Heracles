@@ -88,6 +88,18 @@ export interface IEnumerable<T> {
     count(func: (item: T) => boolean): number;
 
     /**
+     * Get default enumerable if current is empty
+     * @param def 
+     */
+    defaultIfEmpty(def?: IEnumerable<T>): IEnumerable<T>;
+
+    /**
+     * Get distinct enumerable
+     * @param cmp 
+     */
+    distinct(cmp?: (a: T, b: T) => boolean): IEnumerable<T>;
+
+    /**
      * Get first element
      */
     first(): T;
@@ -153,7 +165,14 @@ export interface IEnumerable<T> {
      * Get minimum from enumerable
      * @param cmp 
      */
-    min(cmp?: (a: T, b: T) => T): T
+    min(cmp?: (a: T, b: T) => T): T;
+
+    /**
+     * Order sequence by
+     * @param select 
+     * @param cmp 
+     */
+    orderBy<V>(select: (item: T) => V, cmp: (a: V, b: V) => number): IEnumerable<T>;
 
     /**
      * Get reversed enumerable
@@ -191,6 +210,12 @@ export interface IEnumerable<T> {
      * @param count 
      */
     skip(count: number): IEnumerable<T>; 
+
+    /**
+     * Skip elements while condition satisfies
+     * @param func 
+     */
+    skipWhile(func: (item: T) => boolean): IEnumerable<T>;
 
     /**
      * Get sum of items transformed by given function

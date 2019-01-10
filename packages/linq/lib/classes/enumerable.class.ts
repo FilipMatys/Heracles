@@ -289,6 +289,41 @@ export class Enumerable<T> implements IEnumerable<T> {
     }
 
     /**
+     * Get default enumerable if current is empty
+     * @param def 
+     */
+    public defaultIfEmpty(def?: IEnumerable<T>): IEnumerable<T> {
+        // Check if current enumerable is empty
+        if (!this.isEmpty()) {
+            return this;
+        }
+
+        // Otherwise return new enumerable
+        return def ? def : this.from<T>([]);
+    }
+
+    /**
+     * Get distinct enumerable
+     * @param cmp 
+     */
+    public distinct(cmp?: (a: T, b: T) => boolean): IEnumerable<T> {
+        // Init new enumerable
+        let result: IEnumerable<T> = this.from<T>([]);
+
+        // Iterate items
+        this.forEach((item) => {
+            // Check if item is already in
+            if (!result.contains(item, cmp)) {
+                // Add item to enumerable
+                result.append(item);
+            }
+        });
+
+        // Return result
+        return result;
+    }
+
+    /**
      * Get first element
      * @param func 
      */
@@ -368,6 +403,27 @@ export class Enumerable<T> implements IEnumerable<T> {
                 result = def;
             }
 
+            // Return result
+            return result;
+        }
+    }
+
+    /**
+     * Check whether enumerable is empty
+     */
+    public isEmpty(): boolean {
+        // Init result
+        let result: boolean = false;
+
+        try {
+            // Try to get first
+            this.first();
+        }
+        catch (e) {
+            // First raised exception, so there is no item
+            result = true;
+        }
+        finally {
             // Return result
             return result;
         }
@@ -485,6 +541,22 @@ export class Enumerable<T> implements IEnumerable<T> {
 
         // Return result
         return result;
+    }
+
+    /**
+     * Order sequence by
+     * @param select 
+     * @param cmp 
+     */
+    public orderBy<V>(select: (item: T) => V, cmp: (a: V, b: V) => number): IEnumerable<T> {
+        // Init result
+        let result: T[] = [];
+
+        // Get all items
+        this.forEach((item) => result.push(item));
+
+        // Sort data
+        return this.from<T>(result.sort((a, b) => cmp(select(a), select(b))));
     }
 
     /**
@@ -683,6 +755,34 @@ export class Enumerable<T> implements IEnumerable<T> {
     }
 
     /**
+     * Skip elements while condition satisfies
+     * @param func 
+     */
+    public skipWhile(func: (item: T) => boolean): IEnumerable<T> {
+        // Init result
+        let result: T[] = [];
+        let skip: boolean = true;
+
+        // Iterate items
+        this.forEach((item) => {
+            // Check for skip
+            if (skip) {
+                // Assign new skip
+                skip = func(item);
+            }
+
+            // Assign skip
+            if (!skip) {
+                // Add item
+                result.push(item);
+            }
+        });
+
+        // Return new enumerable
+        return this.from<T>(result);
+    }
+
+    /**
      * Take first {count} elements
      * @param count 
      */
@@ -698,6 +798,42 @@ export class Enumerable<T> implements IEnumerable<T> {
             this.forEach((item, index) => {
                 // Check index
                 if (index >= count) {
+                    // Break iteration
+                    throw BreakException;
+                }
+
+                // Add item to result
+                result.push(item);
+            });
+        }
+        catch (e) {
+            // Check exception
+            if (e !== BreakException) {
+                throw e;
+            }
+        }
+        finally {
+            // Return new enumerable
+            return this.from<T>(result);
+        }
+    }
+
+    /**
+     * Take while
+     * @param func 
+     */
+    public takeWhile(func: (item: T) => boolean): IEnumerable<T> {
+        // Init result
+        let result: T[] = [];
+
+        // Init break exception
+        var BreakException = {};
+
+        try {
+            // Iterate items
+            this.forEach((item) => {
+                // Check condition
+                if (!func(item)) {
                     // Break iteration
                     throw BreakException;
                 }
