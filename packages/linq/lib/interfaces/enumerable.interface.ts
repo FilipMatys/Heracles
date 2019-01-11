@@ -1,5 +1,6 @@
 // Interfaces
 import { IEnumerator } from "./enumerator.interface";
+import { IGrouping } from "./grouping.interface";
 
 /**
  * Enumerable interface
@@ -129,6 +130,15 @@ export interface IEnumerable<T> {
      * @param data 
      */
     from<V>(data?: V[] | V): IEnumerable<V>;
+
+
+    /**
+     * Group elements by given key and project them
+     * to desired type
+     * @param select 
+     * @param func 
+     */
+    groupBy<K, R>(select: (item: T) => K, func?: (item: T) => R): IEnumerable<IGrouping<K, R>>;
 
     /**
      * Get last element

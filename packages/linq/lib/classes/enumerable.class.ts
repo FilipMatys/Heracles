@@ -1,9 +1,13 @@
 // Interfaces
 import { IEnumerable } from "../interfaces/enumerable.interface";
 import { IEnumerator } from "../interfaces/enumerator.interface";
+import { IGrouping } from "../interfaces/grouping.interface";
 
 // Classes
 import { Enumerator } from "./enumerator.class";
+import { Grouping } from "./grouping.class";
+
+// Errors
 import { InvalidOperationError } from "../errors/invalid-operation.error";
 
 /**
@@ -433,6 +437,43 @@ export class Enumerable<T> implements IEnumerable<T> {
             // Return result
             return result;
         }
+    }
+
+    /**
+     * Group elements by given key and project them
+     * to desired type
+     * @param select 
+     * @param func 
+     */
+    public groupBy<K, R>(select: (item: T) => K, func?: (item: T) => R): IEnumerable<IGrouping<K, R>> {
+        // Init dictionary, which we will use to build groups
+        let dictionary: { [key: string]: R[] } = {};
+        // We also need dictionary for keys
+        let keys: { [key: string]: K };
+
+        // Iterate enumerable
+        this.forEach((item) => {
+            // Get selected value
+            let value: K = select(item);
+
+            // We need to make it a key
+            let key: string = JSON.stringify(value);
+
+            // Assign selected values from item
+            (dictionary[key] = dictionary[key] || []).push(func ? func(item) : <R>(item as any));
+
+            // Assign key value
+            keys[key] = value;
+        });
+
+        // Init result
+        let result: IGrouping<K, R>[] = [];
+
+        // Now build groupings
+        Object.keys(dictionary).forEach((key) => result.push(new Grouping(keys[key], dictionary[key])));
+
+        // Return result
+        return this.from<IGrouping<K, R>>(result);
     }
 
     /**
