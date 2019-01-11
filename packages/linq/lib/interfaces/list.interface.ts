@@ -14,6 +14,13 @@ export interface IList<T> extends ICollection<T> {
     addRange(enumerable: IEnumerable<T>): void;
 
     /**
+     * Create list from items between given indexes
+     * @param from 
+     * @param to 
+     */
+    getRange(from: number, to: number): IList<T>;
+
+    /**
      * Get index of given item
      * @param item 
      */
