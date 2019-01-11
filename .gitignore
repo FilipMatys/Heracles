@@ -10,3 +10,5 @@ packages/mongoose/node_modules
 packages/mongoose/dist
 packages/express/node_modules
 packages/express/dist
+packages/linq/node_modules
+packages/linq/dist

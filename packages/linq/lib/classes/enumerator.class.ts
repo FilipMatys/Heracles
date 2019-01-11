@@ -9,22 +9,22 @@ export class Enumerator<T> implements IEnumerator<T> {
     /**
      * Current index
      */
-    private _index: number;
+    protected _index: number;
 
     /**
      * Current item
      */
-    private _current: T;
+    protected _current?: T;
 
     /**
      * Data
      */
-    private _data: T[];
+    protected _data: T[];
 
     /**
      * Get current item
      */
-    public get current(): T {
+    public get current(): T | undefined {
         return this._current;
     }
 
@@ -35,7 +35,7 @@ export class Enumerator<T> implements IEnumerator<T> {
     constructor(data: T[]) {
         // Init index and current
         this._index = -1;
-        this._current = null;
+        this._current = undefined;
 
         // Assign data
         this._data = data || [];
@@ -49,7 +49,7 @@ export class Enumerator<T> implements IEnumerator<T> {
         this._index = -1;
 
         // Reset current
-        this._current = null;
+        this._current = undefined;
     }
 
     /**

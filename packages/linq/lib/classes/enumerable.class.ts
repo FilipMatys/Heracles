@@ -14,7 +14,7 @@ export class Enumerable<T> implements IEnumerable<T> {
     /**
      * Data
      */
-    private _data: T[];
+    protected _data: T[];
 
     /**
      * Constructor
@@ -77,7 +77,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         // Iterate enumerator
         while (enumerator.moveNext()) {
             // Execute given function
-            func(enumerator.current, index++);
+            func(enumerator.current as T, index++);
         }
     }
 
@@ -174,11 +174,17 @@ export class Enumerable<T> implements IEnumerable<T> {
      * @param item 
      */
     public append(item: T): IEnumerable<T> {
-        // Add item to data
-        this._data.push(item);
+        // Init result
+        let result: T[] = [];
 
-        // Return reference to this
-        return this;
+        // Iterate items
+        this.forEach((i) => result.push(i));
+
+        // Add item to data
+        result.push(item);
+
+        // Create new enumerable
+        return this.from<T>(result);
     }
 
     /**
@@ -186,7 +192,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public asEnumerable(): IEnumerable<T> {
         // Init data
-        let data: T[];
+        let data: T[] = [];
 
         // Iterate items
         this.forEach((item) => data.push(item));
@@ -329,7 +335,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public first(func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Init break exception
         let BreakException = {};
@@ -356,7 +362,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         }
         finally {
             // Check if any element was found
-            if (!result) {
+            if (typeof result === "undefined") {
                 throw new InvalidOperationError("No matching element was found");
             }
 
@@ -372,7 +378,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public firstOrDefault(def: T, func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Init break exception
         let BreakException = {};
@@ -398,7 +404,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         }
         finally {
             // Check if any element was found
-            if (!result) {
+            if (typeof result === "undefined") {
                 // Assign default value
                 result = def;
             }
@@ -435,7 +441,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public last(func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Iterate items
         this.forEach((item) => {
@@ -447,7 +453,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         });
 
         // Check if any element was found
-        if (!result) {
+        if (typeof result === "undefined") {
             throw new InvalidOperationError("No matching element was found");
         }
 
@@ -463,7 +469,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public lastOrDefault(def: T, func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Iterate items
         this.forEach((item) => {
@@ -489,7 +495,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public max(cmp?: (a: T, b: T) => T): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Iterate items
         this.forEach((item) => {
@@ -505,7 +511,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         });
 
         // Check if any result was found
-        if (!result) {
+        if (typeof result === "undefined") {
             throw new InvalidOperationError("No max was found");
         }
 
@@ -519,7 +525,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public min(cmp?: (a: T, b: T) => T): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
 
         // Iterate items
         this.forEach((item) => {
@@ -535,7 +541,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         });
 
         // Check if any result was found
-        if (!result) {
+        if (typeof result === "undefined") {
             throw new InvalidOperationError("No min was found");
         }
 
@@ -548,7 +554,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      * @param select 
      * @param cmp 
      */
-    public orderBy<V>(select: (item: T) => V, cmp: (a: V, b: V) => number): IEnumerable<T> {
+    public orderBy<V>(select: (item: T) => V, cmp?: (a: V, b: V) => number): IEnumerable<T> {
         // Init result
         let result: T[] = [];
 
@@ -556,7 +562,23 @@ export class Enumerable<T> implements IEnumerable<T> {
         this.forEach((item) => result.push(item));
 
         // Sort data
-        return this.from<T>(result.sort((a, b) => cmp(select(a), select(b))));
+        return this.from<T>(result.sort((a, b) => cmp ? cmp(select(a), select(b)) : (a as any) - (b as any)));
+    }
+
+    /**
+     * Order sequence by descending
+     * @param select 
+     * @param cmp 
+     */
+    public orderByDescending<V>(select: (item: T) => V, cmp?: (a: V, b: V) => number): IEnumerable<T> {
+        // Init result
+        let result: T[] = [];
+
+        // Get all items
+        this.forEach((item) => result.push(item));
+
+        // Sort data
+        return this.from<T>(result.sort((a, b) => cmp ? cmp(select(b), select(a)) : (b as any) - (a as any)));
     }
 
     /**
@@ -651,7 +673,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public single(func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
         let count: number = 0;
 
         // Iterate items
@@ -672,7 +694,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         });
 
         // Check if any result was found
-        if (!result) {
+        if (typeof result === "undefined") {
             throw new InvalidOperationError("No matching element was found");
         }
 
@@ -687,7 +709,7 @@ export class Enumerable<T> implements IEnumerable<T> {
      */
     public singleOrDefault(def: T, func?: (item: T) => boolean): T {
         // Init result
-        let result: T;
+        let result: T | undefined;
         let count: number = 0;
 
         // Iterate items
@@ -708,7 +730,7 @@ export class Enumerable<T> implements IEnumerable<T> {
         });
 
         // Check if any result was found
-        if (!result) {
+        if (typeof result === "undefined") {
             // Assign default value if no item was found
             result = def;
         }
@@ -863,6 +885,28 @@ export class Enumerable<T> implements IEnumerable<T> {
 
         // Iterate items
         this.forEach(item => result.push(item));
+
+        // Return result
+        return result;
+    }
+
+    /**
+     * Create union from enumerable using given comparator
+     * @param enumerable 
+     * @param cmp 
+     */
+    public union(enumerable: IEnumerable<T>, cmp?: (a: T, b: T) => boolean): IEnumerable<T> {
+        // Init result
+        let result: IEnumerable<T> = this.from<T>();
+
+        // Iterate items
+        this.forEach((item) => {
+            // Check whether to add item to result
+            if (enumerable.contains(item, cmp) && !result.contains(item, cmp)) {
+                // Add item
+                result.append(item);
+            }
+        });
 
         // Return result
         return result;

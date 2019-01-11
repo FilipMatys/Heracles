@@ -172,7 +172,14 @@ export interface IEnumerable<T> {
      * @param select 
      * @param cmp 
      */
-    orderBy<V>(select: (item: T) => V, cmp: (a: V, b: V) => number): IEnumerable<T>;
+    orderBy<V>(select: (item: T) => V, cmp?: (a: V, b: V) => number): IEnumerable<T>;
+
+    /**
+     * Order sequence by descending
+     * @param select 
+     * @param cmp 
+     */
+    orderByDescending<V>(select: (item: T) => V, cmp?: (a: V, b: V) => number): IEnumerable<T>;
 
     /**
      * Get reversed enumerable
@@ -233,6 +240,19 @@ export interface IEnumerable<T> {
      * Convert enumerable to array
      */
     toArray(): T[];
+
+    /**
+     * Create union from enumerable
+     * @param enumerable 
+     */
+    union(enumerable: IEnumerable<T>): IEnumerable<T>;
+
+    /**
+     * Create union from enumerable using given comparator
+     * @param enumerable 
+     * @param cmp 
+     */
+    union(enumerable: IEnumerable<T>, cmp: (a: T, b: T) => boolean): IEnumerable<T>;
 
     /**
      * Get elements thay satisfy given function

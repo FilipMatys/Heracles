@@ -7,7 +7,7 @@ export class InvalidOperationError extends Error {
      * Constructor
      * @param args 
      */
-    constructor(...args) {
+    constructor(...args: any[]) {
         // Call super constructor
         super(...args);
         

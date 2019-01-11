@@ -9,7 +9,7 @@ export interface IEnumerator<T> extends IDisposable {
     /**
      * Get current item
      */
-    readonly current: T;
+    readonly current?: T;
 
     /**
      * Move to next item
