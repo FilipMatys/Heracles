@@ -38,7 +38,7 @@ var ServiceFactory = /** @class */ (function () {
         var cName = context + "." + name;
         // Check if instance of class exists
         if (!(cName in this.services)) {
-            throw new Error("[Heracles@ServiceFactory.Import]: Trying to import undefined class " + name + ". Is the class missing Export decorator?");
+            throw new Error("[Geph@ServiceFactory.Import]: Trying to import undefined class " + name + ". Is the class missing Export decorator?");
         }
         // Return instance of service
         return this.services[cName];

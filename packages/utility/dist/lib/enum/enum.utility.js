@@ -36,7 +36,7 @@ var Enum = /** @class */ (function () {
             // Try to convert item to number
             var number = Number(item);
             // Now check if isNaN
-            if (isNaN) {
+            if (isNaN(number)) {
                 result.push(item);
             }
         }

@@ -39,7 +39,7 @@ export class Enum {
             let number = Number(item);
 
             // Now check if isNaN
-            if (isNaN) {
+            if (isNaN(number)) {
                 result.push(item);
             }
         }
