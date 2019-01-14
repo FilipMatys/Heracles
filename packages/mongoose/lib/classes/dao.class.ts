@@ -5,7 +5,7 @@ import { Model, model, Schema } from "mongoose";
 // Parsers
 import { SchemaParser } from "../parsers/schema.parser";
 
-export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
+export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEntity> {
 
     /**
      * Database model
@@ -16,7 +16,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
      * Constructor
      * @param entity 
      */
-    constructor(entity: new () => T) {
+    constructor(entity: new () => TEntity) {
         // Init parser
         const parser: SchemaParser = new SchemaParser();
 
@@ -45,7 +45,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
      * @param entity 
      * @param args 
      */
-    public async save(entity: T, ...args: any[]): Promise<T> {
+    public async save(entity: TEntity, ...args: any[]): Promise<TEntity> {
         // Check if entity is new
         const isNew = !entity._id;
 
@@ -55,7 +55,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
         model.isNew = isNew;
 
         // Save model
-        return await model.save() as T;
+        return await model.save() as TEntity;
     }
 
     /**
@@ -64,7 +64,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
      * @param populate
      * @param args 
      */
-    public async get(entity: T, populate: IPopulate[], ...args: any[]): Promise<T> {
+    public async get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<TEntity> {
         // Init query
         const queryToExecute = this.model.findById(entity._id).lean();
 
@@ -75,7 +75,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
         }
 
         // Execute query
-        return await queryToExecute.exec() as T;
+        return await queryToExecute.exec() as TEntity;
     }
 
     /**
@@ -83,7 +83,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async getList(query: IQuery, ...args: any[]): Promise<T[]> {
+    public async getList(query: IQuery, ...args: any[]): Promise<TEntity[]> {
         // First make sure query is set
         query = query || {};
 
@@ -116,7 +116,7 @@ export class MongooseDao<T extends Serializable> implements IEntityDao<T> {
         }
 
         // Execute query
-        return await queryToExecute.exec() as T[];
+        return await queryToExecute.exec() as TEntity[];
     }
 
     /**
