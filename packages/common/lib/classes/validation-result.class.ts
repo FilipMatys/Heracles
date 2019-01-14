@@ -2,28 +2,28 @@
  * Validation result
  * @description Object being handled between function calls
  */
-export class ValidationResult<T, M> {
+export class ValidationResult<TData, TMessage> {
 
     // Data
-    public data?: T;
+    public data?: TData;
 
     // Is valid flag
     public isValid: boolean;
 
     // List of errors
-    public errors: M[];
+    public errors: TMessage[];
 
     // List of warnings
-    public warnings: M[];
+    public warnings: TMessage[];
 
     // List of messages
-    public messages: M[];
+    public messages: TMessage[];
 
     /**
      * Constructor
      * @param data 
      */
-    constructor(data?: T) {
+    constructor(data?: TData) {
         // Assign data
         this.data = data;
 
@@ -40,7 +40,7 @@ export class ValidationResult<T, M> {
      * Add error
      * @param error 
      */
-    public addError(error: M): void {
+    public addError(error: TMessage): void {
         // Add error
         this.errors.push(error);
 
@@ -52,7 +52,7 @@ export class ValidationResult<T, M> {
      * Add warning
      * @param warning
      */
-    public addWarning(warning: M): void {
+    public addWarning(warning: TMessage): void {
         // Add warning
         this.warnings.push(warning);
     }
@@ -61,7 +61,7 @@ export class ValidationResult<T, M> {
      * Add message
      * @param message 
      */
-    public addMessage(message: M): void {
+    public addMessage(message: TMessage): void {
         // Add message
         this.messages.push(message);
     }
@@ -70,7 +70,7 @@ export class ValidationResult<T, M> {
      * Append validations
      * @param validations 
      */
-    public append(...validations: ValidationResult<any, M>[]): boolean {
+    public append(...validations: ValidationResult<any, TMessage>[]): boolean {
         // Iterate validations
         validations.forEach((v) => {
             // Update is valid flag
@@ -89,9 +89,10 @@ export class ValidationResult<T, M> {
     /**
      * Append as warnings
      * @param validations 
-     * @description Append validations and converts its errors to warnings. Does not modify validation flag
+     * @description Append validations and converts its 
+     * errors to warnings. Does not modify validation flag
      */
-    public appendAsWarnings(...validations: ValidationResult<any, M>[]): boolean {
+    public appendAsWarnings(...validations: ValidationResult<any, TMessage>[]): boolean {
         // Iterate validations
         validations.forEach((v) => {
             // Concat lists
@@ -108,8 +109,8 @@ export class ValidationResult<T, M> {
      * @param selector 
      * @param error 
      */
-    public isTrue(selector: (d: T) => boolean, error: M): boolean {
-        return this.processResult(selector(this.data as T), error);
+    public isTrue(selector: (d: TData) => boolean, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData), error);
     }
 
     /**
@@ -117,8 +118,8 @@ export class ValidationResult<T, M> {
      * @param selector 
      * @param error 
      */
-    public isFalse(selector: (d: T) => boolean, error: M): boolean {
-        return this.processResult(!selector(this.data as T), error);
+    public isFalse(selector: (d: TData) => boolean, error: TMessage): boolean {
+        return this.processResult(!selector(this.data as TData), error);
     }
 
     /**
@@ -126,7 +127,7 @@ export class ValidationResult<T, M> {
      * @param expression 
      * @param error 
      */
-    public must(expression: boolean, error: M): boolean {
+    public must(expression: boolean, error: TMessage): boolean {
         return this.processResult(expression, error);
     }
 
@@ -135,8 +136,8 @@ export class ValidationResult<T, M> {
      * @param selector 
      * @param error 
      */
-    public isDefined(selector: (d: T) => any, error: M): boolean {
-        return this.processResult(typeof selector(this.data as T) !== 'undefined', error);
+    public isDefined(selector: (d: TData) => any, error: TMessage): boolean {
+        return this.processResult(typeof selector(this.data as TData) !== 'undefined', error);
     }
 
     /**
@@ -144,8 +145,8 @@ export class ValidationResult<T, M> {
      * @param selector 
      * @param error 
      */
-    public isNotEmpty(selector: (d: T) => string | any[], error: M): boolean {
-        return this.processResult(!!selector(this.data as T).length, error);
+    public isNotEmpty(selector: (d: TData) => string | any[], error: TMessage): boolean {
+        return this.processResult(!!selector(this.data as TData).length, error);
     }
 
     /**
@@ -153,7 +154,7 @@ export class ValidationResult<T, M> {
      * @param selector 
      * @param error 
      */
-    public isDefinedAndNotEmpty(selector: (d: T) => string | any[], error: M): boolean {
+    public isDefinedAndNotEmpty(selector: (d: TData) => string | any[], error: TMessage): boolean {
         return this.isDefined(selector, error) && this.isNotEmpty(selector, error);
     }
 
@@ -163,8 +164,8 @@ export class ValidationResult<T, M> {
      * @param value 
      * @param error 
      */
-    public contains<V>(selector: (d: T) => string | V[], value: V, error: M): boolean {
-        return this.processResult((selector(this.data as T) as V[]).indexOf(value) !== -1, error);
+    public contains<TValue>(selector: (d: TData) => string | TValue[], value: TValue, error: TMessage): boolean {
+        return this.processResult((selector(this.data as TData) as TValue[]).indexOf(value) !== -1, error);
     }
 
     /**
@@ -173,8 +174,8 @@ export class ValidationResult<T, M> {
      * @param substring 
      * @param error 
      */
-    public startsWith(selector: (d: T) => string, substring: string, error: M): boolean {
-        return this.processResult(selector(this.data as T).startsWith(substring), error);
+    public startsWith(selector: (d: TData) => string, substring: string, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData).startsWith(substring), error);
     }
 
     /**
@@ -183,8 +184,8 @@ export class ValidationResult<T, M> {
      * @param substring 
      * @param error 
      */
-    public endsWith(selector: (d: T) => string, substring: string, error: M): boolean {
-        return this.processResult(selector(this.data as T).endsWith(substring), error);
+    public endsWith(selector: (d: TData) => string, substring: string, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData).endsWith(substring), error);
     }
 
     /**
@@ -193,8 +194,8 @@ export class ValidationResult<T, M> {
      * @param length 
      * @param error 
      */
-    public isOfLength(selector: (d: T) => string | any[], length: number, error: M): boolean {
-        return this.processResult(selector(this.data as T).length === length, error);
+    public isOfLength(selector: (d: TData) => string | any[], length: number, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData).length === length, error);
     }
 
     /**
@@ -203,8 +204,8 @@ export class ValidationResult<T, M> {
      * @param length 
      * @param error 
      */
-    public isLonger(selector: (d: T) => string | any[], length: number, error: M): boolean {
-        return this.processResult(selector(this.data as T).length > length, error);
+    public isLonger(selector: (d: TData) => string | any[], length: number, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData).length > length, error);
     }
 
     /**
@@ -213,8 +214,8 @@ export class ValidationResult<T, M> {
      * @param length 
      * @param error 
      */
-    public isShorter(selector: (d: T) => string | any[], length: number, error: M): boolean {
-        return this.processResult(selector(this.data as T).length < length, error);
+    public isShorter(selector: (d: TData) => string | any[], length: number, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData).length < length, error);
     }
 
     /**
@@ -223,8 +224,8 @@ export class ValidationResult<T, M> {
      * @param value 
      * @param error 
      */
-    public isEqual<V>(selector: (d: T) => V, value: V, error: M): boolean {
-        return this.processResult(selector(this.data as T) === value, error);
+    public isEqual<V>(selector: (d: TData) => V, value: V, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData) === value, error);
     }
 
     /**
@@ -233,8 +234,8 @@ export class ValidationResult<T, M> {
      * @param value 
      * @param error 
      */
-    public isGreater(selector: (d: T) => number, value: number, error: M): boolean {
-        return this.processResult(selector(this.data as T) > value, error);
+    public isGreater(selector: (d: TData) => number, value: number, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData) > value, error);
     }
 
     /**
@@ -243,8 +244,8 @@ export class ValidationResult<T, M> {
      * @param value 
      * @param error 
      */
-    public isLesser(selector: (d: T) => number, value: number, error: M): boolean {
-        return this.processResult(selector(this.data as T) < value, error);
+    public isLesser(selector: (d: TData) => number, value: number, error: TMessage): boolean {
+        return this.processResult(selector(this.data as TData) < value, error);
     }
 
     /**
@@ -253,8 +254,8 @@ export class ValidationResult<T, M> {
      * @param regexp 
      * @param error 
      */
-    public isMatch(selector: (d: T) => string, regexp: RegExp, error: M): boolean {
-        return this.processResult(regexp.test(selector(this.data as T)), error);
+    public isMatch(selector: (d: TData) => string, regexp: RegExp, error: TMessage): boolean {
+        return this.processResult(regexp.test(selector(this.data as TData)), error);
     }
 
     /**
@@ -262,7 +263,7 @@ export class ValidationResult<T, M> {
      * @param result 
      * @param message 
      */
-    private processResult(result: boolean, message: M): boolean {
+    private processResult(result: boolean, message: TMessage): boolean {
         // Add error if result was negative
         !result && this.addError(message);
 

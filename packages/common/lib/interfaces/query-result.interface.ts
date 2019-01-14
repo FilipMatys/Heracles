@@ -1,6 +1,6 @@
 // Query result interface
-export interface IQueryResult<T> {
-    items?: T[];
+export interface IQueryResult<TEntity> {
+    items?: TEntity[];
     page?: number;
     pageSize?: number;
     total?: number;
