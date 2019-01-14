@@ -6,7 +6,7 @@ import { IQuery } from "@calf/serializable";
 /**
  * Routes
  */
-export abstract class Routes<T, V> {
+export abstract class Routes<TEntity, TMessage> {
 
     // Router
     protected router: Router;
@@ -15,7 +15,7 @@ export abstract class Routes<T, V> {
     protected prefix: string[];
 
     // Service
-    protected abstract service: EntityService<T, V>;
+    protected abstract service: EntityService<TEntity, TMessage>;
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ export abstract class Routes<T, V> {
         this.router.post(["", ...this.prefix, "save"].join("/"), this.saveMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
                 // Save entity
-                const validation = await this.service.save(req.body as T, ...this.extractSecondaryRequestData(req));
+                const validation = await this.service.save(req.body as TEntity, ...this.extractSecondaryRequestData(req));
 
                 // Resolve validation
                 res.json(validation);
@@ -61,7 +61,7 @@ export abstract class Routes<T, V> {
         this.router.post(["", ...this.prefix, "get"].join("/"), this.getMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
                 // Save entity
-                const validation = await this.service.get(req.body as T, ...this.extractSecondaryRequestData(req));
+                const validation = await this.service.get(req.body as TEntity, [], ...this.extractSecondaryRequestData(req));
 
                 // Resolve validation
                 res.json(validation);
@@ -173,5 +173,5 @@ export abstract class Routes<T, V> {
      * Handle route exception
      * @param e 
      */
-    protected abstract handleRouteException(e: any): Promise<ValidationResult<T, V>>;
+    protected abstract handleRouteException(e: any): Promise<ValidationResult<TEntity, TMessage>>;
 } 
