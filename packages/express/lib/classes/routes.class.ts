@@ -125,7 +125,7 @@ export abstract class Routes<TEntity, TMessage> {
     /**
      * Middleware
      */
-    protected middleware(): (req: Request, res: Response, next: NextFunction) => Response | void {
+    protected middleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         // Return middleware handler
         return (req: Request, res: Response, next: NextFunction): Response | void => {
             // Go to next middleware
@@ -136,28 +136,28 @@ export abstract class Routes<TEntity, TMessage> {
     /**
      * Save middleware
      */
-    protected saveMiddleware(): (req: Request, res: Response, next: NextFunction) => Response | void {
+    protected saveMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 
     /**
      * Get middleware
      */
-    protected getMiddleware(): (req: Request, res: Response, next: NextFunction) => Response | void {
+    protected getMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 
     /**
      * Get list middleware
      */
-    protected getListMiddleware(): (req: Request, res: Response, next: NextFunction) => Response | void {
+    protected getListMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 
     /**
      * Remove middleware
      */
-    protected removeMiddleware(): (req: Request, res: Response, next: NextFunction) => Response | void {
+    protected removeMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 
