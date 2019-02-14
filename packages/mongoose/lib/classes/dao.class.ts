@@ -112,7 +112,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
 
         // Check for sort
         if (query.sort && query.sort.length) {
-            queryToExecute.sort(query.sort);
+            queryToExecute.sort(query.sort.join(" "));
         }
 
         // Execute query
