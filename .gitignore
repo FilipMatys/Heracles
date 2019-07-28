@@ -14,3 +14,5 @@ packages/linq/node_modules
 packages/linq/
 packages/utility/node_modules
 packages/utility/dist
+packages/angular/node_modules
+packages/angular/dist
