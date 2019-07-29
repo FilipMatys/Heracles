@@ -1,5 +1,5 @@
 // External modules
-import { IQuery, ISchema } from "@calf/serializable";
+import { IQuery, ISchema, IPropertyDefinition } from "@calf/serializable";
 
 // Parsers
 import { SQLiteParser } from "../parsers/sqlite.parser";
@@ -80,7 +80,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param payload 
      */
-    private buildWhere(schema: ISchema, payload: any): string {
+    private buildWhere(schema: ISchema<IPropertyDefinition>, payload: any): string {
         // Init query
         let dbQuery: string[] = ["WHERE"];
 
@@ -152,7 +152,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param payload 
      */
-    public insert(schema: ISchema, payload: T): string {
+    public insert(schema: ISchema<IPropertyDefinition>, payload: T): string {
         // Init query
         let dbQuery: string[] = [`INSERT INTO ${schema.entity.name}`];
 
@@ -203,7 +203,7 @@ export class QueryBuilder<T> {
      * @param query 
      * @param payload 
      */
-    public update(schema: ISchema, query: IQuery, payload: T): string {
+    public update(schema: ISchema<IPropertyDefinition>, query: IQuery, payload: T): string {
         // Init query
         let dbQuery: string[] = ["UPDATE", schema.entity.name, "SET"];
 
@@ -238,7 +238,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public delete(schema: ISchema, query: IQuery): string {
+    public delete(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
         // Init query
         let dbQuery: string[] = ["DELETE"];
 
@@ -259,7 +259,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public select(schema: ISchema, query: IQuery): string {
+    public select(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
         // Init query
         let dbQuery: string[] = [];
 
@@ -297,7 +297,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public count(schema: ISchema, query: IQuery): string {
+    public count(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
         // Call select with COUNT(*)
         return this.select(schema, {
             ...query,
@@ -311,7 +311,7 @@ export class QueryBuilder<T> {
      * Create table
      * @param schema 
      */
-    public createTable(schema: ISchema): string {
+    public createTable(schema: ISchema<IPropertyDefinition>): string {
         // Init db query
         let dbQuery: string[] = ["CREATE TABLE IF NOT EXISTS", schema.entity.name];
 
@@ -335,7 +335,7 @@ export class QueryBuilder<T> {
      * Alter table columns
      * @param schema 
      */
-    public alterTableColumns(schema: ISchema): string[] {
+    public alterTableColumns(schema: ISchema<IPropertyDefinition>): string[] {
         // Init queries
         let dbQueries: string[] = [];
 

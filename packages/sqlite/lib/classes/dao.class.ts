@@ -1,5 +1,5 @@
 // External modules
-import { IEntityDao, IQuery, Serializable, ISchema, PropertyType, IPopulate } from "@calf/serializable";
+import { IEntityDao, IQuery, Serializable, ISchema, PropertyType, IPopulate, IPropertyDefinition } from "@calf/serializable";
 import * as ObjectId from "bson-objectid";
 
 // Database
@@ -24,7 +24,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
     protected sqLiteParser: SQLiteParser = new SQLiteParser();
 
     // Init schema
-    protected schema: ISchema;
+    protected schema: ISchema<IPropertyDefinition>;
 
     /**
      * Constructor

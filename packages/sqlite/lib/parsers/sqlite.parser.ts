@@ -50,7 +50,7 @@ export class SQLiteParser {
      * Row from SQLite
      * @param row 
      */
-    public rowFromSQLite<T>(schema: ISchema, row: any): T {
+    public rowFromSQLite<T>(schema: ISchema<IPropertyDefinition>, row: any): T {
         // Init result
         let result: T = {} as any;
 
