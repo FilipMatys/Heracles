@@ -1,13 +1,10 @@
 // External modules
 import { OnInit } from "@angular/core";
 import { Serializable, IQuery } from "@calf/serializable";
-
-// Services
-import { AngularService } from "../services/angular.service";
+import { ValidationResult, IQueryResult, EntityService } from "@calf/common";
 
 // Pages
 import { SubscriberPage } from "./subscriber.page";
-import { ValidationResult, IQueryResult } from "@calf/common";
 
 /**
  * List page
@@ -19,7 +16,7 @@ export abstract class ListPage<TEntity extends Serializable, TMessage> extends S
      * Constructor
      * @param service 
      */
-    constructor(private service: AngularService<TEntity, TMessage>) {
+    constructor(private service: EntityService<TEntity, TMessage>) {
         // Call super
         super();
     }

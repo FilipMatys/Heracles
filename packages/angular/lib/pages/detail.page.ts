@@ -2,10 +2,7 @@
 import { OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Serializable } from "@calf/serializable";
-import { ValidationResult } from "@calf/common";
-
-// Services
-import { AngularService } from "../services/angular.service";
+import { ValidationResult, EntityService } from "@calf/common";
 
 // Pages
 import { SubscriberPage } from "./subscriber.page";
@@ -29,7 +26,7 @@ export abstract class DetailPage<TEntity extends Serializable, TMessage> extends
      * Constructor
      * @param service 
      */
-    constructor(private service: AngularService<TEntity, TMessage>) {
+    constructor(private service: EntityService<TEntity, TMessage>) {
         // Call super
         super();
     }
@@ -69,7 +66,7 @@ export abstract class DetailPage<TEntity extends Serializable, TMessage> extends
      */
     protected async get(entity: TEntity): Promise<void> {
         // Get entity
-        const validation = await this.service.get({ _id: entity._id } as TEntity);
+        const validation = await this.service.get({ _id: entity._id } as TEntity, []);
 
         // Call on did get hook
         await this.onDidGet(validation);
