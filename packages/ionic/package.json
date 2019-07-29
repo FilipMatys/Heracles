@@ -1,0 +1,40 @@
+{
+  "name": "@calf/ionic",
+  "version": "0.0.1",
+  "description": "Angular module of Calf framework.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha -r ts-node/register test/test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FilipMatys/Calf.git"
+  },
+  "keywords": [
+    "calf",
+    "framework",
+    "ionic"
+  ],
+  "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
+  "license": "MIT",
+  "peerDependencies": {
+    "@calf/serializable": "^0.0.9",
+    "@calf/common": "^0.0.9",
+    "rxjs": "^6.0.0",
+    "@ionic-native/http": "^5.0.0"
+  },
+  "devDependencies": {
+    "@calf/common": "^0.0.9",
+    "@calf/serializable": "0.0.9",
+    "@ionic-native/http": "^5.0.0",
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "rxjs": "^6.0.0",
+    "ts-node": "^6.2.0",
+    "typescript": "^2.9.2"
+  }
+}

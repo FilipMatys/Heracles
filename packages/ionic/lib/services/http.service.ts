@@ -1,28 +1,40 @@
 // External modules
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Serializable, IQuery } from "@calf/serializable";
-import { ValidationResult, IQueryResult, EntityService } from "@calf/common";
+import { EntityService, ValidationResult, IQueryResult } from "@calf/common";
+import { HTTP, HTTPResponse } from "@ionic-native/http/ngx";
 
 // Daos
 import { FakeDao } from "../daos/fake.dao";
 
 /**
- * Angular service
+ * Http service
+ * @description Http service using native HTTP module
  */
-export abstract class AngularService<TEntity extends Serializable, TMessage> extends EntityService<TEntity, TMessage> {
+export abstract class HttpService<TEntity extends Serializable, TMessage> extends EntityService<TEntity, TMessage> {
 
-    // Http client
-    protected abstract http: HttpClient;
+    /**
+     * Http provider
+     */
+    protected abstract http: HTTP;
 
-    // Prefix
-    protected prefix: string[];
+    /**
+     * Serializer
+     */
+    protected serializer: string = "json";
 
-    // Http options
-    protected httpOptions = {
-        headers: new HttpHeaders({
-            "Content-Type": "application/json"
-        })
-    }
+    /**
+     * Path prefix
+     * @description If calling remote service make
+     * sure the host is part of the prefix
+     */
+    protected prefix: string[] = [];
+
+    /**
+     * Headers
+     */
+    protected headers: Headers = new Headers({
+        "Content-Type": "application/json"
+    });
 
     /**
      * Constructor
@@ -44,13 +56,17 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     protected async periSave(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
         // First alter headers
-        const headers = await this.alterHeaders(this.httpOptions.headers);
+        const headers = await this.alterHeaders(this.headers);
+
+        // Set serializer
+        this.http.setDataSerializer(this.serializer);
 
         try {
             // Make request
-            return this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "save"].join("/"), validation.data, {
-                headers: headers
-            }).toPromise();
+            const response = await this.http.post([...this.prefix, "save"].join("/"), validation.data, headers);
+
+            // Extract data
+            return this.extractData<TEntity>(response);
         }
         catch (error) {
             // Handle error
@@ -67,13 +83,17 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     protected async periGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
 
         // First alter headers
-        const headers = await this.alterHeaders(this.httpOptions.headers);
+        const headers = await this.alterHeaders(this.headers);
+
+        // Set serializer
+        this.http.setDataSerializer(this.serializer);
 
         try {
             // Make request
-            return this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
-                headers: headers
-            }).toPromise();
+            const response = await this.http.post([...this.prefix, "list"].join("/"), query, headers);
+
+            // Extract data
+            return this.extractData<IQueryResult<TEntity>>(response);
         }
         catch (error) {
             // Handle error
@@ -97,20 +117,23 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     protected async periGet(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
         // First alter headers
-        const headers = await this.alterHeaders(this.httpOptions.headers);
+        const headers = await this.alterHeaders(this.headers);
+
+        // Set serializer
+        this.http.setDataSerializer(this.serializer);
 
         try {
             // Make request
-            return this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "get"].join("/"), validation.data, {
-                headers: headers
-            }).toPromise();
+            const response = await this.http.post([...this.prefix, "get"].join("/"), validation.data, headers);
+
+            // Extract data
+            return this.extractData<TEntity>(response);
         }
         catch (error) {
             // Handle error
             return this.handleGetError(validation, error);
         }
     }
-
 
     /**
      * Peri remove hook
@@ -121,13 +144,17 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     protected async periRemove(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
 
         // First alter headers
-        const headers = await this.alterHeaders(this.httpOptions.headers);
+        const headers = await this.alterHeaders(this.headers);
+
+        // Set serializer
+        this.http.setDataSerializer(this.serializer);
 
         try {
             // Make request
-            return this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
-                headers: headers
-            }).toPromise();
+            const response = await this.http.post([...this.prefix, "remove"].join("/"), query, headers);
+        
+            // Extract data
+            return this.extractData<TEntity>(response);
         }
         catch (error) {
             // Handle error
@@ -195,17 +222,25 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
      */
     protected handleHttpError<TError>(validation: ValidationResult<any, TMessage>, error: TError): Promise<ValidationResult<any, TMessage>> {
         // Log error
-        console.log(error);
+        console.log(JSON.stringify(error));
 
         // Reject
         return Promise.reject(validation);
     }
 
     /**
-    * Alter headers
-    * @param headers
-    */
-    protected alterHeaders(headers: HttpHeaders): Promise<HttpHeaders> {
+     * Extract data
+     * @param response 
+     */
+    protected extractData<TResult>(response: HTTPResponse): ValidationResult<TResult, TMessage> {
+        return Object.assign(new ValidationResult<TResult, TMessage>(), JSON.parse(response.data));
+    }
+
+    /**
+     * Alter headers
+     * @param headers
+     */
+    protected alterHeaders(headers: Headers): Promise<Headers> {
         return Promise.resolve(Object.assign({}, headers));
     }
 }

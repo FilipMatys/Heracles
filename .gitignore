@@ -16,3 +16,5 @@ packages/utility/node_modules
 packages/utility/dist
 packages/angular/node_modules
 packages/angular/dist
+packages/ionic/node_modules
+packages/ionic/dist
