@@ -41,25 +41,21 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
      * @param validation 
      * @param args 
      */
-    protected periSave(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected async periSave(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
-        // Create new promise
-        return new Promise((resolve, reject) => {
-            // Get headers
-            this.alterHeaders(this.httpOptions.headers)
-                // Send request
-                .then((headers) => this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "save"].join("/"), validation.data, {
-                    headers: headers
-                }).toPromise())
-                // Process response
-                .then((response) => resolve(response))
-                .catch((error) => {
-                    // Handle error
-                    this.handleHttpError(validation, error)
-                        .then((validation) => resolve(validation))
-                        .catch((validation) => reject(validation));
-                });
-        });
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            return this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "save"].join("/"), validation.data, {
+                headers: headers
+            }).toPromise();
+        }
+        catch (error) {
+            // Handle error
+            return this.handleSaveError(validation, error);
+        }
     }
 
     /**
@@ -68,25 +64,21 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     * @param query 
     * @param args 
     */
-    protected periGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected async periGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
 
-        // Create new promise
-        return new Promise((resolve, reject) => {
-            // Get headers
-            this.alterHeaders(this.httpOptions.headers)
-                // Send request
-                .then((headers) => this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
-                    headers: headers
-                }).toPromise())
-                // Process response
-                .then((response) => resolve(response))
-                .catch((error) => {
-                    // Handle error
-                    this.handleHttpError(validation, error)
-                        .then((validation) => resolve(validation))
-                        .catch((validation) => reject(validation));
-                });
-        });
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            return this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
+                headers: headers
+            }).toPromise();
+        }
+        catch (error) {
+            // Handle error
+            return this.handleGetListError(validation, error);
+        }
     }
 
     /**
@@ -102,60 +94,52 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     * @param validation 
     * @param args 
     */
-    protected periGet(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected async periGet(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
-        // Create new promise
-        return new Promise((resolve, reject) => {
-            // Get headers
-            this.alterHeaders(this.httpOptions.headers)
-                // Send request
-                .then((headers) => this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "get"].join("/"), validation.data, {
-                    headers: headers
-                }).toPromise())
-                // Process response
-                .then((response) => resolve(response))
-                .catch((error) => {
-                    // Handle error
-                    this.handleHttpError(validation, error)
-                        .then((validation) => resolve(validation))
-                        .catch((validation) => reject(validation));
-                });
-        });
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            return this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "get"].join("/"), validation.data, {
+                headers: headers
+            }).toPromise();
+        }
+        catch (error) {
+            // Handle error
+            return this.handleGetError(validation, error);
+        }
     }
 
 
     /**
-    * Peri save hook
+    * Peri remove hook
     * @param validation 
     * @param query 
     * @param args 
     */
-    protected periRemove(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
 
-        // Create new promise
-        return new Promise((resolve, reject) => {
-            // Get headers
-            this.alterHeaders(this.httpOptions.headers)
-                // Send request
-                .then((headers) => this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
-                    headers: headers
-                }).toPromise())
-                // Process response
-                .then((response) => resolve(response))
-                .catch((error) => {
-                    // Handle error
-                    this.handleHttpError(validation, error)
-                        .then((validation) => resolve(validation))
-                        .catch((validation) => reject(validation));
-                });
-        });
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            return this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
+                headers: headers
+            }).toPromise();
+        }
+        catch (error) {
+            // Handle error
+            return this.handleRemoveError(validation, error);
+        }
     }
 
     /**
-  * Handle update error
-  * @param validation 
-  * @param error 
-  */
+     * Handle update error
+     * @param validation 
+     * @param error 
+     */
     protected handleUpdateError<TError>(validation: ValidationResult<TEntity, TMessage>, error: TError): Promise<ValidationResult<TEntity, TMessage>> {
         return this.handleHttpError<TError>(validation, error);
     }
