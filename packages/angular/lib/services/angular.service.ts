@@ -136,6 +136,27 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     }
 
     /**
+     * Peri change state hook
+     * @param validation 
+     * @param args 
+     */
+    protected async periChangeState(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            return this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "state"].join("/"), validation.data, {
+                headers: headers
+            }).toPromise();
+        }
+        catch (error) {
+            // Handle error
+            return this.handleGetError(validation, error);
+        }
+    }
+
+    /**
      * Handle update error
      * @param validation 
      * @param error 

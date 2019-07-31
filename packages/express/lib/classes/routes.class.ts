@@ -104,10 +104,33 @@ export abstract class Routes<TEntity, TMessage> {
      */
     public createRemoveRoute(): void {
         // Remove route
-        this.router.post(["", ...this.prefix, "remove"].join("/"), this.saveMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        this.router.post(["", ...this.prefix, "remove"].join("/"), this.removeMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
                 // Save entity
                 const validation = await this.service.remove(req.body as IQuery, ...this.extractSecondaryRequestData(req));
+
+                // Resolve validation
+                res.json(validation);
+            }
+            catch (e) {
+                // Handle route exception
+                const validation = await this.handleRouteException(e);
+
+                // Resolve validation
+                res.json(validation);
+            }
+        });
+    }
+
+    /**
+     * Create change state route
+     */
+    public createChangeStateRoute(): void {
+        // Remove route
+        this.router.post(["", ...this.prefix, "state"].join("/"), this.changeStateMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+            try {
+                // Save entity
+                const validation = await this.service.changeState(req.body as TEntity, ...this.extractSecondaryRequestData(req));
 
                 // Resolve validation
                 res.json(validation);
@@ -158,6 +181,13 @@ export abstract class Routes<TEntity, TMessage> {
      * Remove middleware
      */
     protected removeMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
+        return this.middleware();
+    }
+
+    /**
+     * Change state middleware
+     */
+    protected changeStateMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 

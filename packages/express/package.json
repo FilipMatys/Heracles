@@ -1,6 +1,6 @@
 {
   "name": "@calf/express",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Express module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
