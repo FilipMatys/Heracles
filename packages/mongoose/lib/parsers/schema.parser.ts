@@ -1,6 +1,6 @@
 // External modules
 import { SchemaParser as BaseSchemaParser, ISchema, PropertyType, EntityParser } from "@calf/serializable";
-import { SchemaTypeOpts, SchemaTypes } from "mongoose";
+import { SchemaTypeOpts, SchemaTypes, Schema } from "mongoose";
 
 /**
  * Schema parser
@@ -29,7 +29,7 @@ export class SchemaParser extends BaseSchemaParser {
 
             // First check if type is defined
             if (typeof definition.type === "undefined") {
-                throw new Error(`[Geph@SchemaParser]: Undefined property type for "${name}" in "${schema.entity.name}"`);
+                throw new Error(`[Calf@SchemaParser]: Undefined property type for "${name}" in "${schema.entity.name}"`);
             }
 
             // Check property type
@@ -38,7 +38,7 @@ export class SchemaParser extends BaseSchemaParser {
                 case PropertyType.REFERENCE:
                     // Make sure reference is defined
                     if (typeof definition.reference === "undefined") {
-                        throw new Error(`[Geph@SchemaParser]: Missing type reference for "${name}" in "${schema.entity.name}"`);
+                        throw new Error(`[Calf@SchemaParser]: Missing type reference for "${name}" in "${schema.entity.name}"`);
                     }
 
                     // Assign type
@@ -60,11 +60,17 @@ export class SchemaParser extends BaseSchemaParser {
                 case PropertyType.EMBEDED:
                     // Make sure reference is defined
                     if (typeof definition.reference === "undefined") {
-                        throw new Error(`[Geph@SchemaParser]: Missing type reference for "${name}" in "${schema.entity.name}"`);
+                        throw new Error(`[Calf@SchemaParser]: Missing type reference for "${name}" in "${schema.entity.name}"`);
                     }
 
-                    // Assign type
-                    sTypeOptions.type = this.parse(definition.reference as new () => any).properties;
+                    // Parse embedded type
+                    const schema  = this.parse(definition.reference as new () => any);
+                    // Assign type as a schema
+                    sTypeOptions.type = new Schema(schema.properties, {
+                        _id: !!(schema.entity.config || { _id: true })._id,
+                        timestamps: !!schema.entity.isTimeStamped,
+                        autoIndex: !!(schema.entity.config || { autoIndexId: true }).autoIndexId
+                    });
 
                     break;
 
@@ -107,7 +113,7 @@ export class SchemaParser extends BaseSchemaParser {
 
                 // Unknown
                 default:
-                    throw new Error(`[Geph@SchemaParser]: Invalid property type for "${name}" in "${schema.entity.name}"`);
+                    throw new Error(`[Calf@SchemaParser]: Invalid property type for "${name}" in "${schema.entity.name}"`);
             }
 
             // Boolean values
