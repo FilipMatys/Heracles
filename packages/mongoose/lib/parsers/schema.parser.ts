@@ -64,12 +64,12 @@ export class SchemaParser extends BaseSchemaParser {
                     }
 
                     // Parse embedded type
-                    const schema  = this.parse(definition.reference as new () => any);
+                    const embSchema  = this.parse(definition.reference as new () => any);
                     // Assign type as a schema
-                    sTypeOptions.type = new Schema(schema.properties, {
-                        _id: !!(schema.entity.config || { _id: true })._id,
-                        timestamps: !!schema.entity.isTimeStamped,
-                        autoIndex: !!(schema.entity.config || { autoIndexId: true }).autoIndexId
+                    sTypeOptions.type = new Schema(embSchema.properties, {
+                        _id: !!(embSchema.entity.config || { _id: true })._id,
+                        timestamps: !!embSchema.entity.isTimeStamped,
+                        autoIndex: !!(embSchema.entity.config || { autoIndexId: true }).autoIndexId
                     });
 
                     break;
