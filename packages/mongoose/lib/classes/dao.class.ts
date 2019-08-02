@@ -55,7 +55,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         model.isNew = isNew;
 
         // Save model
-        return await model.save() as TEntity;
+        return (await model.save()).toObject() as TEntity;
     }
 
     /**
