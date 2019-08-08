@@ -87,6 +87,76 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
     }
 
     /**
+     * Count entity
+     * @param query 
+     * @param args 
+     */
+    public count(query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+        // Init validation
+        const validation = new ValidationResult<number, TMessage>(0);
+
+        // Create new promise
+        return new Promise<ValidationResult<number, TMessage>>((resolve) => {
+            // Call pre count hook
+            this.preCount(validation, query, ...args)
+                // Call peri count
+                .then((validation) => this.periCount(validation, query, ...args))
+                // Call post count
+                .then((validation) => this.postCount(validation, query, ...args))
+                // Resolve
+                .then((validation) => resolve(validation))
+                // Catch and resolve
+                .catch((validation) => resolve(validation));
+        });
+    }
+
+    /**
+     * Pre count hook
+     * @param validation
+     * @param query
+     * @param args 
+     */
+    protected preCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Peri count hook
+     * @param validation 
+     * @param args 
+     */
+    protected periCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+        // Create new promise
+        return new Promise((resolve, reject) => {
+            // Save entity
+            this.dao.count(query, ...args)
+                .then((value) => {
+                    // Assign value to validation
+                    validation.data = value;
+
+                    // Resolve
+                    return resolve(validation);
+                })
+                .catch((error) => {
+                    // Handle count error
+                    this.handleCountError(validation, error)
+                        .then((validation) => resolve(validation))
+                        .catch((validation) => reject(validation));
+                })
+        });
+    }
+
+    /**
+     * Post count hook
+     * @param validation 
+     * @param query
+     * @param args 
+     */
+    protected postCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
      * Get entity
      * @param entity 
      * @param populate
@@ -470,6 +540,15 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param error 
      */
     protected handleGetError<TError>(validation: ValidationResult<TEntity, TMessage>, error: TError): Promise<ValidationResult<TEntity, TMessage>> {
+        return this.handleDaoError<TError>(validation, error);
+    }
+
+    /**
+     * Handle count error
+     * @param validation 
+     * @param error 
+     */
+    protected handleCountError<TError>(validation: ValidationResult<number, TMessage>, error: TError): Promise<ValidationResult<number, TMessage>> {
         return this.handleDaoError<TError>(validation, error);
     }
 
