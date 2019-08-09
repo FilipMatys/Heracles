@@ -137,7 +137,11 @@ export class ValidationResult<TData, TMessage> {
      * @param error 
      */
     public isDefined(selector: (d: TData) => any, error: TMessage): boolean {
-        return this.processResult(typeof selector(this.data as TData) !== 'undefined', error);
+        // Get value
+        const value = selector(this.data as TData);
+
+        // Get result
+        return this.processResult(typeof value !== 'undefined' && value !== null, error);
     }
 
     /**
