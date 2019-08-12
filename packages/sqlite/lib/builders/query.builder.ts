@@ -131,7 +131,71 @@ export class QueryBuilder<T> {
                     }
                     // Value is object with operator
                     else {
-                        // TODO operator processing
+                        // Init and conditions as the operators may behave as AND
+                        const andConditions: string[] = [];
+
+                        // Process all operators
+                        Object.keys(value).forEach((operator) => {
+                            // Process operator
+                            switch (operator) {
+                                // EQUAL
+                                case "$eq":
+                                    // Add equal query
+                                    andConditions.push(`${key} = ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // Not EQUAL
+                                case "$ne":
+                                    // Add NOT equal query
+                                    andConditions.push(`${key} != ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // LIKE
+                                case "$like":
+                                    andConditions.push(`${key} LIKE '${value[operator]}'`);
+                                    break;
+
+                                // GREATER
+                                case "$gt":
+                                    // Add greater query
+                                    andConditions.push(`${key} > ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // GREATER or EQUAL
+                                case "$gte":
+                                    // Add greater or equal query
+                                    andConditions.push(`${key} >= ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // LESSER
+                                case "$lt":
+                                    // Add lesser query
+                                    andConditions.push(`${key} < ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // LESSER or EQUAL
+                                case "$lte":
+                                    // Add lesser or equal query
+                                    andConditions.push(`${key} <= ${this.sqLiteParser.toSQLite(schema.properties[key], value[operator])}`);
+                                    break;
+
+                                // IN
+                                case "$in":
+                                    // Add in query
+                                    andConditions.push(`${key} IN (${(value[operator] as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
+                                    break;
+
+                                // Not IN
+                                case "$nin":
+                                    // Add not in query
+                                    andConditions.push(`${key} NOT IN (${(value[operator] as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
+                                    break;
+
+                            }
+                        });
+
+                        // Add conditions
+                        conditions.push(`${andConditions.join(" AND ")}`);
                     }
                 }
             });
