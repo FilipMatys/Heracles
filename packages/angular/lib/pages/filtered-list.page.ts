@@ -19,7 +19,7 @@ export abstract class FilteredListPage<TEntity extends Serializable, TMessage> e
      * Filter
      * @description Current state of filtered page
      */
-    protected filter: Filter = new Filter();
+    public filter: Filter = new Filter();
 
     /**
      * Router
