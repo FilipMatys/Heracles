@@ -227,6 +227,6 @@ export abstract class AngularService<TEntity extends Serializable, TMessage> ext
     * @param headers
     */
     protected alterHeaders(headers: HttpHeaders): Promise<HttpHeaders> {
-        return Promise.resolve(Object.assign({}, headers));
+        return Promise.resolve(headers);
     }
 }
