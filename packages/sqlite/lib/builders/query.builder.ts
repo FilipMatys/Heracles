@@ -337,6 +337,11 @@ export class QueryBuilder<T> {
             dbQuery.push(this.buildWhere(schema, query.filter));
         }
 
+        // Check for order by
+        if (query.sort && query.sort.length) {
+            dbQuery.push(this.buildOrderBy(query.sort));
+        }
+
         // Check for limit
         if (query.limit) {
             dbQuery.push(this.buildLimit(query.limit));
@@ -345,11 +350,6 @@ export class QueryBuilder<T> {
         // Check for offset/skip
         if (query.skip) {
             dbQuery.push(this.buildOffset(query.skip));
-        }
-
-        // Check for order by
-        if (query.sort && query.sort.length) {
-            dbQuery.push(this.buildOrderBy(query.sort));
         }
 
         // Return query
