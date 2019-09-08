@@ -56,6 +56,9 @@ export class FilterItem<TValue> {
             // Serializable
             case FilterType.SERIALIZABLE:
                 return (this.value as Serializable)._id;
+            // Array of serializable
+            case FilterType.ARRAY_OF_SERIALIZABLE:
+                return (<any>this.value as Serializable[]).map((v) => v._id);
             // Date
             case FilterType.DATE:
                 return (<Date>(this.value as any)).toISOString();
@@ -65,7 +68,7 @@ export class FilterItem<TValue> {
             case FilterType.ARRAY:
             default:
                 return this.value;
-        
+
         }
     }
 
@@ -79,6 +82,10 @@ export class FilterItem<TValue> {
             // Serializable
             case FilterType.SERIALIZABLE:
                 (this.value as Serializable) = { _id: value };
+                break;
+            // Array of serializable
+            case FilterType.ARRAY_OF_SERIALIZABLE:
+                (<any[]>(this.value as any)) = value instanceof Array ? value.map((v) => { _id: v }) : [{ _id: value }];
                 break;
             // Number
             case FilterType.NUMBER:
@@ -111,6 +118,20 @@ export class FilterItem<TValue> {
 
                     // Assign data
                     this.value = validation.data as TValue;
+                });
+        }
+
+        // Also we might need to load serializable in case of array of them
+        if (this.type === FilterType.ARRAY_OF_SERIALIZABLE && this.service) {
+            // Get each serializable
+            Promise.all((<any>this.value as any[]).map((serializable) => (this.service as AngularService<TValue, any>).get(serializable)))
+                .then((validations) => {
+                    // Process validations
+                    (this.value as any) = validations
+                        // Only valid
+                        .filter((validation) => validation.isValid)
+                        // Get data
+                        .map((validation) => validation.data);
                 });
         }
     }

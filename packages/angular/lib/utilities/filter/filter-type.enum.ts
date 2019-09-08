@@ -4,5 +4,6 @@ export enum FilterType {
     NUMBER,
     DATE,
     SERIALIZABLE,
-    ARRAY
+    ARRAY,
+    ARRAY_OF_SERIALIZABLE
 }
