@@ -85,7 +85,7 @@ export class FilterItem<TValue> {
                 break;
             // Array of serializable
             case FilterType.ARRAY_OF_SERIALIZABLE:
-                (<any[]>(this.value as any)) = params.map((v) => { _id: v });
+                (<any[]>(this.value as any)) = params.map((v) => { return { _id: v } });
                 break;
             // Number
             case FilterType.NUMBER:
