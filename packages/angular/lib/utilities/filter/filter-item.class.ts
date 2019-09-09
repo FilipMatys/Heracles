@@ -76,34 +76,34 @@ export class FilterItem<TValue> {
      * Get value from param
      * @param value 
      */
-    public fromParam(value: any) {
+    public fromParam(params: any[]) {
         // Get value from param value
         switch (this.type) {
             // Serializable
             case FilterType.SERIALIZABLE:
-                (this.value as Serializable) = { _id: value };
+                (this.value as Serializable) = { _id: params.pop() };
                 break;
             // Array of serializable
             case FilterType.ARRAY_OF_SERIALIZABLE:
-                (<any[]>(this.value as any)) = value instanceof Array ? value.map((v) => { _id: v }) : [{ _id: value }];
+                (<any[]>(this.value as any)) = params.map((v) => { _id: v });
                 break;
             // Number
             case FilterType.NUMBER:
-                (<number>(this.value as any)) = parseFloat(value);
+                (<number>(this.value as any)) = parseFloat(params.pop());
                 break;
             // Date
             case FilterType.DATE:
-                (<Date>(this.value as any)) = new Date(value);
+                (<Date>(this.value as any)) = new Date(params.pop());
                 break;
             // Array
             case FilterType.ARRAY:
-                (<any[]>(this.value as any)) = value instanceof Array ? value : [value];
+                (<any[]>(this.value as any)) = params;
                 break;
 
             // All other
             case FilterType.TEXT:
             default:
-                this.value = value;
+                this.value = params.pop();
         }
 
         // We might also need to load serializable

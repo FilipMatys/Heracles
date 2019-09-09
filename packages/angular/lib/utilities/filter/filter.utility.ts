@@ -108,7 +108,7 @@ export class Filter {
             }
 
             // Set filter value
-            this.items[name].fromParam(params.get(name));
+            this.items[name].fromParam(params.getAll(name));
         }
 
         // Emit params
