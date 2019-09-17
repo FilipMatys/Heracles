@@ -102,7 +102,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             // Check for timestamps
             if (this.schema.entity.isTimeStamped) {
                 // Assign dates
-                entity.createdAt = new Date();
+                entity.createdAt = entity.createdAt || new Date();
                 entity.updatedAt = entity.createdAt;
             }
 
