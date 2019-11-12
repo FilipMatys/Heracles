@@ -23,23 +23,36 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param entity 
      * @param args 
      */
-    public save(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    public async save(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<TEntity, TMessage>(entity);
+        let validation = new ValidationResult<TEntity, TMessage>(entity);
 
-        // Create new promise
-        return new Promise<ValidationResult<TEntity, TMessage>>((resolve) => {
-            // Call pre save hook
-            this.preSave(validation, ...args)
-                // Call peri save
-                .then((validation) => this.periSave(validation, ...args))
-                // Call post save
-                .then((validation) => this.postSave(validation, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre save
+            validation = await this.preSave(validation, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri save
+            validation = await this.periSave(validation, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post save
+            return this.postSave(validation, ...args);
+        }
+        catch (validation) {
+            // Pass validation
+            return validation;
+        }
     }
 
     /**
@@ -91,23 +104,36 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param query 
      * @param args 
      */
-    public count(query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    public async count(query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<number, TMessage>(0);
+        let validation = new ValidationResult<number, TMessage>(0);
 
-        // Create new promise
-        return new Promise<ValidationResult<number, TMessage>>((resolve) => {
-            // Call pre count hook
-            this.preCount(validation, query, ...args)
-                // Call peri count
-                .then((validation) => this.periCount(validation, query, ...args))
-                // Call post count
-                .then((validation) => this.postCount(validation, query, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre count
+            validation = await this.preCount(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri count
+            validation = await this.periCount(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post count
+            return this.postCount(validation, query, ...args);
+        }
+        catch (validation) {
+            // Pass validation
+            return validation;
+        }
     }
 
     /**
@@ -116,7 +142,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param query
      * @param args 
      */
-    protected preCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected preCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -125,7 +151,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param validation 
      * @param args 
      */
-    protected periCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected periCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // Save entity
@@ -152,7 +178,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param query
      * @param args 
      */
-    protected postCount(validation: ValidationResult<number , TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected postCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -162,23 +188,36 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param populate
      * @param args 
      */
-    public get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    public async get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<TEntity, TMessage>(entity);
+        let validation = new ValidationResult<TEntity, TMessage>(entity);
 
-        // Create new promise
-        return new Promise<ValidationResult<TEntity, TMessage>>((resolve) => {
-            // Call pre get hook
-            this.preGet(validation, ...args)
-                // Call peri get
-                .then((validation) => this.periGet(validation, populate, ...args))
-                // Call post get
-                .then((validation) => this.postGet(validation, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre get
+            validation = await this.preGet(validation, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri get
+            validation = await this.periGet(validation, populate, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post get
+            return this.postGet(validation, ...args);
+        }
+        catch (validation) {
+            // Pass validation
+            return validation;
+        }
     }
 
     /**
@@ -222,6 +261,99 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param args 
      */
     protected postGet(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Get single entity by query
+     * @param query 
+     * @param args 
+     */
+    public async single(query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        // Init validation
+        let validation = new ValidationResult<TEntity, TMessage>();
+
+        try {
+            // Call pre single
+            validation = await this.preSingle(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri single
+            validation = await this.periSingle(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post single
+            return this.postSingle(validation, query, ...args);
+        }
+        catch (validation) {
+            // Return validation
+            return validation;
+        }
+    }
+
+    /**
+     * Pre single hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected preSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        return Promise.resolve(validation);
+    }
+
+    /**
+     * Peri single hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected periSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        // Create new promise
+        return new Promise((resolve, reject) => {
+            // First get list
+            this.dao.getList({
+                ...query,
+                limit: 1
+            }, ...args)
+                .then((items) => {
+                    // Check if any items were found
+                    if (!items || !items.length) {
+                        // Do nothing
+                        return validation;
+                    }
+
+                    // Assign item
+                    validation.data = items.pop();
+
+                    // Resolve
+                    return resolve(validation);
+                })
+                .catch((error) => {
+                    // Handle single error
+                    this.handleSingleError(validation, error)
+                        .then((validation) => resolve(validation))
+                        .catch((validation) => reject(validation));
+                });
+        });
+    }
+
+    /**
+     * Post single hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected postSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -540,6 +672,15 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param error 
      */
     protected handleGetError<TError>(validation: ValidationResult<TEntity, TMessage>, error: TError): Promise<ValidationResult<TEntity, TMessage>> {
+        return this.handleDaoError<TError>(validation, error);
+    }
+
+    /**
+     * Handle single error
+     * @param validation 
+     * @param error 
+     */
+    protected handleSingleError<TError>(validation: ValidationResult<TEntity, TMessage>, error: TError): Promise<ValidationResult<TEntity, TMessage>> {
         return this.handleDaoError<TError>(validation, error);
     }
 
