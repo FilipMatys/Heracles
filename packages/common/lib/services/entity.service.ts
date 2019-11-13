@@ -362,28 +362,41 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param query 
      * @param args 
      */
-    public getList(query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    public async getList(query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<IQueryResult<TEntity>, TMessage>({
+        let validation = new ValidationResult<IQueryResult<TEntity>, TMessage>({
             items: [],
             total: 0,
             pageSize: query.limit,
             page: Math.round((query.skip) || 0 / (query.limit || 1)) + 1
         });
 
-        // Create new promise
-        return new Promise<ValidationResult<IQueryResult<TEntity>, TMessage>>((resolve) => {
-            // Call pre get list hook
-            this.preGetList(validation, query, ...args)
-                // Call peri get list hook
-                .then((validation) => this.periGetList(validation, query, ...args))
-                // Call post get list hook
-                .then((validation) => this.postGetList(validation, query, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre get list
+            validation = await this.preGetList(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri get list
+            validation = await this.periGetList(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post get list
+            return this.postGetList(validation, query, ...args);
+        }
+        catch (validation) {
+            // Return validation
+            return validation;
+        }
     }
 
     /**
@@ -448,23 +461,36 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param query 
      * @param args 
      */
-    public remove(query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    public async remove(query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<any, TMessage>();
+        let validation = new ValidationResult<any, TMessage>();
 
-        // Create new promise
-        return new Promise<ValidationResult<any, TMessage>>((resolve) => {
-            // Call pre remove hook
-            this.preRemove(validation, query, ...args)
-                // Call peri remove hook
-                .then((validation) => this.periRemove(validation, query, ...args))
-                // Call post remove hook
-                .then((validation) => this.postRemove(validation, query, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre remove
+            validation = await this.preRemove(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri remove
+            validation = await this.periRemove(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post remove
+            return this.postRemove(validation, query, ...args);
+        }
+        catch (validation) {
+            // Return validation
+            return validation;
+        }
     }
 
     /**
@@ -519,23 +545,37 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param entity 
      * @param args 
      */
-    public changeState(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    public async changeState(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<TEntity, TMessage>(entity);
+        let validation = new ValidationResult<TEntity, TMessage>(entity);
 
-        // Create new promise
-        return new Promise<ValidationResult<TEntity, TMessage>>((resolve) => {
-            // Call pre change state hook
-            this.preChangeState(validation, ...args)
-                // Call peri change state
-                .then((validation) => this.periChangeState(validation, ...args))
-                // Call post change state
-                .then((validation) => this.postChangeState(validation, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre change state
+            validation = await this.preChangeState(validation, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri change state
+            validation = await this.periChangeState(validation, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post change state
+            return this.postChangeState(validation, ...args);
+            
+        }
+        catch (validation) {
+            // Return validation
+            return validation;
+        }
     }
 
     /**
@@ -571,23 +611,36 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param payload 
      * @param args 
      */
-    public update(query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    public async update(query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<any, TMessage>();
+        let validation = new ValidationResult<any, TMessage>();
 
-        // Create new promise
-        return new Promise((resolve) => {
-            // Call pre update hook
-            this.preUpdate(validation, query, payload, ...args)
-                // Call peri update hook
-                .then((validation) => this.periUpdate(validation, query, payload, ...args))
-                // Call post update hook
-                .then((validation) => this.postUpdate(validation, query, payload, ...args))
-                // Resolve
-                .then((validation) => resolve(validation))
-                // Catch and resolve
-                .catch((validation) => resolve(validation));
-        });
+        try {
+            // Call pre update 
+            validation = await this.preUpdate(validation, query, payload, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri update
+            validation = await this.periUpdate(validation, query, payload, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post update
+            return this.postUpdate(validation, query, payload, ...args);
+        }
+        catch (validation) {
+            // Return validation
+            return validation;
+        }
     }
 
     /**
