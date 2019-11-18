@@ -2,7 +2,7 @@
  * Validation result
  * @description Object being handled between function calls
  */
-export class ValidationResult<TData, TMessage> {
+export class ValidationResult<TData, TMessage = string> {
 
     // Data
     public data?: TData;
