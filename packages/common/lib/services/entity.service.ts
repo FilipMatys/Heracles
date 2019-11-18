@@ -25,11 +25,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async save(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<TEntity, TMessage>(entity);
+        const validation = new ValidationResult<TEntity, TMessage>(entity);
 
         try {
             // Call pre save
-            validation = await this.preSave(validation, ...args);
+            await this.preSave(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -38,7 +38,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri save
-            validation = await this.periSave(validation, ...args);
+            await this.periSave(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -106,11 +106,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async count(query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<number, TMessage>(0);
+        const validation = new ValidationResult<number, TMessage>(0);
 
         try {
             // Call pre count
-            validation = await this.preCount(validation, query, ...args);
+            await this.preCount(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -119,7 +119,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri count
-            validation = await this.periCount(validation, query, ...args);
+            await this.periCount(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -190,11 +190,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<TEntity, TMessage>(entity);
+        const validation = new ValidationResult<TEntity, TMessage>(entity);
 
         try {
             // Call pre get
-            validation = await this.preGet(validation, ...args);
+            await this.preGet(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -203,7 +203,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri get
-            validation = await this.periGet(validation, populate, ...args);
+            await this.periGet(validation, populate, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -271,11 +271,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async single(query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<TEntity, TMessage>();
+        const validation = new ValidationResult<TEntity, TMessage>();
 
         try {
             // Call pre single
-            validation = await this.preSingle(validation, query, ...args);
+            await this.preSingle(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -284,7 +284,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri single
-            validation = await this.periSingle(validation, query, ...args);
+            await this.periSingle(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -364,7 +364,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async getList(query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<IQueryResult<TEntity>, TMessage>({
+        const validation = new ValidationResult<IQueryResult<TEntity>, TMessage>({
             items: [],
             total: 0,
             pageSize: query.limit,
@@ -373,7 +373,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
 
         try {
             // Call pre get list
-            validation = await this.preGetList(validation, query, ...args);
+            await this.preGetList(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -382,7 +382,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri get list
-            validation = await this.periGetList(validation, query, ...args);
+            await this.periGetList(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -463,11 +463,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async remove(query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<any, TMessage>();
+        const validation = new ValidationResult<any, TMessage>();
 
         try {
             // Call pre remove
-            validation = await this.preRemove(validation, query, ...args);
+            await this.preRemove(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -476,7 +476,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri remove
-            validation = await this.periRemove(validation, query, ...args);
+            await this.periRemove(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -547,11 +547,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async changeState(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<TEntity, TMessage>(entity);
+        const validation = new ValidationResult<TEntity, TMessage>(entity);
 
         try {
             // Call pre change state
-            validation = await this.preChangeState(validation, ...args);
+            await this.preChangeState(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -560,7 +560,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri change state
-            validation = await this.periChangeState(validation, ...args);
+            await this.periChangeState(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -613,11 +613,11 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      */
     public async update(query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
-        let validation = new ValidationResult<any, TMessage>();
+        const validation = new ValidationResult<any, TMessage>();
 
         try {
             // Call pre update 
-            validation = await this.preUpdate(validation, query, payload, ...args);
+            await this.preUpdate(validation, query, payload, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -626,7 +626,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
             }
 
             // Call peri update
-            validation = await this.periUpdate(validation, query, payload, ...args);
+            await this.periUpdate(validation, query, payload, ...args);
 
             // Check validation
             if (!validation.isValid) {
