@@ -223,6 +223,34 @@ export class ValidationResult<TData, TMessage = string> {
     }
 
     /**
+     * Is longer or of length
+     * @param selector 
+     * @param length 
+     * @param error 
+     */
+    public isLongerOrOfLength(selector: (d: TData) => string | any[], length: number, error: TMessage): boolean {
+        // Get value
+        const value = selector(this.data as TData);
+
+        // Process result
+        return this.processResult(value.length === length || value.length > length, error);
+    }
+
+    /**
+     * Is shorter or of length
+     * @param selector 
+     * @param length 
+     * @param error 
+     */
+    public isShorterOfLength(selector: (d: TData) => string | any[], length: number, error: TMessage): boolean {
+        // Get value
+        const value = selector(this.data as TData);
+
+        // Process result
+        return this.processResult(value.length === length || value.length < length, error);
+    }
+
+    /**
      * Is equal
      * @param selector 
      * @param value 
@@ -243,6 +271,20 @@ export class ValidationResult<TData, TMessage = string> {
     }
 
     /**
+     * Is greater or equal
+     * @param selector 
+     * @param value 
+     * @param error 
+     */
+    public isGreaterOrEqual(selector: (d: TData) => number, value: number, error: TMessage): boolean {
+        // Get value
+        const lValue = selector(this.data as TData);
+
+        // Process result
+        return this.processResult(lValue === value || lValue > value, error);
+    }
+
+    /**
      * Is lesser
      * @param selector 
      * @param value 
@@ -250,6 +292,20 @@ export class ValidationResult<TData, TMessage = string> {
      */
     public isLesser(selector: (d: TData) => number, value: number, error: TMessage): boolean {
         return this.processResult(selector(this.data as TData) < value, error);
+    }
+
+    /**
+     * Is lesser or equal
+     * @param selector 
+     * @param value 
+     * @param error 
+     */
+    public isLesserOrEqual(selector: (d: TData) => number, value: number, error: TMessage): boolean {
+        // Get value
+        const lValue = selector(this.data as TData);
+
+        // Process result
+        return this.processResult(lValue === value || lValue < value, error);
     }
 
     /**
