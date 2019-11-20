@@ -21,10 +21,10 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         const parser: SchemaParser = new SchemaParser();
 
         // Get schema
-        let schema = parser.parse(entity);
+        const schema = parser.parse(entity);
 
         // Init model schema
-        let mSchema = new Schema(schema.properties, {
+        const mSchema = new Schema(schema.properties, {
             _id: !!(schema.entity.config || { _id: true })._id,
             timestamps: !!schema.entity.isTimeStamped,
             autoIndex: !!(schema.entity.config || { autoIndexId: true }).autoIndexId,
@@ -50,7 +50,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         const isNew = !entity._id;
 
         // Create model
-        let model = new this.model(entity);
+        const model = new this.model(entity);
         // Set 'new' flag
         model.isNew = isNew;
 
@@ -88,7 +88,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         query = query || {};
 
         // Init query to execute
-        let queryToExecute = this.model.find(query.filter || {}).lean();
+        const queryToExecute = this.model.find(query.filter || {}).lean();
 
         // Check for populate
         if (query.populate && query.populate.length) {
@@ -156,6 +156,6 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         query = query || {};
 
         // Get count
-        return await this.model.update(query.filter || {}, { $set: payload }, options || {}).exec();
+        return await this.model.updateMany(query.filter || {}, { $set: payload }, options || {}).exec();
     }
 }

@@ -1,16 +1,19 @@
 // External modules
-import { IEntityDao, IQuery, Serializable, IPopulate } from "@calf/serializable";
+import { Serializable } from "@calf/serializable";
 
 // Classes
 import { ValidationResult } from "../classes/validation-result.class";
 
 // Interfaces
 import { IQueryResult } from "../interfaces/query-result.interface";
+import { IPopulate } from "../interfaces/populate.interface";
+import { IQuery } from "../interfaces/query.interface";
+import { IEntityDao } from "../daos/entity.dao";
 
 /**
  * Entity service
  */
-export abstract class EntityService<TEntity extends Serializable, TMessage> {
+export abstract class EntityService<TEntity extends Serializable, TMessage = string> {
 
     /**
      * Constructor
@@ -770,9 +773,6 @@ export abstract class EntityService<TEntity extends Serializable, TMessage> {
      * @param error 
      */
     protected handleDaoError<TError>(validation: ValidationResult<any, TMessage>, error: TError): Promise<ValidationResult<any, TMessage>> {
-        // Log error
-        console.log(error);
-
         // Reject
         return Promise.reject(validation);
     }
