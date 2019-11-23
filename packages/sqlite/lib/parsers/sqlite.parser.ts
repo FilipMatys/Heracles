@@ -52,7 +52,7 @@ export class SQLiteParser {
      */
     public rowFromSQLite<T>(schema: ISchema<IPropertyDefinition>, row: any): T {
         // Init result
-        let result: T = {} as any;
+        const result: T = {} as any;
 
         // Iterate row keys
         Object.keys(row).forEach((key) => {
