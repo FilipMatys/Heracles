@@ -15,7 +15,7 @@ export abstract class Routes<TEntity, TMessage> {
     protected prefix: string[];
 
     // Service
-    protected abstract service: EntityService<TEntity, TMessage>;
+    protected service: EntityService<TEntity, TMessage>;
 
     /**
      * Constructor
@@ -34,6 +34,9 @@ export abstract class Routes<TEntity, TMessage> {
      * Create Save route
      */
     public createSaveRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
         // Save route
         this.router.post(["", ...this.prefix, "save"].join("/"), this.saveMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
@@ -57,6 +60,9 @@ export abstract class Routes<TEntity, TMessage> {
      * Create Get route
      */
     public createGetRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
         // Get route
         this.router.post(["", ...this.prefix, "get"].join("/"), this.getMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
@@ -80,6 +86,9 @@ export abstract class Routes<TEntity, TMessage> {
      * Create GetList route
      */
     public createGetListRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
         // Get list route
         this.router.post(["", ...this.prefix, "list"].join("/"), this.getListMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
@@ -103,6 +112,9 @@ export abstract class Routes<TEntity, TMessage> {
      * Create Remove route
      */
     public createRemoveRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
         // Remove route
         this.router.post(["", ...this.prefix, "remove"].join("/"), this.removeMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
@@ -126,6 +138,9 @@ export abstract class Routes<TEntity, TMessage> {
      * Create change state route
      */
     public createChangeStateRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
         // Remove route
         this.router.post(["", ...this.prefix, "state"].join("/"), this.changeStateMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
             try {
@@ -204,4 +219,14 @@ export abstract class Routes<TEntity, TMessage> {
      * @param e 
      */
     protected abstract handleRouteException(e: any): Promise<ValidationResult<TEntity, TMessage>>;
+
+    /**
+     * Ensure service definition
+     */
+    private ensureServiceDefinition(): void {
+        // Check that service exists
+        if (!this.service) {
+            throw new Error(`[Calf@Routes]: Service not defined for routes ${this.prefix.join("/")}`);
+        };
+    }
 } 

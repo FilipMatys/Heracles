@@ -21,7 +21,7 @@ export abstract class Config {
      */
     protected static get(name: string): string | number {
         // Try to get value
-        let value: string | number = process.env[name];
+        const value: string | number = process.env[name];
 
         // Check value
         if (typeof value === "undefined") {
