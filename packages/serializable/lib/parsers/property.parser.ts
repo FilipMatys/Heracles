@@ -32,9 +32,8 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      * @param property 
      */
     public parse(target: Object, name: string): IPropertyDefinition | undefined {
-        // First get all sub definitions
         // Property
-        let property = this.getProperty(target, name);
+        const property = this.getProperty(target, name);
 
         // Check property
         if (!property) {
@@ -42,19 +41,19 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
         }
 
         // Default
-        let lDefault = this.getDefault(target, name);
+        const lDefault = this.getDefault(target, name);
 
         // Required
-        let required = this.getRequired(target, name);
+        const required = this.getRequired(target, name);
 
         // Unique
-        let unique = this.getUnique(target, name);
+        const unique = this.getUnique(target, name);
 
         // Array
-        let array = this.getArray(target, name);
+        const array = this.getArray(target, name);
 
         // Indexed
-        let indexed = this.getIndexed(target, name);
+        const indexed = this.getIndexed(target, name);
 
         // Now merge those into one
         return Object.assign({}, property, lDefault, required, unique, array, indexed);
@@ -77,7 +76,7 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      */
     private getDefault(target: Object, name: string): IDefault<any> {
         // Init default definition
-        let lDefault: IDefault<any> = { default: null };
+        const lDefault: IDefault<any> = { default: null };
 
         // Assign data from metadata
         return Object.assign(lDefault, Reflect.getMetadata(DEFAULT_METADATA_KEY, target, name) || {});
@@ -90,7 +89,7 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      */
     private getRequired(target: Object, name: string): IRequired {
         // Init required definition
-        let required: IRequired = { isRequired: false };
+        const required: IRequired = { isRequired: false };
 
         // Assign data from metadata
         return Object.assign(required, Reflect.getMetadata(REQUIRED_METADATA_KEY, target, name) || {});
@@ -103,7 +102,7 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      */
     private getUnique(target: Object, name: string): IUnique {
         // Init unique definition
-        let unique: IUnique = { isUnique: false };
+        const unique: IUnique = { isUnique: false };
 
         // Assign data from metadata
         return Object.assign(unique, Reflect.getMetadata(UNIQUE_METADATA_KEY, target, name) || {});
@@ -116,7 +115,7 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      */
     private getArray(target: Object, name: string): IArray {
         // Init array definition
-        let array: IArray = { isArray: false };
+        const array: IArray = { isArray: false };
 
         // Assign data from metadata
         return Object.assign(array, Reflect.getMetadata(ARRAY_METADATA_KEY, target, name) || {});
@@ -129,7 +128,7 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
      */
     private getIndexed(target: Object, name: string): IIndexed {
         // Init indexed definition
-        let indexed: IIndexed = { isIndexed: false };
+        const indexed: IIndexed = { isIndexed: false };
 
         // Assign data from metadata
         return Object.assign(indexed, Reflect.getMetadata(INDEXED_METADATA_KEY, target, name) || {});
