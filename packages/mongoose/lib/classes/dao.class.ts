@@ -64,7 +64,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param populate
      * @param args 
      */
-    public async get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<TEntity> {
+    public async get(entity: TEntity, populate: IPopulate[] = [], ...args: any[]): Promise<TEntity> {
         // Init query
         const queryToExecute = this.model.findById(entity._id).lean();
 

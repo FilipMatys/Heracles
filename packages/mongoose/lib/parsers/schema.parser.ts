@@ -14,18 +14,18 @@ export class SchemaParser extends BaseSchemaParser {
      */
     public parse(target: new () => any): ISchema<SchemaTypeOpts<any>> {
         // Parse target
-        let schema = super.parse(target);
+        const schema = super.parse(target);
 
         // Init parsers
-        let eParser: EntityParser = new EntityParser();
+        const eParser: EntityParser = new EntityParser();
 
         // Process properties
         Object.keys(schema.properties).forEach((name) => {
             // Init options
-            let sTypeOptions: SchemaTypeOpts<any> = {};
+            const sTypeOptions: SchemaTypeOpts<any> = {};
 
             // Get property definition
-            let definition = schema.properties[name];
+            const definition = schema.properties[name];
 
             // First check if type is defined
             if (typeof definition.type === "undefined") {
