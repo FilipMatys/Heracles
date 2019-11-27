@@ -57,7 +57,7 @@ export class SchemaParser extends BaseSchemaParser {
                     break;
 
                 // EMBEDDED
-                case PropertyType.EMBEDED:
+                case PropertyType.EMBEDDED:
                     // Make sure reference is defined
                     if (typeof definition.reference === "undefined") {
                         throw new Error(`[Calf@SchemaParser]: Missing type reference for "${name}" in "${schema.entity.name}"`);

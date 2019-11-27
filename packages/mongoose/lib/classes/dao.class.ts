@@ -1,5 +1,6 @@
 // External modules
-import { Serializable, IEntityDao, IQuery, IPopulate } from "@calf/serializable";
+import { Serializable } from "@calf/serializable";
+import { IEntityDao, IQuery, IPopulate } from "@calf/common";
 import { Model, model, Schema } from "mongoose";
 
 // Parsers
