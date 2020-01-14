@@ -20,7 +20,7 @@ export abstract class HttpService<TEntity extends Serializable, TMessage> extend
     /**
      * Serializer
      */
-    protected serializer: string = "json";
+    protected serializer: "json" | "urlencoded" | "utf8" | "multipart" = "json";
 
     /**
      * Path prefix
