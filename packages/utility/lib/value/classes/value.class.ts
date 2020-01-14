@@ -5,13 +5,14 @@
 export class Value {
 
     /**
-     * Toggle value
-     * @param current 
-     * @param values 
+     * Toggle values
      */
-    public static toggle<TValue>(current: TValue, values: [TValue, TValue]): TValue {
-        // Toggle value
-        return current === values[0] ? values[1] : values[0];
+    public static toggle<TValue>(current: TValue, values: TValue[]): TValue {
+        // Get index of current value
+        const index = values.indexOf(current) + 1;
+
+        // Return value
+        return values[index % values.length];
     }
 
     /**
@@ -22,7 +23,7 @@ export class Value {
     public static default<TObject, TValue>(object: TObject, selector: (object: TObject) => TValue, defaultValue: TValue): TValue {
         try {
             // Get value 
-            let value = selector(object);
+            const value = selector(object);
 
             // Check if value is defined and return default if not
             return (value !== undefined && value !== null) ? value : defaultValue; 

@@ -32,7 +32,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      */
     constructor(entity: new () => T) {
         // Init parser
-        let parser = new SchemaParser();
+        const parser = new SchemaParser();
 
         // Get schema
         this.schema = parser.parse(entity);
@@ -56,7 +56,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      */
     public async init(): Promise<void> {
         // Init query
-        let dbQuery: string = this.builder.createTable(this.schema);
+        const dbQuery: string = this.builder.createTable(this.schema);
 
         // Try to create table
         try {
@@ -66,7 +66,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         catch (e) { console.log(JSON.stringify(e)); }
 
         // Now get update queries
-        let dbQueries: string[] = this.builder.alterTableColumns(this.schema);
+        const dbQueries: string[] = this.builder.alterTableColumns(this.schema);
 
         // Alter columns
         for (let index = 0; index < dbQueries.length; index++) {
@@ -144,7 +144,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         await SQLiteDatabase.ready();
 
         // Get db query
-        let dbQuery: string = this.builder.select(this.schema, {
+        const dbQuery: string = this.builder.select(this.schema, {
             filter: { _id: entity._id },
             limit: 1
         });
@@ -152,10 +152,10 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         // Try to execute query
         try {
             // Execute query
-            let result = await SQLiteDatabase.execute<any>(dbQuery);
+            const result = await SQLiteDatabase.execute<any>(dbQuery);
 
             // Init rows
-            let rows: T[] = [];
+            const rows: T[] = [];
 
             // Get rows
             for (let index = 0; index < result.rows.length; index++) {
@@ -182,15 +182,15 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         await SQLiteDatabase.ready();
 
         // Get query
-        let dbQuery = this.builder.select(this.schema, query);
+        const dbQuery = this.builder.select(this.schema, query);
 
         // Try to execute query
         try {
             // Execute query
-            let result = await SQLiteDatabase.execute<any>(dbQuery);
+            const result = await SQLiteDatabase.execute<any>(dbQuery);
 
             // Init rows
-            let rows: T[] = [];
+            const rows: T[] = [];
 
             // Get rows
             for (let index = 0; index < result.rows.length; index++) {
@@ -216,7 +216,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         await SQLiteDatabase.ready();
 
         // Build query
-        let dbQuery: string = this.builder.delete(this.schema, query);
+        const dbQuery: string = this.builder.delete(this.schema, query);
 
         // Try to execute query
         try {

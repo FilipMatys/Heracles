@@ -56,7 +56,7 @@ export class QueryBuilder<T> {
      */
     private buildOrderBy(orderBy: string[]): string {
         // Init list of columns to order by
-        let columns: string[] = [];
+        const columns: string[] = [];
 
         // Iterate through order by columns
         orderBy.forEach((ob) => {
@@ -82,19 +82,19 @@ export class QueryBuilder<T> {
      */
     private buildWhere(schema: ISchema<IPropertyDefinition>, payload: any): string {
         // Init query
-        let dbQuery: string[] = ["WHERE"];
+        const dbQuery: string[] = ["WHERE"];
 
         // Create local parser function
-        let parse = (payload: any): string => {
+        const parse = (payload: any): string => {
             // Init conditions
-            let conditions: string[] = [];
+            const conditions: string[] = [];
 
             // Process payload
             Object.keys(payload).forEach((key) => {
                 // Check for $and
                 if (key === "$and") {
                     // Init and conditions
-                    let andConditions: string[] = [];
+                    const andConditions: string[] = [];
 
                     // Parse conditions
                     payload[key].forEach((cond: any) => andConditions.push(parse(cond)));
@@ -105,7 +105,7 @@ export class QueryBuilder<T> {
                 // Check for $or
                 else if (key === "$or") {
                     // Init or conditions
-                    let orConditions: string[] = [];
+                    const orConditions: string[] = [];
 
                     // Parse conditions
                     payload[key].forEach((cond: any) => orConditions.push(parse(cond)));
@@ -122,7 +122,7 @@ export class QueryBuilder<T> {
                     }
 
                     // Get value
-                    let value: any = payload[key];
+                    const value: any = payload[key];
 
                     // Check if value is primitive or object with no operator
                     if (value !== Object(value) || !Object.keys(value).filter(k => k.startsWith("$")).length) {
@@ -218,18 +218,18 @@ export class QueryBuilder<T> {
      */
     public insert(schema: ISchema<IPropertyDefinition>, payload: T): string {
         // Init query
-        let dbQuery: string[] = [`INSERT INTO ${schema.entity.name}`];
+        const dbQuery: string[] = [`INSERT INTO ${schema.entity.name}`];
 
         // Init list of fields and values
-        let fields: string[] = [];
-        let values: any[] = [];
+        const fields: string[] = [];
+        const values: any[] = [];
 
         // We need to go through the schema properties
         Object.keys(schema.properties).forEach((key: string) => {
             // Get definition
-            let definition = schema.properties[key];
+            const definition = schema.properties[key];
             // Get value
-            let value = (payload as any)[key];
+            const value = (payload as any)[key];
 
             // Init db value
             let dbValue: any;
@@ -269,10 +269,10 @@ export class QueryBuilder<T> {
      */
     public update(schema: ISchema<IPropertyDefinition>, query: IQuery, payload: T): string {
         // Init query
-        let dbQuery: string[] = ["UPDATE", schema.entity.name, "SET"];
+        const dbQuery: string[] = ["UPDATE", schema.entity.name, "SET"];
 
         // Init list of updates
-        let updates: string[] = [];
+        const updates: string[] = [];
 
         // Iterate payload
         Object.keys(payload).forEach((key) => {
@@ -298,13 +298,13 @@ export class QueryBuilder<T> {
     }
 
     /**
-     * Update query
+     * Delete query
      * @param schema 
      * @param query 
      */
     public delete(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
         // Init query
-        let dbQuery: string[] = ["DELETE"];
+        const dbQuery: string[] = ["DELETE"];
 
         // From
         dbQuery.push(this.buildFrom(schema.entity.name));
@@ -325,7 +325,7 @@ export class QueryBuilder<T> {
      */
     public select(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
         // Init query
-        let dbQuery: string[] = [];
+        const dbQuery: string[] = [];
 
         // Select
         dbQuery.push(this.buildSelect(query.select));
@@ -377,10 +377,10 @@ export class QueryBuilder<T> {
      */
     public createTable(schema: ISchema<IPropertyDefinition>): string {
         // Init db query
-        let dbQuery: string[] = ["CREATE TABLE IF NOT EXISTS", schema.entity.name];
+        const dbQuery: string[] = ["CREATE TABLE IF NOT EXISTS", schema.entity.name];
 
         // Init fields list
-        let fields: string[] = [];
+        const fields: string[] = [];
 
         // Process fields
         Object.keys(schema.properties).forEach((key) => {
@@ -401,7 +401,7 @@ export class QueryBuilder<T> {
      */
     public alterTableColumns(schema: ISchema<IPropertyDefinition>): string[] {
         // Init queries
-        let dbQueries: string[] = [];
+        const dbQueries: string[] = [];
 
         // Process fields
         Object.keys(schema.properties).forEach((key) => {

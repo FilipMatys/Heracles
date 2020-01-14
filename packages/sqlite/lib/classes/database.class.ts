@@ -32,7 +32,7 @@ export class SQLiteDatabase {
         // Create new promise
         return new Promise<void>((resolve) => {
             // Create interval to check 
-            let interval = setInterval(() => {
+            const interval = setInterval(() => {
                 // Check for is ready
                 if (!this.isReady) {
                     return;
@@ -77,7 +77,7 @@ export class SQLiteDatabase {
         // Try to execute query
         try {
             // Execute query
-            let result = await this.connection.execute<T>(query, params);
+            const result = await this.connection.execute<T>(query, params);
 
             // Resolve
             return Promise.resolve(result);
@@ -135,7 +135,7 @@ export class SQLiteDatabase {
      */
     private static async initDaos(): Promise<void> {
         // Get keys
-        let keys: string[] = Object.keys(this.daos);
+        const keys: string[] = Object.keys(this.daos);
 
         // Iterate keys to initialize or daos
         for (let index = 0; index < keys.length; index++) {

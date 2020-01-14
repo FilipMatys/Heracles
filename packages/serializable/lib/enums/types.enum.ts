@@ -10,5 +10,5 @@ export enum PropertyType {
     MIXED,
     REFERENCE,
     OID,
-    EMBEDED
+    EMBEDDED
 }

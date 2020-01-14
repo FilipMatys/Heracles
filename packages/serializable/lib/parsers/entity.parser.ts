@@ -27,7 +27,7 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
     public parse(target: Object): IEntityDefinition | undefined {
         // First get sub definitions
         // Entity
-        let entity = this.getEntity(target);
+        const entity = this.getEntity(target);
 
         // Check entity
         if (!entity) {
@@ -35,10 +35,10 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
         }
 
         // Timestamp
-        let timestamp = this.getTimestamp(target);
+        const timestamp = this.getTimestamp(target);
 
         // Get indexes
-        let indexes = this.getIndexes(target);
+        const indexes = this.getIndexes(target);
 
         // Merge definitions
         return Object.assign<IEntityDefinition, IEntity, ITimestamp>({ indexes: indexes }, entity, timestamp);
@@ -58,7 +58,7 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
      */
     private getTimestamp(target: Object): ITimestamp {
         // Init default timestamp definition
-        let timestamp: ITimestamp = { isTimeStamped: false };
+        const timestamp: ITimestamp = { isTimeStamped: false };
 
         // Assign data from metadata
         return Object.assign(timestamp, Reflect.getMetadata(TIMESTAMP_METADATA_KEY, target) || {});

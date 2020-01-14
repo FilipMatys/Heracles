@@ -1,5 +1,5 @@
-// Classes
-import { Serializable } from "../classes/serializable.class";
+// External modules
+import { Serializable } from "@calf/serializable";
 
 // Interfaces
 import { IQuery } from "../interfaces/query.interface";
