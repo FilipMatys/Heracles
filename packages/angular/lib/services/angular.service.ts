@@ -77,7 +77,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
 
         try {
             // Make request
-            const rValidation = this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
                 headers: headers
             }).toPromise();
 
@@ -113,7 +113,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
 
         try {
             // Make request
-            const rValidation = this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "get"].join("/"), validation.data, {
+            const rValidation = await this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "get"].join("/"), validation.data, {
                 headers: headers
             }).toPromise();
 
@@ -143,7 +143,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
 
         try {
             // Make request
-            const rValidation = this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
                 headers: headers
             }).toPromise();
 
@@ -170,7 +170,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
 
         try {
             // Make request
-            const rValidation = this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "state"].join("/"), validation.data, {
+            const rValidation = await this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "state"].join("/"), validation.data, {
                 headers: headers
             }).toPromise();
 
