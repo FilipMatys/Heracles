@@ -10,7 +10,7 @@ import { FakeDao } from "../daos/fake.dao";
  * Http service
  * @description Http service using native HTTP module
  */
-export abstract class HttpService<TEntity extends Serializable, TMessage> extends EntityService<TEntity, TMessage> {
+export abstract class HttpService<TEntity extends Serializable, TMessage = string> extends EntityService<TEntity, TMessage> {
 
     /**
      * Http provider

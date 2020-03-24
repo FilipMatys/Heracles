@@ -10,7 +10,7 @@ import { SubscriberPage } from "./subscriber.page";
 /**
  * Angular detail page
  */
-export abstract class DetailPage<TEntity extends Serializable, TMessage> extends SubscriberPage implements OnInit {
+export abstract class DetailPage<TEntity extends Serializable, TMessage = string> extends SubscriberPage implements OnInit {
 
     /**
      * Current route

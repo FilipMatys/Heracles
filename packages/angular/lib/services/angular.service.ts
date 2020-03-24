@@ -1,7 +1,7 @@
 // External modules
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Serializable, IQuery } from "@calf/serializable";
-import { ValidationResult, IQueryResult, EntityService } from "@calf/common";
+import { Serializable } from "@calf/serializable";
+import { ValidationResult, IQueryResult, EntityService, IQuery } from "@calf/common";
 
 // Daos
 import { FakeDao } from "../daos/fake.dao";
@@ -9,7 +9,7 @@ import { FakeDao } from "../daos/fake.dao";
 /**
  * Angular service
  */
-export abstract class AngularService<TEntity extends Serializable, TMessage> extends EntityService<TEntity, TMessage> {
+export abstract class AngularService<TEntity extends Serializable, TMessage = string> extends EntityService<TEntity, TMessage> {
 
     // Http client
     protected abstract http: HttpClient;

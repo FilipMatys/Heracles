@@ -13,7 +13,7 @@ import { ListPage } from "./list.page";
  * Filtered list page
  * @description List page with filtering ability
  */
-export abstract class FilteredListPage<TEntity extends Serializable, TMessage> extends ListPage<TEntity, TMessage> implements OnInit {
+export abstract class FilteredListPage<TEntity extends Serializable, TMessage = string> extends ListPage<TEntity, TMessage> implements OnInit {
 
     /**
      * Filter

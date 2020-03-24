@@ -1,7 +1,7 @@
 // External modules
 import { OnInit } from "@angular/core";
-import { Serializable, IQuery } from "@calf/serializable";
-import { ValidationResult, IQueryResult, EntityService } from "@calf/common";
+import { Serializable } from "@calf/serializable";
+import { ValidationResult, IQueryResult, EntityService, IQuery } from "@calf/common";
 
 // Pages
 import { SubscriberPage } from "./subscriber.page";
@@ -10,7 +10,7 @@ import { SubscriberPage } from "./subscriber.page";
  * List page
  * @description List page loads list of entities
  */
-export abstract class ListPage<TEntity extends Serializable, TMessage> extends SubscriberPage implements OnInit {
+export abstract class ListPage<TEntity extends Serializable, TMessage = string> extends SubscriberPage implements OnInit {
 
     /**
      * Constructor
