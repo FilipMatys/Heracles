@@ -332,7 +332,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
                     // Check if any items were found
                     if (!items || !items.length) {
                         // Do nothing
-                        return validation;
+                        return resolve(validation);
                     }
 
                     // Assign item
