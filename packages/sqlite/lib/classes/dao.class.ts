@@ -1,5 +1,6 @@
 // External modules
-import { IEntityDao, IQuery, Serializable, ISchema, PropertyType, IPopulate, IPropertyDefinition } from "@calf/serializable";
+import { Serializable, ISchema, PropertyType, IPropertyDefinition } from "@calf/serializable";
+import { IEntityDao, IQuery, IPopulate } from "@calf/common";
 import * as ObjectId from "bson-objectid";
 
 // Database

@@ -1,5 +1,6 @@
 // External modules
-import { IQuery, ISchema, IPropertyDefinition } from "@calf/serializable";
+import { ISchema, IPropertyDefinition } from "@calf/serializable";
+import { IQuery } from "@calf/common";
 
 // Parsers
 import { SQLiteParser } from "../parsers/sqlite.parser";

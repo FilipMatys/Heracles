@@ -114,7 +114,7 @@ export class SQLiteParser {
                 return this.safeInteger(value);
             // Mixed and embeded
             case PropertyType.MIXED:
-            case PropertyType.EMBEDED:
+            case PropertyType.EMBEDDED:
                 return this.safeObject(value);
             case PropertyType.REFERENCE:
                 return this.safeReference(value);
@@ -163,7 +163,7 @@ export class SQLiteParser {
                 return this.safeInteger(value);
             // Mixed and embedded
             case PropertyType.MIXED:
-            case PropertyType.EMBEDED:
+            case PropertyType.EMBEDDED:
                 // Check if value is set
                 if (!value) {
                     return 'null';
