@@ -117,7 +117,7 @@ export class FilterItem<TValue> {
                     }
 
                     // Assign data
-                    this.value = validation.data as TValue;
+                    Object.assign(this.value, validation.data as TValue);
                 });
         }
 
