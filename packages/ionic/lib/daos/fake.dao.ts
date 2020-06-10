@@ -1,5 +1,6 @@
 // External modules
-import { IEntityDao, Serializable, IQuery, IPopulate } from "@calf/serializable";
+import { Serializable } from "@calf/serializable";
+import { IQuery, IPopulate, IEntityDao } from "@calf/common";
 
 /**
  * Fake dao

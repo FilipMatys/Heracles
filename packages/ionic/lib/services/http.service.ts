@@ -1,6 +1,6 @@
 // External modules
-import { Serializable, IQuery } from "@calf/serializable";
-import { EntityService, ValidationResult, IQueryResult } from "@calf/common";
+import { Serializable } from "@calf/serializable";
+import { EntityService, ValidationResult, IQueryResult, IQuery } from "@calf/common";
 import { HTTP, HTTPResponse } from "@ionic-native/http/ngx";
 
 // Daos

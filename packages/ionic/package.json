@@ -1,6 +1,6 @@
 {
   "name": "@calf/ionic",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "description": "Ionic module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,15 +20,15 @@
   "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
   "license": "MIT",
   "peerDependencies": {
-    "@calf/serializable": "^0.0.9",
-    "@calf/common": "^0.0.9",
+    "@calf/common": "^0.2.1",
+    "@calf/serializable": "^0.2.0",
     "rxjs": "^6.0.0",
     "@ionic-native/core": "^5.19.1",
     "@ionic-native/http": "^5.19.1"
   },
   "devDependencies": {
-    "@calf/common": "^0.0.9",
-    "@calf/serializable": "0.0.9",
+    "@calf/common": "^0.2.1",
+    "@calf/serializable": "^0.2.0",
     "@ionic-native/core": "^5.19.1",
     "@ionic-native/http": "^5.19.1",
     "@types/chai": "^4.2.7",
