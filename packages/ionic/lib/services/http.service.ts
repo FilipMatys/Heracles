@@ -66,7 +66,10 @@ export abstract class HttpService<TEntity extends Serializable, TMessage = strin
             const response = await this.http.post([...this.prefix, "save"].join("/"), validation.data, headers);
 
             // Extract data
-            return this.extractData<TEntity>(response);
+            Object.assign(validation, this.extractData<TEntity>(response));
+
+            // Return validation
+            return validation;
         }
         catch (error) {
             // Handle error
@@ -93,7 +96,10 @@ export abstract class HttpService<TEntity extends Serializable, TMessage = strin
             const response = await this.http.post([...this.prefix, "list"].join("/"), query, headers);
 
             // Extract data
-            return this.extractData<IQueryResult<TEntity>>(response);
+            Object.assign(validation, this.extractData<IQueryResult<TEntity>>(response));
+
+            // Return validation
+            return validation;
         }
         catch (error) {
             // Handle error
@@ -127,7 +133,10 @@ export abstract class HttpService<TEntity extends Serializable, TMessage = strin
             const response = await this.http.post([...this.prefix, "get"].join("/"), validation.data, headers);
 
             // Extract data
-            return this.extractData<TEntity>(response);
+            Object.assign(validation, this.extractData<TEntity>(response));
+
+            // Return validation
+            return validation;
         }
         catch (error) {
             // Handle error
@@ -154,7 +163,10 @@ export abstract class HttpService<TEntity extends Serializable, TMessage = strin
             const response = await this.http.post([...this.prefix, "remove"].join("/"), query, headers);
         
             // Extract data
-            return this.extractData<TEntity>(response);
+            Object.assign(validation, this.extractData<TEntity>(response));
+
+            // Return validation
+            return validation;
         }
         catch (error) {
             // Handle error
