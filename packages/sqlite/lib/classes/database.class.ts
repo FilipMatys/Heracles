@@ -69,15 +69,15 @@ export class SQLiteDatabase {
     }
 
     /**
-     * Execute query
-     * @param query 
+     * Execute payload
+     * @param payload 
      * @param params 
      */
-    public static async execute<T>(query: string, params?: any): Promise<T> {
+    public static async execute<T>(payload: string | string[], params?: any): Promise<T> {
         // Try to execute query
         try {
             // Execute query
-            const result = await this.connection.execute<T>(query, params);
+            const result = await this.connection.execute<T>(payload, params);
 
             // Resolve
             return Promise.resolve(result);

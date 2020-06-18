@@ -9,11 +9,11 @@ export abstract class SQLiteConnection {
     public abstract connect(): Promise<void>;
 
     /**
-     * Execute query
-     * @param query 
+     * Execute
+     * @param payload 
      * @param params 
      */
-    public abstract execute<T>(query: string, params?: any): Promise<T>;
+    public abstract execute<T>(payload: string | string[], params?: any): Promise<T>;
 
     /**
      * Check if is connected
