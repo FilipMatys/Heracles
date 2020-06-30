@@ -2,9 +2,21 @@
 import { expect } from "chai";
 
 // Import library
-import { Property, PropertyType, Entity, Default, Required, Unique, Timestamp, SchemaParser } from "../lib/serializable";
+import { Property, PropertyType, Entity, Default, Required, Unique, Timestamp, SchemaParser, Extends } from "../lib/serializable";
+
+class Human {
+    @Property(PropertyType.DOUBLE)
+    public height: number = 0;
+}
+
+class Thing {
+
+    @Property(PropertyType.DOUBLE)
+    public weight: number = 0;
+}
 
 @Entity("Person")
+@Extends(Thing, Human)
 @Timestamp()
 class Person {
 

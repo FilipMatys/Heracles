@@ -5,6 +5,7 @@ import "reflect-metadata";
 import { ENTITY_METADATA_KEY } from "../symbols/entity.symbol";
 import { TIMESTAMP_METADATA_KEY } from "../symbols/timestamp.symbol";
 import { INDEXES_METADATA_KEY } from "../symbols/indexes.symbol";
+import { EXTENDS_METADATA_KEY } from "../symbols/extends.symbol";
 
 // Data
 import { IEntityDefinition } from "../interfaces/entity-definition.interface";
@@ -40,8 +41,11 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
         // Get indexes
         const indexes = this.getIndexes(target);
 
+        // Get extends
+        const lExtends = this.getExtends(target);
+
         // Merge definitions
-        return Object.assign<IEntityDefinition, IEntity, ITimestamp>({ indexes: indexes }, entity, timestamp);
+        return Object.assign<IEntityDefinition, IEntity, ITimestamp>({ indexes: indexes, extends: lExtends }, entity, timestamp);
     }
 
     /**
@@ -72,4 +76,13 @@ export class EntityParser extends BaseParser<IEntityDefinition> {
         // Get metadata
         return Reflect.getMetadata(INDEXES_METADATA_KEY, target) || [];
     }
+
+    /**
+     * Get extends
+     * @param target 
+     */
+    private getExtends(target: Object): (new () => any)[] {
+        // Get metadata
+        return Reflect.getMetadata(EXTENDS_METADATA_KEY, target) || [];
+    } 
 }

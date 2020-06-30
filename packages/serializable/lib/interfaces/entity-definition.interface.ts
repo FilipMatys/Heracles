@@ -6,4 +6,5 @@ import { IIndexes } from "./indexes.interface";
 // Entity definition interface
 export interface IEntityDefinition extends IEntity, ITimestamp {
     indexes?: IIndexes;
+    extends?: (new () => any)[];
 }

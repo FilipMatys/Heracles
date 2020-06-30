@@ -7,3 +7,4 @@ export * from "./timestamp.decorator";
 export * from "./array.decorator";
 export * from "./indexed.decorator";
 export * from "./indexes.decorator";
+export * from "./extends.decorator";

@@ -23,14 +23,35 @@ export class SchemaParser extends BaseParser<ISchema<IPropertyDefinition>> {
             properties: {}
         };
 
-        // Init parsers
+        // Init entity parser
         const eParser: EntityParser = new EntityParser();
-        const pParser: PropertyParser = new PropertyParser();
 
         // Get entity definition
         schema.entity = eParser.parse(target);
 
-        // Now we need to get target instance, otherwise we wont get access
+        // Check for extends
+        if (schema.entity && schema.entity.extends && schema.entity.extends.length) {
+            // Process each entity
+            schema.entity.extends.forEach((extend) => this.mapProperties(extend, schema));
+        }
+
+        // Map properties
+        this.mapProperties(target, schema);
+
+        // Return schema
+        return schema;
+    }
+
+    /**
+     * Map properties
+     * @param target 
+     * @param schema 
+     */
+    private mapProperties(target: new () => any, schema: ISchema<IPropertyDefinition>): void {
+        // Init property parser
+        const pParser: PropertyParser = new PropertyParser();
+
+        // Get target instance, otherwise we wont get access
         // to its properties
         const instance = new target();
         // And keep original
@@ -56,9 +77,6 @@ export class SchemaParser extends BaseParser<ISchema<IPropertyDefinition>> {
                 schema.properties[name] = pDefinition;
             }
         });
-
-        // Return schema
-        return schema;
     }
 
     /**
