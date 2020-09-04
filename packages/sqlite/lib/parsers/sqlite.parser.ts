@@ -260,7 +260,7 @@ export class SQLiteParser {
         const result: any[] = [];
 
         // Property is array, so we need to parse each value
-        (value as Array<any>).forEach((item) => {
+        (value as Array<any>).map((item) => {
             // Check type
             switch (definition.type) {
                 // Boolean
@@ -302,7 +302,7 @@ export class SQLiteParser {
                 default:
                     return item ? item : null;
             }
-        });
+        }).forEach((item) => result.push(item));
 
         // Stringify result
         return `'${JSON.stringify(result)}'`;
