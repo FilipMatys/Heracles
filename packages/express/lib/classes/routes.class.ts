@@ -1,7 +1,6 @@
 // External modules
 import { Router, NextFunction, Request, Response } from "express";
-import { EntityService, ValidationResult } from "@calf/common";
-import { IQuery } from "@calf/serializable";
+import { EntityService, ValidationResult, IQuery } from "@calf/common";
 
 /**
  * Routes
@@ -68,6 +67,32 @@ export abstract class Routes<TEntity, TMessage> {
             try {
                 // Save entity
                 const validation = await this.service.get(req.body as TEntity, [], ...this.extractSecondaryRequestData(req));
+
+                // Resolve validation
+                res.json(validation);
+            }
+            catch (e) {
+                // Handle route exception
+                const validation = await this.handleRouteException(e);
+
+                // Resolve validation
+                res.json(validation);
+            }
+        });
+    }
+
+    /**
+     * Create Single route
+     */
+    public createSingleRoute(): void {
+        // Make sure service is defined
+        this.ensureServiceDefinition();
+
+        // Get list route
+        this.router.post(["", ...this.prefix, "single"].join("/"), this.singleMiddleware(), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+            try {
+                // Save entity
+                const validation = await this.service.single(req.body as IQuery, ...this.extractSecondaryRequestData(req));
 
                 // Resolve validation
                 res.json(validation);
@@ -182,6 +207,13 @@ export abstract class Routes<TEntity, TMessage> {
      * Get middleware
      */
     protected getMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
+        return this.middleware();
+    }
+
+    /**
+     * Single middleware
+     */
+    protected singleMiddleware(): (req: Request, res: Response, next: NextFunction) => Promise<Response | void> | Response | void {
         return this.middleware();
     }
 
