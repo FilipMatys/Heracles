@@ -63,35 +63,35 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
             return this.handleSaveError(validation, error);
         }
     }
-
+    
     /**
     * Peri single hook
     * @param validation
     * @param query 
     * @param args 
     */
-   protected async periSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected async periSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
-    // First alter headers
-    const headers = await this.alterHeaders(this.httpOptions.headers);
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
 
-    try {
-        // Make request
-        const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "single"].join("/"), query, {
-            headers: headers
-        }).toPromise();
+        try {
+            // Make request
+            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "single"].join("/"), query, {
+                headers: headers
+            }).toPromise();
 
-        // Assign data to validation
-        Object.assign(validation, rValidation);
+            // Assign data to validation
+            Object.assign(validation, rValidation);
 
-        // Return validation
-        return validation;
+            // Return validation
+            return validation;
+        }
+        catch (error) {
+            // Handle error
+            return this.handleSingleError(validation, error);
+        }
     }
-    catch (error) {
-        // Handle error
-        return this.handleSingleError(validation, error);
-    }
-}
 
     /**
     * Peri get list hook

@@ -18,3 +18,5 @@ packages/angular/node_modules
 packages/angular/dist
 packages/ionic/node_modules
 packages/ionic/dist
+packages/helios/node_modules
+packages/helios/dist
