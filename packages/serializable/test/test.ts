@@ -28,6 +28,9 @@ class Person {
     @Property("name", PropertyType.TEXT)
     @Default<string>("Mr Smith")
     public name?: string = undefined;
+
+    @Property([PropertyType.TEXT])
+    public hobbies?: string[] = [];
 }
 
 // EXPORT TEST

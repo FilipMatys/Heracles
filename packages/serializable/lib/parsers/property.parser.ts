@@ -27,7 +27,7 @@ import { BaseParser } from "./base.parser";
 export class PropertyParser extends BaseParser<IPropertyDefinition> {
 
     /**
-     * Parse propery
+     * Parse property
      * @param target 
      * @param property 
      */
@@ -54,6 +54,15 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
 
         // Indexed
         const indexed = this.getIndexed(target, name);
+
+        // Check for property type definition
+        if (property.type instanceof Array) {
+            // Set array as true
+            array.isArray = true;
+
+            // Extract type
+            property.type = property.type[0];
+        }
 
         // Now merge those into one
         return Object.assign({}, property, lDefault, required, unique, array, indexed);
