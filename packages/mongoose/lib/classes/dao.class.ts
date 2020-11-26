@@ -1,7 +1,7 @@
 // External modules
 import { Serializable } from "@calf/serializable";
 import { IEntityDao, IQuery, IPopulate } from "@calf/common";
-import { Model, model, Schema } from "mongoose";
+import { Model, model, Schema, models } from "mongoose";
 
 // Parsers
 import { SchemaParser } from "../parsers/schema.parser";
@@ -38,7 +38,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         }
 
         // Create model
-        this.model = model(schema.entity.name, mSchema);
+        this.model = models[schema.entity.name] || model(schema.entity.name, mSchema);
     }
 
     /**
