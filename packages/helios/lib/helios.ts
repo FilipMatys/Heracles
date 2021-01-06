@@ -17,4 +17,5 @@ export * from "./interfaces/request-config.interface";
 export * from "./interfaces/result.interface";
 export * from "./interfaces/stream-result.interface";
 export * from "./interfaces/string-result.interface";
+export * from "./interfaces/run-params.interface";
 export * from "./services/execute.service";

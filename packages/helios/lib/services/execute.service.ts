@@ -6,6 +6,9 @@ import { IHeliosStringResult } from "../interfaces/string-result.interface";
 import { IHeliosRequestConfig } from "../interfaces/request-config.interface";
 import { IHeliosLoginParams } from "../interfaces/login-params.interface";
 import { IHeliosBooleanResult } from "../interfaces/boolean-result.interface";
+import { IHeliosDataSetResult } from "../interfaces/data-set-result.interface";
+import { IHeliosRunParams } from "../interfaces/run-params.interface";
+import { IHeliosResultFields } from "../interfaces/fields.interface";
 import { IHeliosParams } from "../interfaces/params.interface";
 import { IHeliosResult } from "../interfaces/result.interface";
 
@@ -16,7 +19,6 @@ import { HeliosRequestMethod } from "../constants/request-method.const";
 import { HeliosConfig } from "../classes/config.class";
 import { HeliosRequestPayload } from "../classes/request-payload.class";
 import { HeliosRuntime } from "../classes/runtime.class";
-import { IHeliosDataSetResult } from "../interfaces/data-set-result.interface";
 
 /**
  * Execute service
@@ -28,10 +30,22 @@ export class ExecuteService {
      * Login
      * @description Access or create runtime
      * @param runtime 
+     * @param params
      * @param config
      */
     public async login(runtime: HeliosRuntime, params: IHeliosLoginParams, config?: IHeliosRequestConfig): Promise<IHeliosStringResult> {
         return this.request(runtime, "Login", params, null, config);
+    }
+
+    /**
+     * Logout
+     * @description Close given runtime
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async logout(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosBooleanResult> {
+        return this.request(runtime, "Logout", params, null, config);
     }
 
     /**
@@ -52,7 +66,7 @@ export class ExecuteService {
      * @param config 
      */
     public async getVersion(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosStringResult> {
-        return this.request(runtime, "GetVersion", params, null, config);
+        return this.request(runtime, "GetEServerVersion", params, null, config);
     }
 
     /**
@@ -63,6 +77,36 @@ export class ExecuteService {
      */
     public async getDatabases(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
         return this.request(runtime, "GetDatabases", params, null, config);
+    }
+
+    /**
+     * Run procedure
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async runProcedure<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
+        return this.request(runtime, "RunHpx", params, null, config);
+    }
+
+    /**
+     * Run view
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async runView<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
+        return this.request(runtime, "RunHvw", params, null, config);
+    }
+
+    /**
+     * Run function
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async runFunction<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
+        return this.request(runtime, "RunHfx", params, null, config);
     }
 
     /**
@@ -266,7 +310,7 @@ export class ExecuteService {
      * Parse request config headers
      * @param headers
      */
-    private async parseRequestConfigHeaders(config: IHeliosRequestConfig = {}): Promise<{[key: string]: string}> {
+    private async parseRequestConfigHeaders(config: IHeliosRequestConfig = {}): Promise<{ [key: string]: string }> {
         // Init default headers
         const defaultHeaders = { "Content-type": "application/json" };
 
