@@ -11,17 +11,17 @@ export interface IHeliosResult<TFields = IHeliosResultFields> {
      * Type
      * @description Result type
      */
-    type?: string;
+    type: string;
 
     /**
      * Id
      * @description Not described field
      */
-    id?: number;
+    id: number;
 
     /**
      * Result fields
      * @description Fields of received result
      */
-    fields?: TFields;
+    fields: TFields;
 }

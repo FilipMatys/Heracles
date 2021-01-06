@@ -18,4 +18,5 @@ export * from "./interfaces/result.interface";
 export * from "./interfaces/stream-result.interface";
 export * from "./interfaces/string-result.interface";
 export * from "./interfaces/run-params.interface";
+export * from "./interfaces/change-database-params.interface";
 export * from "./services/execute.service";

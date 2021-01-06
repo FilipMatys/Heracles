@@ -7,36 +7,36 @@ export interface IHeliosResultFields<TResult = any> {
      * Version
      * @description Helios runtime version
      */
-    Version?: string;
+    Version: string;
 
     /**
      * Method
      * @description Name of the method 
      * that is returning the result
      */
-    Method?: string;
+    Method: string;
 
     /**
      * IsError
      * @description Error flag
      */
-    IsError?: boolean;
+    IsError: boolean;
 
     /**
      * ErrorMessage
      * @description Message describing the error
      */
-    ErrorMessage?: string;
+    ErrorMessage: string;
 
     /**
      * ResultType
      * @description Type of result
      */
-    ResultType?: string;
+    ResultType: string;
 
     /**
      * Result
      * @description Actual result value
      */
-    Result?: TResult;
+    Result: TResult;
 }

@@ -2,11 +2,13 @@
 import fetch, { Response } from "node-fetch";
 
 // Interfaces
+import { IHeliosChangeDatabaseParams } from "../interfaces/change-database-params.interface";
 import { IHeliosStringResult } from "../interfaces/string-result.interface";
 import { IHeliosRequestConfig } from "../interfaces/request-config.interface";
 import { IHeliosLoginParams } from "../interfaces/login-params.interface";
 import { IHeliosBooleanResult } from "../interfaces/boolean-result.interface";
 import { IHeliosDataSetResult } from "../interfaces/data-set-result.interface";
+import { IHeliosDialogResult } from "../interfaces/dialog-result.interface";
 import { IHeliosRunParams } from "../interfaces/run-params.interface";
 import { IHeliosResultFields } from "../interfaces/fields.interface";
 import { IHeliosParams } from "../interfaces/params.interface";
@@ -77,6 +79,16 @@ export class ExecuteService {
      */
     public async getDatabases(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
         return this.request(runtime, "GetDatabases", params, null, config);
+    }
+
+    /**
+     * Change database
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async changeDatabase(runtime: HeliosRuntime, params: IHeliosChangeDatabaseParams, config?: IHeliosRequestConfig): Promise<IHeliosDialogResult> {
+        return this.request(runtime, "ChangeDatabase", params, null, config);
     }
 
     /**

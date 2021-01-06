@@ -7,4 +7,4 @@ import { IHeliosResult } from "./result.interface";
  * Helios dialog result
  * @description Result bearing dialog result
  */
-export interface IHeliosDialogResult extends IHeliosResult<IHeliosResultFields<IHeliosDialog>> { }
+export interface IHeliosDialogResult extends IHeliosResult<IHeliosResultFields<IHeliosResult<IHeliosDialog>>> { }
