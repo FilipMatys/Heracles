@@ -135,6 +135,7 @@ export class HeliosConfig {
         this._defaultRequestMethod = config.defaultRequestMethod || HeliosRequestMethod.Get;
         this._defaultCustomHeaders = config.defaultCustomHeaders || {};
         this._ssl = !!config.ssl;
+        this._runtimeTimeout = config.runtimeTimeout;
     }
 
     /**
