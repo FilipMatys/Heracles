@@ -95,11 +95,24 @@ export class HeliosConfig {
     }
 
     /**
+     * Runtime timeout
+     * @description Timeout of runtime in ms
+     */
+    public static get runtimeTimeout(): number {
+        // Ensure initialization
+        this.ensureInitialization();
+
+        // Return value
+        return this._instance._runtimeTimeout;
+    }
+
+    /**
      * Instance
      * @description Configuration instance
      */
     private static _instance: HeliosConfig;
 
+    // Properties
     private _host: string;
     private _hostPath: string;
     private _port: number;
@@ -107,6 +120,7 @@ export class HeliosConfig {
     private _defaultCustomHeaders: { [key: string]: string };
     private _version: string;
     private _ssl: boolean;
+    private _runtimeTimeout: number;
 
     /**
      * Constructor

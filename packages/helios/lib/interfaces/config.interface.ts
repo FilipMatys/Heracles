@@ -48,4 +48,10 @@ export interface IHeliosConfig {
      * @description Whether to use SSL
      */
     ssl?: boolean;
+
+    /**
+     * Runtime timeout
+     * @default Timeout of runtime in ms
+     */
+    runtimeTimeout: number;
 }

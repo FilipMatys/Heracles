@@ -1,29 +1,29 @@
 interface IDataSetTable {
-    fieldcount?: number;
-    fields?: IDataSetTableField[];
-    recordcount?: number;
-    rows?: IDataSetTableRow[];
+    fieldcount: number;
+    fields: IDataSetTableField[];
+    recordcount: number;
+    rows: IDataSetTableRow[];
 }
 
 interface IDataSetTableField {
-    Name?: string;
-    DisplayName?: string;
-    DataType?: string;
-    Size?: number;
-    Precision?: number;
-    Required?: boolean;
-    Attributes?: string[];
+    Name: string;
+    DisplayName: string;
+    DataType: string;
+    Size: number;
+    Precision: number;
+    Required: boolean;
+    Attributes: string[];
 }
 
 interface IDataSetTableRow extends Array<IDataSetTableRowField> { }
 
 interface IDataSetTableRowField {
-    FieldName?: string;
-    DisplayLabel?: string;
-    DisplayWidth?: number;
-    Value?: string | boolean | number;
-    DisplayFormat?: string;
-    Visible?: boolean;
+    FieldName: string;
+    DisplayLabel: string;
+    DisplayWidth: number;
+    Value: string | boolean | number;
+    DisplayFormat: string;
+    Visible: boolean;
 }
 
 /**
@@ -31,5 +31,5 @@ interface IDataSetTableRowField {
  * @description Data set type
  */
 export interface IHeliosDataSet {
-    table?: IDataSetTable;
+    table: IDataSetTable;
 }

@@ -10,4 +10,10 @@ export class HeliosRuntime {
      * to identify runtime
      */
     public hash?: string;
+
+    /**
+     * Expires at
+     * @description 
+     */
+    public expiresAt?: Date;
 }
