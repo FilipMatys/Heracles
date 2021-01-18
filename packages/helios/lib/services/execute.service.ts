@@ -140,7 +140,7 @@ export class ExecuteService {
      * @param params 
      * @param config 
      */
-    public async runView<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
+    public async runView(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
         return this.request(runtime, "RunHvw", params, null, config);
     }
 
