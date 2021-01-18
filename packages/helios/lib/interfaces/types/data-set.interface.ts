@@ -21,7 +21,7 @@ interface IDataSetTableRowField {
     FieldName: string;
     DisplayLabel: string;
     DisplayWidth: number;
-    Value: string | boolean | number;
+    Value: string;
     DisplayFormat: string;
     Visible: boolean;
 }

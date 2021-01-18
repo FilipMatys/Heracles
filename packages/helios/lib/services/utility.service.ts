@@ -1,6 +1,9 @@
 // Interfaces
 import { IHeliosDataSet } from "../interfaces/types/data-set.interface";
 
+// Enums
+import { HeliosDataType } from "../enums/data-type.enum";
+
 /**
  * Utility service
  * @description Utility methods
@@ -30,7 +33,13 @@ export class UtilityService {
             const entity: any = {};
 
             // Map fields
-            row.forEach((field) => entity[field.FieldName] = field.Value);
+            row.forEach((field, index) => {
+                // Get field definition
+                const fieldDefinition = dataSet.table.fields[index];
+
+                // Assign parsed value
+                entity[field.FieldName] = this.parseValueFromHelios(field.Value, fieldDefinition.DataType);
+            });
 
             // Add entity to list
             entities.push(entity);
@@ -38,5 +47,33 @@ export class UtilityService {
 
         // Return entities
         return entities;
+    }
+
+    /**
+     * Parse value from helios
+     * @param value 
+     * @param type Helios field type
+     */
+    private parseValueFromHelios(value: string, type: string): any {
+        // Check data type
+        switch (type) {
+            // Integer
+            case HeliosDataType.INTEGER:
+                // Parse integer
+                return value ? parseInt(value) : undefined;
+
+            // Float
+            case HeliosDataType.FLOAT:
+                // Parse float
+                return value ? parseFloat(value) : undefined;
+
+            // Boolean
+            case HeliosDataType.BOOLEAN:
+                return value === 'True';
+
+            // Default 'parser'
+            default:
+                return value;
+        }
     }
 }
