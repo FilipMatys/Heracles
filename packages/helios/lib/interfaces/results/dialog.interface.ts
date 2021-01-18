@@ -1,6 +1,6 @@
 // Interfaces
-import { IHeliosDialog } from "./dialog.interface";
-import { IHeliosResultFields } from "./fields.interface";
+import { IHeliosDialog } from "../types/dialog.interface";
+import { IHeliosResultFields } from "../fields.interface";
 import { IHeliosResult } from "./result.interface";
 
 /**

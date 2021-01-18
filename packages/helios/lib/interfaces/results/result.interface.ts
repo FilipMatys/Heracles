@@ -1,5 +1,5 @@
 // Interfaces
-import { IHeliosResultFields } from "./fields.interface";
+import { IHeliosResultFields } from "../fields.interface";
 
 /**
  * Helios result

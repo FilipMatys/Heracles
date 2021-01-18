@@ -1,6 +1,6 @@
 // Interfaces
-import { IHeliosBrowse } from "./browse.interface";
-import { IHeliosResultFields } from "./fields.interface";
+import { IHeliosBrowse } from "../types/browse.interface";
+import { IHeliosResultFields } from "../fields.interface";
 import { IHeliosResult } from "./result.interface";
 
 /**

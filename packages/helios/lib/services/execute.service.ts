@@ -2,17 +2,17 @@
 import fetch, { Response } from "node-fetch";
 
 // Interfaces
-import { IHeliosChangeDatabaseParams } from "../interfaces/change-database-params.interface";
-import { IHeliosStringResult } from "../interfaces/string-result.interface";
-import { IHeliosRequestConfig } from "../interfaces/request-config.interface";
-import { IHeliosLoginParams } from "../interfaces/login-params.interface";
-import { IHeliosBooleanResult } from "../interfaces/boolean-result.interface";
-import { IHeliosDataSetResult } from "../interfaces/data-set-result.interface";
-import { IHeliosDialogResult } from "../interfaces/dialog-result.interface";
-import { IHeliosRunParams } from "../interfaces/run-params.interface";
+import { IHeliosChangeDatabaseParams } from "../interfaces/params/change-database.interface";
+import { IHeliosStringResult } from "../interfaces/results/string.interface";
+import { IHeliosRequestConfig } from "../interfaces/configs/request.interface";
+import { IHeliosLoginParams } from "../interfaces/params/login.interface";
+import { IHeliosBooleanResult } from "../interfaces/results/boolean.interface";
+import { IHeliosDataSetResult } from "../interfaces/results/data-set.interface";
+import { IHeliosDialogResult } from "../interfaces/results/dialog.interface";
+import { IHeliosRunParams } from "../interfaces/params/run.interface";
 import { IHeliosResultFields } from "../interfaces/fields.interface";
-import { IHeliosParams } from "../interfaces/params.interface";
-import { IHeliosResult } from "../interfaces/result.interface";
+import { IHeliosParams } from "../interfaces/params/params.interface";
+import { IHeliosResult } from "../interfaces/results/result.interface";
 
 // Constants
 import { HeliosRequestMethod } from "../constants/request-method.const";
@@ -21,6 +21,7 @@ import { HeliosRequestMethod } from "../constants/request-method.const";
 import { HeliosConfig } from "../classes/config.class";
 import { HeliosRequestPayload } from "../classes/request-payload.class";
 import { HeliosRuntime } from "../classes/runtime.class";
+import { IHeliosGetBrowseParams } from "../interfaces/params/get-browse.interface";
 
 /**
  * Execute service
@@ -72,6 +73,26 @@ export class ExecuteService {
     }
 
     /**
+     * Get main tree
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async getMainTree(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
+        return this.request(runtime, "GetMainTree", params, null, config);
+    }
+
+    /**
+     * Get navigation tree
+     * @param runtime 
+     * @param params 
+     * @param config 
+     */
+    public async getNavigationTree(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
+        return this.request(runtime, "GetNavigationTree", params, null, config);
+    }
+
+    /**
      * Get databases
      * @param runtime 
      * @param params 
@@ -79,6 +100,17 @@ export class ExecuteService {
      */
     public async getDatabases(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
         return this.request(runtime, "GetDatabases", params, null, config);
+    }
+
+    /**
+     * Get browse
+     * @param runtime 
+     * @param params 
+     * @param response 
+     * @param config 
+     */
+    public async getBrowse(runtime: HeliosRuntime, params: IHeliosGetBrowseParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosResult<any>> {
+        return this.request(runtime, "GetBrowse", params, response, config);
     }
 
     /**
@@ -107,7 +139,7 @@ export class ExecuteService {
      * @param params 
      * @param config 
      */
-    public async runView<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
+    public async runView<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosDataSetResult> {
         return this.request(runtime, "RunHvw", params, null, config);
     }
 

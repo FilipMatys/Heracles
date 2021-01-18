@@ -1,5 +1,5 @@
 // Interfaces
-import { IHeliosConfig } from "../interfaces/config.interface";
+import { IHeliosConfig } from "../interfaces/configs/config.interface";
 
 // Constants
 import { HeliosRequestMethod } from "../constants/request-method.const";

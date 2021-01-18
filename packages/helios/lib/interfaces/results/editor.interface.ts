@@ -1,6 +1,6 @@
 // Interfaces
-import { IHeliosEditor } from "./editor.interface";
-import { IHeliosResultFields } from "./fields.interface";
+import { IHeliosEditor } from "../types/editor.interface";
+import { IHeliosResultFields } from "../fields.interface";
 import { IHeliosResult } from "./result.interface";
 
 /**

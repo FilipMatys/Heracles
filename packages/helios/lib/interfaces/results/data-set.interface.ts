@@ -1,6 +1,6 @@
 // Interfaces
-import { IHeliosDataSet } from "./data-set.interface";
-import { IHeliosResultFields } from "./fields.interface";
+import { IHeliosDataSet } from "../types/data-set.interface";
+import { IHeliosResultFields } from "../fields.interface";
 import { IHeliosResult } from "./result.interface";
 
 /**

@@ -1,5 +1,5 @@
 // Interfaces
-import { IHeliosDataSet } from "../interfaces/data-set.interface";
+import { IHeliosDataSet } from "../interfaces/types/data-set.interface";
 
 /**
  * Utility service

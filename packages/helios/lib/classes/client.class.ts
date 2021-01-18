@@ -1,5 +1,5 @@
 // Interfaces
-import { IHeliosConfig } from "../interfaces/config.interface";
+import { IHeliosConfig } from "../interfaces/configs/config.interface";
 
 // Services
 import { ExecuteService } from "../services/execute.service";
