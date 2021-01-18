@@ -2,9 +2,10 @@
 import fetch, { Response } from "node-fetch";
 
 // Interfaces
+import { IHeliosGetBrowseSpecialParams } from "../interfaces/params/get-browse-special.interface";
+import { IHeliosChangeDatabaseParams } from "../interfaces/params/change-database.interface";
 import { IHeliosGetBrowseParams } from "../interfaces/params/get-browse.interface";
 import { IHeliosBrowseResult } from "../interfaces/results/browse.interface";
-import { IHeliosChangeDatabaseParams } from "../interfaces/params/change-database.interface";
 import { IHeliosStringResult } from "../interfaces/results/string.interface";
 import { IHeliosRequestConfig } from "../interfaces/configs/request.interface";
 import { IHeliosLoginParams } from "../interfaces/params/login.interface";
@@ -112,6 +113,17 @@ export class ExecuteService {
      */
     public async getBrowse(runtime: HeliosRuntime, params: IHeliosGetBrowseParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosBrowseResult> {
         return this.request(runtime, "GetBrowse", params, response, config);
+    }
+
+    /**
+     * Get browse
+     * @param runtime 
+     * @param params 
+     * @param response 
+     * @param config 
+     */
+    public async getBrowseSpecial(runtime: HeliosRuntime, params: IHeliosGetBrowseSpecialParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosBrowseResult> {
+        return this.request(runtime, "GetBrowseSpecial", params, response, config);
     }
 
     /**
