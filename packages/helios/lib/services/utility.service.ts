@@ -54,7 +54,7 @@ export class UtilityService {
      * @param value 
      * @param type Helios field type
      */
-    private parseValueFromHelios(value: string, type: string): any {
+    public parseValueFromHelios(value: string, type: string): any {
         // Check data type
         switch (type) {
             // Integer
