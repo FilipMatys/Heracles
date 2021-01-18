@@ -8,7 +8,7 @@ export class HeliosProcedure {
     private constructor() {}
 
     // Set prefixes
-    private static readonly PREFIXES: string[] = ["dbo.hpx", "ASOL", "API"];
+    private static readonly PREFIXES: string[] = ["hpx", "ASOL", "API"];
 
     /**
      * Companies
