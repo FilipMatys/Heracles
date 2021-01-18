@@ -7,7 +7,6 @@ import { IHeliosDataSet } from "../interfaces/types/data-set.interface";
  */
 export class UtilityService {
 
-
     /**
      * Map data set to entities
      * @param dataSet 

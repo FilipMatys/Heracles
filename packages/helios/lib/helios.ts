@@ -20,4 +20,7 @@ export * from "./interfaces/results/string.interface";
 export * from "./interfaces/params/run.interface";
 export * from "./interfaces/params/change-database.interface";
 export * from "./interfaces/params/get-browse.interface";
+export * from "./interfaces/entities/entity.interface";
+export * from "./interfaces/entities/navigation-tree.interface";
+export * from "./interfaces/entities/database.interface";
 export * from "./services/execute.service";
