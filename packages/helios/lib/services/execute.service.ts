@@ -60,7 +60,7 @@ export class ExecuteService {
      * @param config 
      */
     public async isStarted(runtime: HeliosRuntime, params: IHeliosParams, config?: IHeliosRequestConfig): Promise<IHeliosBooleanResult> {
-        return this.request(runtime, "isStarted", params, null, config);
+        return this.request(runtime, "IsStarted", params, null, config);
     }
 
     /**
