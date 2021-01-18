@@ -7,4 +7,4 @@ import { IHeliosResult } from "./result.interface";
  * Helios browse result
  * @description Result bearing browse result
  */
-export interface IHeliosBrowseResult extends IHeliosResult<IHeliosResultFields<IHeliosBrowse>> { }
+export interface IHeliosBrowseResult extends IHeliosResult<IHeliosResultFields<IHeliosResult<IHeliosBrowse>>> { }

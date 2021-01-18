@@ -7,6 +7,6 @@ import { IHeliosParams } from "./params.interface";
 export interface IHeliosGetBrowseParams extends IHeliosParams {
     BrowseName?: string;
     OrderBy?: string;
-    MaxPocet?: number;
     Where?: string;
+    MaxPocet?: number;
 }

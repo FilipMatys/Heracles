@@ -2,6 +2,8 @@
 import fetch, { Response } from "node-fetch";
 
 // Interfaces
+import { IHeliosGetBrowseParams } from "../interfaces/params/get-browse.interface";
+import { IHeliosBrowseResult } from "../interfaces/results/browse.interface";
 import { IHeliosChangeDatabaseParams } from "../interfaces/params/change-database.interface";
 import { IHeliosStringResult } from "../interfaces/results/string.interface";
 import { IHeliosRequestConfig } from "../interfaces/configs/request.interface";
@@ -21,7 +23,6 @@ import { HeliosRequestMethod } from "../constants/request-method.const";
 import { HeliosConfig } from "../classes/config.class";
 import { HeliosRequestPayload } from "../classes/request-payload.class";
 import { HeliosRuntime } from "../classes/runtime.class";
-import { IHeliosGetBrowseParams } from "../interfaces/params/get-browse.interface";
 
 /**
  * Execute service
@@ -109,7 +110,7 @@ export class ExecuteService {
      * @param response 
      * @param config 
      */
-    public async getBrowse(runtime: HeliosRuntime, params: IHeliosGetBrowseParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosResult<any>> {
+    public async getBrowse(runtime: HeliosRuntime, params: IHeliosGetBrowseParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosBrowseResult> {
         return this.request(runtime, "GetBrowse", params, response, config);
     }
 
