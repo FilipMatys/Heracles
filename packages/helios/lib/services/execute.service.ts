@@ -1,5 +1,7 @@
 // External modules
 import fetch, { Response } from "node-fetch";
+import { Observable, Subject } from "rxjs";
+import { filter } from "rxjs/operators";
 
 // Interfaces
 import { IHeliosGetBrowseSpecialParams } from "../interfaces/params/get-browse-special.interface";
@@ -30,6 +32,19 @@ import { HeliosRuntime } from "../classes/runtime.class";
  * @description Service for executing methods
  */
 export class ExecuteService {
+
+    // Result observable
+    private readonly resultSource: Subject<IHeliosResult> = new Subject<IHeliosResult>();
+    public readonly result$: Observable<IHeliosResult> = this.resultSource.asObservable();
+
+    /**
+     * Observe communication
+     * @param method 
+     */
+    public observe(): Observable<IHeliosResult> {
+        // Return result source as observable
+        return this.result$;
+    }
 
     /**
      * Login
@@ -174,26 +189,37 @@ export class ExecuteService {
      * @param params 
      * @param response 
      */
-    private async request<TParams extends IHeliosParams, TResponse, TResult extends IHeliosResult>(runtime: HeliosRuntime, method: string, params?: TParams, response?: TResponse, config?: IHeliosRequestConfig): Promise<TResult> {
+    public async request<TParams extends IHeliosParams, TResponse, TResult extends IHeliosResult>(runtime: HeliosRuntime, method: string, params?: TParams, response?: TResponse, config?: IHeliosRequestConfig): Promise<TResult> {
         // Parse config
         const rConfig = await this.parseRequestConfig(config);
+
+        // Init result
+        let result: TResult;
 
         // Check for request method
         switch (rConfig.method) {
             // Get method
             case HeliosRequestMethod.Get:
                 // Execute get method
-                return this.get<TParams, TResponse, TResult>(runtime, method, params, response, config);
+                result = await this.get<TParams, TResponse, TResult>(runtime, method, params, response, config);
+                break;
 
             // Post method
             case HeliosRequestMethod.Post:
                 // Execute post method
-                return this.post<TParams, TResponse, TResult>(runtime, method, params, response, config);
+                result = await this.post<TParams, TResponse, TResult>(runtime, method, params, response, config);
+                break;
 
             // Unknown
             default:
                 throw new Error(`[@calf/helios@ExecuteService]: Invalid request method: '${rConfig.method}'. Only '${HeliosRequestMethod.Get}' and '${HeliosRequestMethod.Post}' are valid values. Use of 'HeliosRequestMethod' is recommended.`);
         }
+
+        // Emit result
+        this.resultSource.next(result);
+
+        // Return result
+        return result;
     }
 
     /**
