@@ -1,7 +1,6 @@
 // External modules
 import fetch, { Response } from "node-fetch";
 import { Observable, Subject } from "rxjs";
-import { filter } from "rxjs/operators";
 
 // Interfaces
 import { IHeliosGetBrowseSpecialParams } from "../interfaces/params/get-browse-special.interface";

@@ -3,6 +3,7 @@ import { IHeliosConfig } from "../interfaces/configs/config.interface";
 
 // Services
 import { ExecuteService } from "../services/execute.service";
+import { EServerService } from "../services/server.service";
 import { UtilityService } from "../services/utility.service";
 
 // Classes
@@ -12,6 +13,12 @@ import { HeliosConfig } from "./config.class";
  * Helios client
  */
 export class HeliosClient {
+
+    /**
+     * eServer
+     * @description eServer service
+     */
+    private static _eServer: EServerService = new EServerService();
 
     /**
      * Execute
@@ -24,6 +31,15 @@ export class HeliosClient {
      * @description Utility service
      */
     private static _utility: UtilityService = new UtilityService();
+
+    /**
+     * eServer
+     * @description eServer service
+     */
+    public static get EServer(): EServerService {
+        // Get service instance
+        return this._eServer;
+    }
 
     /**
      * Execute
