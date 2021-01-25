@@ -11,7 +11,7 @@ export class HeliosRuntime {
      * Create runtime
      * @param hash 
      */
-    public static create(hash: string): HeliosRuntime {
+    public static create(hash?: string): HeliosRuntime {
         // Create runtime instance
         return new this(hash);
     }
@@ -63,9 +63,12 @@ export class HeliosRuntime {
      * Constructor
      * @param hash 
      */
-    private constructor(hash: string) {
-        // Assign hash
-        this._hash = hash;
+    private constructor(hash?: string) {
+        // Check if hash is set
+        if (hash) {
+            // Assign hash
+            this._hash = hash;
+        }
 
         // Init created at and updated at
         this._createdAt = new Date();

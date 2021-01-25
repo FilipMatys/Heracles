@@ -24,6 +24,7 @@ export * from "./interfaces/params/get-browse.interface";
 export * from "./interfaces/entities/entity.interface";
 export * from "./interfaces/entities/navigation-tree.interface";
 export * from "./interfaces/entities/database.interface";
+export * from "./services/request.service";
 export * from "./enums/data-type.enum";
 export * from "./enums/procedure.enum";
 export * from "./enums/view.enum";
