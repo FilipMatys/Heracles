@@ -9,4 +9,7 @@ export interface IHeliosGetBrowseParams extends IHeliosParams {
     OrderBy?: string;
     Where?: string;
     MaxPocet?: number;
+    stSelect?: string;
+    stWhere?: string;
+    stOrderBy?: string;
 }
