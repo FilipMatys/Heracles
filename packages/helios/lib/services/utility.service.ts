@@ -67,6 +67,10 @@ export class UtilityService {
                 // Parse float
                 return value ? parseFloat(value) : undefined;
 
+            // DateTime
+            case HeliosDataType.DATE_TIME:
+                return value ? this.parseDateTimeFromHelios(value) : undefined;
+
             // Boolean
             case HeliosDataType.BOOLEAN:
                 return value === 'True';
@@ -75,5 +79,46 @@ export class UtilityService {
             default:
                 return value;
         }
+    }
+
+    /**
+     * Parse date time from Helios
+     * @param value 
+     */
+    public parseDateTimeFromHelios(value: string): Date {
+        // Split value into date and time
+        const [date, time] = value.split(" ");
+
+        // Now split date
+        const [day, month, year] = date.split(".");
+
+        // Now split time
+        const [hours, minutes, seconds] = time.split(":");
+
+        // Return date
+        return new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes), Number(seconds));
+    }
+
+    /**
+     * Parse date to helios
+     * @param value
+     */
+    public parseDateToHelios(value: Date): string {
+        // Create date part
+        const date = [
+            `${value.getDate()}`.padStart(2, "0"),
+            `${value.getMonth() + 1}`.padStart(2, "0"),
+            `${value.getFullYear()}`
+        ].join(".");
+
+        // Create time part
+        const time = [
+            `${value.getHours()}`.padStart(2, "0"),
+            `${value.getMinutes()}`.padStart(2, "0"),
+            `${value.getSeconds()}`.padStart(2, "0")
+        ].join(":");
+
+        // Return date and time
+        return [date, time].join(" ");
     }
 }
