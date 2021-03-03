@@ -295,7 +295,7 @@ export abstract class RequestService {
      */
     protected async parseRequestConfig(config: IHeliosRequestConfig = {}): Promise<IHeliosRequestConfig> {
         // Init default config
-        const defaultConfig: IHeliosRequestConfig = { method: HeliosRequestMethod.Get };
+        const defaultConfig: IHeliosRequestConfig = { method: HeliosConfig.defaultRequestMethod };
 
         // Return config
         return Object.assign<IHeliosRequestConfig, IHeliosRequestConfig, IHeliosRequestConfig>({}, defaultConfig, config);
