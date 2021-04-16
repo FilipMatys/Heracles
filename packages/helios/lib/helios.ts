@@ -1,3 +1,4 @@
+// General module
 export * from "./classes/client.class";
 export * from "./classes/config.class";
 export * from "./classes/runtime.class";
@@ -26,5 +27,9 @@ export * from "./interfaces/entities/navigation-tree.interface";
 export * from "./interfaces/entities/database.interface";
 export * from "./services/request.service";
 export * from "./enums/data-type.enum";
-export * from "./enums/procedure.enum";
 export * from "./enums/view.enum";
+
+// Procedure module
+export * from "./modules/procedure/classes/procedures.class";
+export * from "./modules/procedure/enums/action-type.enum";
+export * from "./modules/procedure/enums/result-select.enum";
