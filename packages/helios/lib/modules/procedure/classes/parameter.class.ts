@@ -81,6 +81,10 @@ export class HeliosProcedureParameter<TValue> {
 
             // Check type
             switch (this.type) {
+                // Bit (boolean)
+                case HeliosProcedureParameterType.BIT:
+                    return `${this.value ? 1 : 0}`;
+
                 // Date
                 case HeliosProcedureParameterType.DATETIME:
                     // Parse date
@@ -119,7 +123,6 @@ export class HeliosProcedureParameter<TValue> {
         // Check type
         switch (this.type) {
             // Number types
-            case HeliosProcedureParameterType.BIT:
             case HeliosProcedureParameterType.FLOAT:
             case HeliosProcedureParameterType.INT:
             case HeliosProcedureParameterType.NUMERIC:
@@ -127,6 +130,12 @@ export class HeliosProcedureParameter<TValue> {
             case HeliosProcedureParameterType.TINYINT:
                 // Set number value
                 this.value = Number(value) as any;
+                break;
+
+            // Bit (boolean)
+            case HeliosProcedureParameterType.BIT:
+                // Set value
+                this.value = !!value as any;
                 break;
 
             // Date time

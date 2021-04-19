@@ -10,7 +10,6 @@ import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
  * @description Parameters for merchandise management transactions procedure
  */
 export class HeliosMerchandiseManagementTransactionsProcedureParameters extends HeliosProcedureParameters {
-
     protected iDZboSklad: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("IDZboSklad", HeliosProcedureParameterType.INT);
     public get IDZboSklad(): number | undefined | null { return this.iDZboSklad.Value; };
     public set IDZboSklad(value: number | undefined | null) { this.iDZboSklad.Value = value; };
@@ -87,13 +86,13 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     public get Kolik(): number | undefined | null { return this.kolik.Value; };
     public set Kolik(value: number | undefined | null) { this.kolik.Value = value; };
 
-    protected povolitDuplicitu: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("PovolitDuplicitu", HeliosProcedureParameterType.BIT);
-    public get PovolitDuplicitu(): number | undefined | null { return this.povolitDuplicitu.Value; };
-    public set PovolitDuplicitu(value: number | undefined | null) { this.povolitDuplicitu.Value = value; };
+    protected povolitDuplicitu: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("PovolitDuplicitu", HeliosProcedureParameterType.BIT);
+    public get PovolitDuplicitu(): boolean | undefined | null { return this.povolitDuplicitu.Value; };
+    public set PovolitDuplicitu(value: boolean | undefined | null) { this.povolitDuplicitu.Value = value; };
 
-    protected povolitBlokovane: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("PovolitBlokovane", HeliosProcedureParameterType.BIT);
-    public get PovolitBlokovane(): number | undefined | null { return this.povolitBlokovane.Value; };
-    public set PovolitBlokovane(value: number | undefined | null) { this.povolitBlokovane.Value = value; };
+    protected povolitBlokovane: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("PovolitBlokovane", HeliosProcedureParameterType.BIT);
+    public get PovolitBlokovane(): boolean | undefined | null { return this.povolitBlokovane.Value; };
+    public set PovolitBlokovane(value: boolean | undefined | null) { this.povolitBlokovane.Value = value; };
 
     protected mnozstvi: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("Mnozstvi", HeliosProcedureParameterType.NUMERIC);
     public get Mnozstvi(): number | undefined | null { return this.mnozstvi.Value; };
@@ -107,13 +106,13 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     public get VstupniCenaProPrepocet(): number | undefined | null { return this.vstupniCenaProPrepocet.Value; };
     public set VstupniCenaProPrepocet(value: number | undefined | null) { this.vstupniCenaProPrepocet.Value = value; };
 
-    protected dotahovatZHlavicky: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("DotahovatZHlavicky", HeliosProcedureParameterType.BIT);
-    public get DotahovatZHlavicky(): number | undefined | null { return this.dotahovatZHlavicky.Value; };
-    public set DotahovatZHlavicky(value: number | undefined | null) { this.dotahovatZHlavicky.Value = value; };
+    protected dotahovatZHlavicky: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("DotahovatZHlavicky", HeliosProcedureParameterType.BIT);
+    public get DotahovatZHlavicky(): boolean | undefined | null { return this.dotahovatZHlavicky.Value; };
+    public set DotahovatZHlavicky(value: boolean | undefined | null) { this.dotahovatZHlavicky.Value = value; };
 
-    protected dotahovatSazby: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("DotahovatSazby", HeliosProcedureParameterType.BIT);
-    public get DotahovatSazby(): number | undefined | null { return this.dotahovatSazby.Value; };
-    public set DotahovatSazby(value: number | undefined | null) { this.dotahovatSazby.Value = value; };
+    protected dotahovatSazby: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("DotahovatSazby", HeliosProcedureParameterType.BIT);
+    public get DotahovatSazby(): boolean | undefined | null { return this.dotahovatSazby.Value; };
+    public set DotahovatSazby(value: boolean | undefined | null) { this.dotahovatSazby.Value = value; };
 
     protected slevaDokladu: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("SlevaDokladu", HeliosProcedureParameterType.NUMERIC);
     public get SlevaDokladu(): number | undefined | null { return this.slevaDokladu.Value; };
@@ -123,9 +122,9 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     public get Nabidka(): number | undefined | null { return this.nabidka.Value; };
     public set Nabidka(value: number | undefined | null) { this.nabidka.Value = value; };
 
-    protected hlidanoProOrg: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("HlidanoProOrg", HeliosProcedureParameterType.BIT);
-    public get HlidanoProOrg(): number | undefined | null { return this.hlidanoProOrg.Value; };
-    public set HlidanoProOrg(value: number | undefined | null) { this.hlidanoProOrg.Value = value; };
+    protected hlidanoProOrg: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("HlidanoProOrg", HeliosProcedureParameterType.BIT);
+    public get HlidanoProOrg(): boolean | undefined | null { return this.hlidanoProOrg.Value; };
+    public set HlidanoProOrg(value: boolean | undefined | null) { this.hlidanoProOrg.Value = value; };
 
     protected orgProCeny: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("OrgProCeny", HeliosProcedureParameterType.INT);
     public get OrgProCeny(): number | undefined | null { return this.orgProCeny.Value; };
@@ -359,13 +358,13 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     public get TypVyrobnihoDokladu(): number | undefined | null { return this.typVyrobnihoDokladu.Value; };
     public set TypVyrobnihoDokladu(value: number | undefined | null) { this.typVyrobnihoDokladu.Value = value; };
 
-    protected kJKontrolovat: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("KJKontrolovat", HeliosProcedureParameterType.BIT);
-    public get KJKontrolovat(): number | undefined | null { return this.kJKontrolovat.Value; };
-    public set KJKontrolovat(value: number | undefined | null) { this.kJKontrolovat.Value = value; };
+    protected kJKontrolovat: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("KJKontrolovat", HeliosProcedureParameterType.BIT);
+    public get KJKontrolovat(): boolean | undefined | null { return this.kJKontrolovat.Value; };
+    public set KJKontrolovat(value: boolean | undefined | null) { this.kJKontrolovat.Value = value; };
 
-    protected kJSkontrolovano: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("KJSkontrolovano", HeliosProcedureParameterType.BIT);
-    public get KJSkontrolovano(): number | undefined | null { return this.kJSkontrolovano.Value; };
-    public set KJSkontrolovano(value: number | undefined | null) { this.kJSkontrolovano.Value = value; };
+    protected kJSkontrolovano: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("KJSkontrolovano", HeliosProcedureParameterType.BIT);
+    public get KJSkontrolovano(): boolean | undefined | null { return this.kJSkontrolovano.Value; };
+    public set KJSkontrolovano(value: boolean | undefined | null) { this.kJSkontrolovano.Value = value; };
 
     protected pocetZmetku: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("PocetZmetku", HeliosProcedureParameterType.NUMERIC);
     public get PocetZmetku(): number | undefined | null { return this.pocetZmetku.Value; };
@@ -387,9 +386,9 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     public get IdUmisteni(): number | undefined | null { return this.idUmisteni.Value; };
     public set IdUmisteni(value: number | undefined | null) { this.idUmisteni.Value = value; };
 
-    protected zamknoutCenu: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("ZamknoutCenu", HeliosProcedureParameterType.BIT);
-    public get ZamknoutCenu(): number | undefined | null { return this.zamknoutCenu.Value; };
-    public set ZamknoutCenu(value: number | undefined | null) { this.zamknoutCenu.Value = value; };
+    protected zamknoutCenu: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("ZamknoutCenu", HeliosProcedureParameterType.BIT);
+    public get ZamknoutCenu(): boolean | undefined | null { return this.zamknoutCenu.Value; };
+    public set ZamknoutCenu(value: boolean | undefined | null) { this.zamknoutCenu.Value = value; };
 
     protected sazbaDPHproPDP: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("SazbaDPHproPDP", HeliosProcedureParameterType.NUMERIC);
     public get SazbaDPHproPDP(): number | undefined | null { return this.sazbaDPHproPDP.Value; };
@@ -446,4 +445,6 @@ export class HeliosMerchandiseManagementTransactionsProcedureParameters extends 
     protected dPHZadanaRucne: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("DPHZadanaRucne", HeliosProcedureParameterType.NUMERIC);
     public get DPHZadanaRucne(): number | undefined | null { return this.dPHZadanaRucne.Value; };
     public set DPHZadanaRucne(value: number | undefined | null) { this.dPHZadanaRucne.Value = value; };
+
+
 }

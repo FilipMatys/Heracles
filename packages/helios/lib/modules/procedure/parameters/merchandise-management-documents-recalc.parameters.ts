@@ -10,12 +10,12 @@ import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
  * @description Parameters for merchandise management documents procedure
  */
 export class HeliosMerchandiseManagementDocumentsRecalcProcedureParameters extends HeliosProcedureParameters {
-    
+
     protected iDDoklad: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("IDDoklad", HeliosProcedureParameterType.INT,);
     public get IDDoklad(): number | undefined | null { return this.iDDoklad.Value; };
     public set IDDoklad(value: number | undefined | null) { this.iDDoklad.Value = value; };
 
-    protected aktualizaceSlev: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("AktualizaceSlev", HeliosProcedureParameterType.BIT);
-    public get AktualizaceSlev(): number | undefined | null { return this.aktualizaceSlev.Value; };
-    public set AktualizaceSlev(value: number | undefined | null) { this.aktualizaceSlev.Value = value; };
+    protected aktualizaceSlev: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("AktualizaceSlev", HeliosProcedureParameterType.BIT);
+    public get AktualizaceSlev(): boolean | undefined | null { return this.aktualizaceSlev.Value; };
+    public set AktualizaceSlev(value: boolean | undefined | null) { this.aktualizaceSlev.Value = value; };
 }

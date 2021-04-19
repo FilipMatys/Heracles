@@ -10,7 +10,6 @@ import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
  * @description Parameters for custom order documents procedure
  */
 export class HeliosCustomOrdersDocumentsProcedureParameters extends HeliosProcedureParameters {
-
     protected rada: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("Rada", HeliosProcedureParameterType.NVARCHAR);
     public get Rada(): string | undefined | null { return this.rada.Value; };
     public set Rada(value: string | undefined | null) { this.rada.Value = value; };
@@ -99,9 +98,9 @@ export class HeliosCustomOrdersDocumentsProcedureParameters extends HeliosProced
     public get ZaokrouhleniVal(): number | undefined | null { return this.zaokrouhleniVal.Value; };
     public set ZaokrouhleniVal(value: number | undefined | null) { this.zaokrouhleniVal.Value = value; };
 
-    protected koeficientDPH: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("KoeficientDPH", HeliosProcedureParameterType.BIT);
-    public get KoeficientDPH(): undefined | undefined | null { return this.koeficientDPH.Value; };
-    public set KoeficientDPH(value: undefined | undefined | null) { this.koeficientDPH.Value = value; };
+    protected koeficientDPH: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("KoeficientDPH", HeliosProcedureParameterType.BIT);
+    public get KoeficientDPH(): boolean | undefined | null { return this.koeficientDPH.Value; };
+    public set KoeficientDPH(value: boolean | undefined | null) { this.koeficientDPH.Value = value; };
 
     protected hlaPoziceZaokrDPH: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("HlaPoziceZaokrDPH", HeliosProcedureParameterType.TINYINT);
     public get HlaPoziceZaokrDPH(): number | undefined | null { return this.hlaPoziceZaokrDPH.Value; };
@@ -215,9 +214,9 @@ export class HeliosCustomOrdersDocumentsProcedureParameters extends HeliosProced
     public get CastkaRPTCM(): number | undefined | null { return this.castkaRPTCM.Value; };
     public set CastkaRPTCM(value: number | undefined | null) { this.castkaRPTCM.Value = value; };
 
-    protected ptru: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("PTRU", HeliosProcedureParameterType.BIT);
-    public get PTRU(): undefined | undefined | null { return this.ptru.Value; };
-    public set PTRU(value: undefined | undefined | null) { this.ptru.Value = value; };
+    protected ptru: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("PTRU", HeliosProcedureParameterType.BIT);
+    public get PTRU(): boolean | undefined | null { return this.ptru.Value; };
+    public set PTRU(value: boolean | undefined | null) { this.ptru.Value = value; };
 
     protected pTRUCastka: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("PTRUCastka", HeliosProcedureParameterType.NUMERIC);
     public get PTRUCastka(): number | undefined | null { return this.pTRUCastka.Value; };
@@ -227,9 +226,9 @@ export class HeliosCustomOrdersDocumentsProcedureParameters extends HeliosProced
     public get PTRUCastkaCM(): number | undefined | null { return this.pTRUCastkaCM.Value; };
     public set PTRUCastkaCM(value: number | undefined | null) { this.pTRUCastkaCM.Value = value; };
 
-    protected splneno: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("Splneno", HeliosProcedureParameterType.BIT);
-    public get Splneno(): undefined | undefined | null { return this.splneno.Value; };
-    public set Splneno(value: undefined | undefined | null) { this.splneno.Value = value; };
+    protected splneno: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("Splneno", HeliosProcedureParameterType.BIT);
+    public get Splneno(): boolean | undefined | null { return this.splneno.Value; };
+    public set Splneno(value: boolean | undefined | null) { this.splneno.Value = value; };
 
     protected sazbaDPH: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("SazbaDPH", HeliosProcedureParameterType.NUMERIC);
     public get SazbaDPH(): number | undefined | null { return this.sazbaDPH.Value; };

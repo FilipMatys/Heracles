@@ -67,9 +67,9 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get DIC(): string | undefined | null { return this.dic.Value; };
     public set DIC(value: string | undefined | null) { this.dic.Value = value; };
 
-    protected dicsk: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("DICsk", HeliosProcedureParameterType.NVARCHAR);
-    public get DICsk(): string | undefined | null { return this.dicsk.Value; };
-    public set DICsk(value: string | undefined | null) { this.dicsk.Value = value; };
+    protected dICsk: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("DICsk", HeliosProcedureParameterType.NVARCHAR);
+    public get DICsk(): string | undefined | null { return this.dICsk.Value; };
+    public set DICsk(value: string | undefined | null) { this.dICsk.Value = value; };
 
     protected lhutaSplatnosti: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("LhutaSplatnosti", HeliosProcedureParameterType.SMALLINT);
     public get LhutaSplatnosti(): number | undefined | null { return this.lhutaSplatnosti.Value; };
@@ -119,17 +119,17 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get FormaUhrady(): string | undefined | null { return this.formaUhrady.Value; };
     public set FormaUhrady(value: string | undefined | null) { this.formaUhrady.Value = value; };
 
-    protected jeOdberatel: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("JeOdberatel", HeliosProcedureParameterType.BIT);
-    public get JeOdberatel(): undefined | undefined | null { return this.jeOdberatel.Value; };
-    public set JeOdberatel(value: undefined | undefined | null) { this.jeOdberatel.Value = value; };
+    protected jeOdberatel: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("JeOdberatel", HeliosProcedureParameterType.BIT);
+    public get JeOdberatel(): boolean | undefined | null { return this.jeOdberatel.Value; };
+    public set JeOdberatel(value: boolean | undefined | null) { this.jeOdberatel.Value = value; };
 
-    protected jeDodavatel: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("JeDodavatel", HeliosProcedureParameterType.BIT);
-    public get JeDodavatel(): undefined | undefined | null { return this.jeDodavatel.Value; };
-    public set JeDodavatel(value: undefined | undefined | null) { this.jeDodavatel.Value = value; };
+    protected jeDodavatel: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("JeDodavatel", HeliosProcedureParameterType.BIT);
+    public get JeDodavatel(): boolean | undefined | null { return this.jeDodavatel.Value; };
+    public set JeDodavatel(value: boolean | undefined | null) { this.jeDodavatel.Value = value; };
 
-    protected vernostniProgram: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("VernostniProgram", HeliosProcedureParameterType.BIT);
-    public get VernostniProgram(): undefined | undefined | null { return this.vernostniProgram.Value; };
-    public set VernostniProgram(value: undefined | undefined | null) { this.vernostniProgram.Value = value; };
+    protected vernostniProgram: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("VernostniProgram", HeliosProcedureParameterType.BIT);
+    public get VernostniProgram(): boolean | undefined | null { return this.vernostniProgram.Value; };
+    public set VernostniProgram(value: boolean | undefined | null) { this.vernostniProgram.Value = value; };
 
     protected odpOs: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("OdpOs", HeliosProcedureParameterType.INT);
     public get OdpOs(): number | undefined | null { return this.odpOs.Value; };
@@ -147,17 +147,17 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get Mena(): string | undefined | null { return this.mena.Value; };
     public set Mena(value: string | undefined | null) { this.mena.Value = value; };
 
-    protected fakturacni: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("Fakturacni", HeliosProcedureParameterType.BIT);
-    public get Fakturacni(): undefined | undefined | null { return this.fakturacni.Value; };
-    public set Fakturacni(value: undefined | undefined | null) { this.fakturacni.Value = value; };
+    protected fakturacni: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("Fakturacni", HeliosProcedureParameterType.BIT);
+    public get Fakturacni(): boolean | undefined | null { return this.fakturacni.Value; };
+    public set Fakturacni(value: boolean | undefined | null) { this.fakturacni.Value = value; };
 
-    protected mU: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("MU", HeliosProcedureParameterType.BIT);
-    public get MU(): undefined | undefined | null { return this.mU.Value; };
-    public set MU(value: undefined | undefined | null) { this.mU.Value = value; };
+    protected mu: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("MU", HeliosProcedureParameterType.BIT);
+    public get MU(): boolean | undefined | null { return this.mu.Value; };
+    public set MU(value: boolean | undefined | null) { this.mu.Value = value; };
 
-    protected prijemce: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("Prijemce", HeliosProcedureParameterType.BIT);
-    public get Prijemce(): undefined | undefined | null { return this.prijemce.Value; };
-    public set Prijemce(value: undefined | undefined | null) { this.prijemce.Value = value; };
+    protected prijemce: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("Prijemce", HeliosProcedureParameterType.BIT);
+    public get Prijemce(): boolean | undefined | null { return this.prijemce.Value; };
+    public set Prijemce(value: boolean | undefined | null) { this.prijemce.Value = value; };
 
     protected iDBankSpojeni: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("IDBankSpojeni", HeliosProcedureParameterType.INT);
     public get IDBankSpojeni(): number | undefined | null { return this.iDBankSpojeni.Value; };
@@ -179,9 +179,9 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get Kredit(): number | undefined | null { return this.kredit.Value; };
     public set Kredit(value: number | undefined | null) { this.kredit.Value = value; };
 
-    protected plneniBezDPH: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("PlneniBezDPH", HeliosProcedureParameterType.BIT);
-    public get PlneniBezDPH(): undefined | undefined | null { return this.plneniBezDPH.Value; };
-    public set PlneniBezDPH(value: undefined | undefined | null) { this.plneniBezDPH.Value = value; };
+    protected plneniBezDPH: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("PlneniBezDPH", HeliosProcedureParameterType.BIT);
+    public get PlneniBezDPH(): boolean | undefined | null { return this.plneniBezDPH.Value; };
+    public set PlneniBezDPH(value: boolean | undefined | null) { this.plneniBezDPH.Value = value; };
 
     protected jazyk: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("Jazyk", HeliosProcedureParameterType.NVARCHAR);
     public get Jazyk(): string | undefined | null { return this.jazyk.Value; };
@@ -267,9 +267,9 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get Partner(): string | undefined | null { return this.partner.Value; };
     public set Partner(value: string | undefined | null) { this.partner.Value = value; };
 
-    protected platceDPH: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("PlatceDPH", HeliosProcedureParameterType.BIT);
-    public get PlatceDPH(): undefined | undefined | null { return this.platceDPH.Value; };
-    public set PlatceDPH(value: undefined | undefined | null) { this.platceDPH.Value = value; };
+    protected platceDPH: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("PlatceDPH", HeliosProcedureParameterType.BIT);
+    public get PlatceDPH(): boolean | undefined | null { return this.platceDPH.Value; };
+    public set PlatceDPH(value: boolean | undefined | null) { this.platceDPH.Value = value; };
 
     protected iDSOZExpirace: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("IDSOZExpirace", HeliosProcedureParameterType.INT);
     public get IDSOZExpirace(): number | undefined | null { return this.iDSOZExpirace.Value; };
@@ -295,13 +295,13 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     public get NespolehPlatce(): number | undefined | null { return this.nespolehPlatce.Value; };
     public set NespolehPlatce(value: number | undefined | null) { this.nespolehPlatce.Value = value; };
 
-    protected aktZWebuNespolehPlatce: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("AktZWebuNespolehPlatce", HeliosProcedureParameterType.BIT);
-    public get AktZWebuNespolehPlatce(): undefined | undefined | null { return this.aktZWebuNespolehPlatce.Value; };
-    public set AktZWebuNespolehPlatce(value: undefined | undefined | null) { this.aktZWebuNespolehPlatce.Value = value; };
+    protected aktZWebuNespolehPlatce: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("AktZWebuNespolehPlatce", HeliosProcedureParameterType.BIT);
+    public get AktZWebuNespolehPlatce(): boolean | undefined | null { return this.aktZWebuNespolehPlatce.Value; };
+    public set AktZWebuNespolehPlatce(value: boolean | undefined | null) { this.aktZWebuNespolehPlatce.Value = value; };
 
-    protected aktZWebuZverejBankUcty: HeliosProcedureParameter<undefined> = new HeliosProcedureParameter<undefined>("AktZWebuZverejBankUcty", HeliosProcedureParameterType.BIT);
-    public get AktZWebuZverejBankUcty(): undefined | undefined | null { return this.aktZWebuZverejBankUcty.Value; };
-    public set AktZWebuZverejBankUcty(value: undefined | undefined | null) { this.aktZWebuZverejBankUcty.Value = value; };
+    protected aktZWebuZverejBankUcty: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("AktZWebuZverejBankUcty", HeliosProcedureParameterType.BIT);
+    public get AktZWebuZverejBankUcty(): boolean | undefined | null { return this.aktZWebuZverejBankUcty.Value; };
+    public set AktZWebuZverejBankUcty(value: boolean | undefined | null) { this.aktZWebuZverejBankUcty.Value = value; };
 
     protected datZverejNespolehPlatce: HeliosProcedureParameter<Date> = new HeliosProcedureParameter<Date>("DatZverejNespolehPlatce", HeliosProcedureParameterType.DATETIME);
     public get DatZverejNespolehPlatce(): Date | undefined | null { return this.datZverejNespolehPlatce.Value; };
@@ -326,4 +326,5 @@ export class HeliosCompaniesProcedureParameters extends HeliosProcedureParameter
     protected lhutaSplatnostiDodavatel: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("LhutaSplatnostiDodavatel", HeliosProcedureParameterType.SMALLINT);
     public get LhutaSplatnostiDodavatel(): number | undefined | null { return this.lhutaSplatnostiDodavatel.Value; };
     public set LhutaSplatnostiDodavatel(value: number | undefined | null) { this.lhutaSplatnostiDodavatel.Value = value; };
+
 }

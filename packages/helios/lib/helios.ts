@@ -30,6 +30,9 @@ export * from "./enums/data-type.enum";
 export * from "./enums/view.enum";
 
 // Procedure module
-export * from "./modules/procedure/classes/procedures.class";
 export * from "./modules/procedure/enums/action-type.enum";
 export * from "./modules/procedure/enums/result-select.enum";
+export * from "./modules/procedure/classes/procedures.class";
+export * from "./modules/procedure/classes/procedure.class";
+export * from "./modules/procedure/classes/parameter.class";
+export * from "./modules/procedure/classes/parameters.class";

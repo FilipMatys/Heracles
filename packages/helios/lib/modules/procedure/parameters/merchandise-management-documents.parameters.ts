@@ -243,9 +243,9 @@ export class HeliosMerchandiseManagementDocumentsProcedureParameters extends Hel
     public get NavaznaObjednavka(): string | undefined | null { return this.navaznaObjednavka.Value; };
     public set NavaznaObjednavka(value: string | undefined | null) { this.navaznaObjednavka.Value = value; };
 
-    protected splneno: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("Splneno", HeliosProcedureParameterType.BIT);
-    public get Splneno(): number | undefined | null { return this.splneno.Value; };
-    public set Splneno(value: number | undefined | null) { this.splneno.Value = value; };
+    protected splneno: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("Splneno", HeliosProcedureParameterType.BIT);
+    public get Splneno(): boolean | undefined | null { return this.splneno.Value; };
+    public set Splneno(value: boolean | undefined | null) { this.splneno.Value = value; };
 
     protected datumMixu: HeliosProcedureParameter<Date> = new HeliosProcedureParameter<Date>("DatumMixu", HeliosProcedureParameterType.DATETIME);
     public get DatumMixu(): Date | undefined | null { return this.datumMixu.Value; };
@@ -331,17 +331,17 @@ export class HeliosMerchandiseManagementDocumentsProcedureParameters extends Hel
     public get Rezim(): string | undefined | null { return this.rezim.Value; };
     public set Rezim(value: string | undefined | null) { this.rezim.Value = value; };
 
-    protected cscd: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("CSCD", HeliosProcedureParameterType.BIT);
-    public get CSCD(): number | undefined | null { return this.cscd.Value; };
-    public set CSCD(value: number | undefined | null) { this.cscd.Value = value; };
+    protected cscd: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("CSCD", HeliosProcedureParameterType.BIT);
+    public get CSCD(): boolean | undefined | null { return this.cscd.Value; };
+    public set CSCD(value: boolean | undefined | null) { this.cscd.Value = value; };
 
     protected zaokrDPHMalaCisla: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("ZaokrDPHMalaCisla", HeliosProcedureParameterType.TINYINT);
     public get ZaokrDPHMalaCisla(): number | undefined | null { return this.zaokrDPHMalaCisla.Value; };
     public set ZaokrDPHMalaCisla(value: number | undefined | null) { this.zaokrDPHMalaCisla.Value = value; };
 
-    protected realizacniFak: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("RealizacniFak", HeliosProcedureParameterType.BIT);
-    public get RealizacniFak(): number | undefined | null { return this.realizacniFak.Value; };
-    public set RealizacniFak(value: number | undefined | null) { this.realizacniFak.Value = value; };
+    protected realizacniFak: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("RealizacniFak", HeliosProcedureParameterType.BIT);
+    public get RealizacniFak(): boolean | undefined | null { return this.realizacniFak.Value; };
+    public set RealizacniFak(value: boolean | undefined | null) { this.realizacniFak.Value = value; };
 
     protected datumDoruceni: HeliosProcedureParameter<Date> = new HeliosProcedureParameter<Date>("DatumDoruceni", HeliosProcedureParameterType.DATETIME);
     public get DatumDoruceni(): Date | undefined | null { return this.datumDoruceni.Value; };
@@ -367,21 +367,19 @@ export class HeliosMerchandiseManagementDocumentsProcedureParameters extends Hel
     public get SpecifickySymbol(): string | undefined | null { return this.specifickySymbol.Value; };
     public set SpecifickySymbol(value: string | undefined | null) { this.specifickySymbol.Value = value; };
 
-    protected jeToZaloha: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("JeToZaloha", HeliosProcedureParameterType.BIT);
-    public get JeToZaloha(): number | undefined | null { return this.jeToZaloha.Value; };
-    public set JeToZaloha(value: number | undefined | null) { this.jeToZaloha.Value = value; };
+    protected jeToZaloha: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("JeToZaloha", HeliosProcedureParameterType.BIT);
+    public get JeToZaloha(): boolean | undefined | null { return this.jeToZaloha.Value; };
+    public set JeToZaloha(value: boolean | undefined | null) { this.jeToZaloha.Value = value; };
 
     protected dodFakKV: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("DodFakKV", HeliosProcedureParameterType.NVARCHAR);
     public get DodFakKV(): string | undefined | null { return this.dodFakKV.Value; };
     public set DodFakKV(value: string | undefined | null) { this.dodFakKV.Value = value; };
 
-    protected opravnyDoklad: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("OpravnyDoklad", HeliosProcedureParameterType.BIT);
-    public get OpravnyDoklad(): number | undefined | null { return this.opravnyDoklad.Value; };
-    public set OpravnyDoklad(value: number | undefined | null) { this.opravnyDoklad.Value = value; };
+    protected opravnyDoklad: HeliosProcedureParameter<boolean> = new HeliosProcedureParameter<boolean>("OpravnyDoklad", HeliosProcedureParameterType.BIT);
+    public get OpravnyDoklad(): boolean | undefined | null { return this.opravnyDoklad.Value; };
+    public set OpravnyDoklad(value: boolean | undefined | null) { this.opravnyDoklad.Value = value; };
 
     protected zdrojCisKV: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("ZdrojCisKV", HeliosProcedureParameterType.TINYINT);
     public get ZdrojCisKV(): number | undefined | null { return this.zdrojCisKV.Value; };
     public set ZdrojCisKV(value: number | undefined | null) { this.zdrojCisKV.Value = value; };
-
-
 }
