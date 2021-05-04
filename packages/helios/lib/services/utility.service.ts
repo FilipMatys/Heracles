@@ -92,6 +92,12 @@ export class UtilityService {
         // Now split date
         const [day, month, year] = date.split(".");
 
+        // Check if time is set
+        if (!time) {
+            // Return date without time
+            return new Date(Number(year), Number(month) - 1, Number(day));
+        }
+
         // Now split time
         const [hours, minutes, seconds] = time.split(":");
 
