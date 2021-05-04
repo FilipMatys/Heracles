@@ -20,3 +20,5 @@ packages/ionic/node_modules
 packages/ionic/dist
 packages/helios/node_modules
 packages/helios/dist
+packages/ecomail/node_modules
+packages/ecomail/dist

@@ -1,7 +1,7 @@
 {
-  "name": "@calf/helios",
-  "version": "0.0.12-alpha",
-  "description": "Helios module of Calf framework.",
+  "name": "@calf/ecomail",
+  "version": "0.0.1",
+  "description": "Ecomail module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,17 +15,14 @@
   "keywords": [
     "calf",
     "framework",
-    "helios"
+    "ecomail"
   ],
   "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
   "license": "MIT",
-  "peerDependencies": {
-    "rxjs": "^6.6.3"
-  },
   "devDependencies": {
     "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.5",
-    "@types/node-fetch": "^2.5.7",
+    "@types/node-fetch": "^2.5.10",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "rxjs": "^6.6.3",
