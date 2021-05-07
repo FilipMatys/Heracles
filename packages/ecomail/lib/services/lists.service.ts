@@ -1,10 +1,12 @@
 // Interfaces
 import { IList } from "../interfaces/list.interface";
 import { ICallbackFn } from "../interfaces/callback.interface";
+import { ISubscriber } from "../interfaces/subscriber.interface";
+import { ISubscribePayload } from "../interfaces/subscribe-payload.interface";
+import { ISubscriberResponse } from "../interfaces/subscriber-response.interface";
 
 // Services
 import { RequestService } from "./request.service";
-import { ISubscriber } from "../interfaces/subscriber.interface";
 
 /**
  * Lists service
@@ -25,7 +27,7 @@ export class ListsService extends RequestService {
      */
     public async list(callback?: ICallbackFn<IList[]>): Promise<IList[]> {
         // Make get request
-        return this.get(this.base, null, callback);
+        return this.get([...this.base], null, callback);
     }
 
     /**
@@ -36,7 +38,7 @@ export class ListsService extends RequestService {
      */
     public async create(list: IList, callback?: ICallbackFn<IList>): Promise<IList> {
         // Make post request
-        return this.post(this.base, list, callback);
+        return this.post([...this.base], list, callback);
     }
 
     /**
@@ -80,8 +82,32 @@ export class ListsService extends RequestService {
      * @param subscriber Needs to have email defined
      * @param callback 
      */
-    public async subscriber<TCustomFields>(list: IList, subscriber: ISubscriber<TCustomFields>, callback?: ICallbackFn<any>): Promise<any> {
+    public async subscriber<TCustomFields>(list: IList, subscriber: ISubscriber<TCustomFields>, callback?: ICallbackFn<ISubscriberResponse<TCustomFields>>): Promise<ISubscriberResponse<TCustomFields>> {
         // Make get request
         return this.get([...this.base, `${list.id}`, "subscribers", `${subscriber.email}`], null, callback);
+    }
+
+    /**
+     * Subscribe
+     * @description Subscribe to list
+     * @param list Needs to have id defined
+     * @param payload 
+     * @param callback 
+     */
+    public async subscribe<TCustomFields>(list: IList, payload: ISubscribePayload<TCustomFields>, callback?: ICallbackFn<any>): Promise<any> {
+        // Make get request
+        return this.post([...this.base, `${list.id}`, `subscribe${payload.subscriber_data instanceof Array ? "-bulk" : ''}`], payload, callback);
+    }
+
+    /**
+     * Unsubscribe
+     * @description Unsubscribe from list
+     * @param list Needs to have id defined
+     * @param subscriber Need to have email defined 
+     * @param callback 
+     */
+    public async unsubscribe(list: IList, subscriber: ISubscriber<any>, callback?: ICallbackFn<any>): Promise<any> {
+        // Make delete request
+        return this.delete([...this.base, `${list.id}`, "unsubscribe"], subscriber, callback);
     }
 }

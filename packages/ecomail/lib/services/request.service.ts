@@ -39,10 +39,10 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    public async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult> {
         try {
             // Create new url
-            const url = new URL(this.host, path.join("/"));
+            const url = new URL([this.host, ...path].join("/"));
 
             // Check for params
             if (params) {
@@ -83,16 +83,59 @@ export class RequestService {
     }
 
     /**
+     * Delete
+     * @description Make get request
+     * @param path 
+     * @param payload 
+     * @param callback
+     */
+    protected async delete<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+        try {
+            // Create new url
+            const url = new URL([this.host, ...path].join("/"));
+
+            // Make delete request
+            const response = await fetch(url, {
+                // Set method
+                method: "delete",
+                // Set body 
+                body: JSON.stringify(payload),
+                // Set headers
+                headers: {
+                    "Content-type": "application/json",
+                    "key": `${this.key}`
+                }
+            });
+
+            // Get result
+            const result = await response.json() as TResult;
+
+            // Check for callback
+            callback && callback(undefined, response, result);
+
+            // Return result
+            return result;
+        }
+        catch (error) {
+            // Check for callback
+            callback && callback(error, undefined, undefined);
+
+            // Rethrow error
+            throw error;
+        }
+    }
+
+    /**
      * Post
      * @description Make post request
      * @param path 
      * @param payload 
      * @param callback
      */
-    public async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
         try {
             // Create new url
-            const url = new URL(this.host, path.join("/"));
+            const url = new URL([this.host, ...path].join("/"));
 
             // Make post request
             const response = await fetch(url, {
@@ -132,10 +175,10 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    public async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
         try {
             // Create new url
-            const url = new URL(this.host, path.join("/"));
+            const url = new URL([this.host, ...path].join("/"));
 
             // Make put request
             const response = await fetch(url, {

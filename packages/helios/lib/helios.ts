@@ -10,6 +10,7 @@ export * from "./interfaces/results/boolean.interface";
 export * from "./interfaces/results/browse.interface";
 export * from "./interfaces/configs/config.interface";
 export * from "./interfaces/results/dialog.interface";
+export * from "./interfaces/results/data-set.interface";
 export * from "./interfaces/fields.interface";
 export * from "./interfaces/results/integer.interface";
 export * from "./interfaces/params/login.interface";
@@ -32,6 +33,7 @@ export * from "./enums/view.enum";
 // Procedure module
 export * from "./modules/procedure/enums/action-type.enum";
 export * from "./modules/procedure/enums/result-select.enum";
+export * from "./modules/procedure/enums/parameter-type.enum";
 export * from "./modules/procedure/classes/procedures.class";
 export * from "./modules/procedure/classes/procedure.class";
 export * from "./modules/procedure/classes/parameter.class";

@@ -2,7 +2,7 @@
 import { HeliosProcedureParameter } from "./parameter.class";
 
 // Enums
-import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
+import { HeliosProcedureParameterType } from "../enums/parameter-type.enum";
 import { HeliosProcedureActionType } from "../enums/action-type.enum";
 import { HeliosProcedureResultSelect } from "../enums/result-select.enum";
 
@@ -48,7 +48,7 @@ export class HeliosProcedureParameters {
      * ResultSELECT
      * @description Procedure result select
      */
-    protected resultSelect: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("ResultSELECT", HeliosProcedureParameterType.BIT, HeliosProcedureResultSelect.STANDARD);
+    protected resultSelect: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("ResultSELECT", HeliosProcedureParameterType.BIT, HeliosProcedureResultSelect.SELECT);
     public get ResultSELECT(): number | undefined | null { return this.resultSelect.Value; };
     public set ResultSELECT(value: number | undefined | null) { this.resultSelect.Value = value };
 

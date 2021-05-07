@@ -3,7 +3,7 @@ import { HeliosProcedureParameter } from "../classes/parameter.class";
 import { HeliosProcedureParameters } from "../classes/parameters.class";
 
 // Enums
-import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
+import { HeliosProcedureParameterType } from "../enums/parameter-type.enum";
 
 /**
  * Helios custom order documents procedure parameters

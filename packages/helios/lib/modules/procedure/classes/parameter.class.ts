@@ -2,7 +2,7 @@
 import { HeliosClient } from "../../../classes/client.class";
 
 // Enums
-import { HeliosProcedureParameterType } from "../enums/paremeter-type.enum";
+import { HeliosProcedureParameterType } from "../enums/parameter-type.enum";
 
 /**
  * Helios procedure param
