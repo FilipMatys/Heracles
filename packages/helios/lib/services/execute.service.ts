@@ -1,6 +1,7 @@
 // Interfaces
 import { IHeliosGetBrowseSpecialParams } from "../interfaces/params/get-browse-special.interface";
 import { IHeliosChangeDatabaseParams } from "../interfaces/params/change-database.interface";
+import { IHeliosExternalActionParams } from "../interfaces/params/external-action.interface";
 import { IHeliosGetBrowseParams } from "../interfaces/params/get-browse.interface";
 import { IHeliosBrowseResult } from "../interfaces/results/browse.interface";
 import { IHeliosStringResult } from "../interfaces/results/string.interface";
@@ -155,6 +156,18 @@ export class ExecuteService extends RequestService {
      */
     public async runFunction<TResult>(runtime: HeliosRuntime, params: IHeliosRunParams, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
         return this.request(runtime, "RunHfx", params, null, config);
+    }
+
+    /**
+     * Run external action
+     * @param runtime 
+     * @param params 
+     * @param response
+     * @param config 
+     * @returns 
+     */
+    public async runExternalAction<TResult>(runtime: HeliosRuntime, params: IHeliosExternalActionParams, response: any, config?: IHeliosRequestConfig): Promise<IHeliosResult<IHeliosResultFields<TResult>>> {
+        return this.request(runtime, "RunExternalAction", params, response, config);
     }
 
     /**

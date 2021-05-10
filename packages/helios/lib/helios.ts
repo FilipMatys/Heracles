@@ -16,6 +16,7 @@ export * from "./interfaces/results/integer.interface";
 export * from "./interfaces/params/login.interface";
 export * from "./interfaces/params/params.interface";
 export * from "./interfaces/params/get-browse-special.interface";
+export * from "./interfaces/params/external-action.interface";
 export * from "./interfaces/configs/request.interface";
 export * from "./interfaces/results/result.interface";
 export * from "./interfaces/results/stream.interface";
