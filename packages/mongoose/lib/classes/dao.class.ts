@@ -143,7 +143,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         query = query || {};
 
         // Get count
-        return await this.model.count(query.filter || {}).exec();
+        return await this.model.countDocuments(query.filter || {}).exec();
     }
 
     /**
@@ -156,7 +156,14 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         // Make sure query is set
         query = query || {};
 
-        // Get count
-        return await this.model.updateMany(query.filter || {}, { $set: payload }, options || {}).exec();
+        // Check for options and multi
+        if (options && options.multi) {
+            // Update many
+            return await this.model.updateMany(query.filter || {}, { $set: payload }, options || {}).exec();
+        }
+        else {
+            // Update one
+            return await this.model.updateOne(query.filter || {}, { $set: payload }, options || {}).exec();
+        }
     }
 }
