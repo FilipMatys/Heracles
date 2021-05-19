@@ -62,6 +62,9 @@ export class FilterItem<TValue> {
             // Date
             case FilterType.DATE:
                 return (<Date>(this.value as any)).toISOString();
+            // Boolean
+            case FilterType.BOOLEAN:
+                return this.value ? 1 : 0;
             // All other
             case FilterType.NUMBER:
             case FilterType.TEXT:
@@ -95,6 +98,8 @@ export class FilterItem<TValue> {
             case FilterType.DATE:
                 (<Date>(this.value as any)) = new Date(params.pop());
                 break;
+            case FilterType.BOOLEAN:
+                (<boolean>(this.value as any)) = !!Number(params.pop());
             // Array
             case FilterType.ARRAY:
                 (<any[]>(this.value as any)) = params;

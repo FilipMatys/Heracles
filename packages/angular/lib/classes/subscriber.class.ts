@@ -25,7 +25,7 @@ export class Subscriber {
      * @param name 
      */
     protected unregister(name: string): void {
-        // Unsubsribe subscription
+        // Unsubscribe subscription
         this.subscriptions[name] && this.subscriptions[name].unsubscribe();
     }
 
