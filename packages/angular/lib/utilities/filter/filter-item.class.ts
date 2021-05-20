@@ -100,6 +100,7 @@ export class FilterItem<TValue> {
                 break;
             case FilterType.BOOLEAN:
                 (<boolean>(this.value as any)) = !!Number(params.pop());
+                break;
             // Array
             case FilterType.ARRAY:
                 (<any[]>(this.value as any)) = params;
