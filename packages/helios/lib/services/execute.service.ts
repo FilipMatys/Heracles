@@ -16,11 +16,11 @@ import { IHeliosParams } from "../interfaces/params/params.interface";
 import { IHeliosResult } from "../interfaces/results/result.interface";
 
 // Classes
+import { HeliosConfig } from "../classes/config.class";
 import { HeliosRuntime } from "../classes/runtime.class";
 
 // Services
 import { RequestService } from "./request.service";
-import { HeliosConfig } from "../classes/config.class";
 
 /**
  * Execute service

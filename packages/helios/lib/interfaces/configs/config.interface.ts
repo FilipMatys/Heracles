@@ -54,4 +54,10 @@ export interface IHeliosConfig {
      * @default Timeout of runtime in ms
      */
     runtimeTimeout: number;
+
+    /**
+     * Debug
+     * @description Whether to output debug info
+     */
+    debug?: boolean;
 }

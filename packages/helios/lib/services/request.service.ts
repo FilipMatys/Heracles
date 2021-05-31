@@ -14,6 +14,7 @@ import { HeliosRequestPayload } from "../classes/request-payload.class";
 
 // Constants
 import { HeliosRequestMethod } from "../constants/request-method.const";
+import { Debug } from "../utilities/debug.utility";
 
 
 /**
@@ -128,11 +129,26 @@ export abstract class RequestService {
         // Get headers
         const headers = await this.parseRequestConfigHeaders(config);
 
+        // Init start date
+        const startDate = new Date();
+
+        // Log start
+        Debug.log(startDate, method, "Sending request");
+
         // Fetch response
         const rResponse = await fetch(url, { method: "get", headers: headers });
 
+        // Set end date
+        const endDate = new Date();
+
         // Parse response into json
-        return this.parseResponse<TResult>(rResponse);
+        const parsedResponse = await this.parseResponse<TResult>(rResponse);
+
+        // Debug end
+        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
+
+        // Return response
+        return parsedResponse;
     }
 
     /**
@@ -159,11 +175,26 @@ export abstract class RequestService {
         // Get headers
         const headers = await this.parseRequestConfigHeaders(config);
 
+        // Init start date
+        const startDate = new Date();
+
+        // Log start
+        Debug.log(startDate, method, "Sending request");
+
         // Fetch response
         const rResponse = await fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
 
+        // Set end date
+        const endDate = new Date();
+
         // Parse response into json
-        return this.parseResponse<TResult>(rResponse);
+        const parsedResponse = await this.parseResponse<TResult>(rResponse);
+
+        // Debug end
+        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
+
+        // Return response
+        return parsedResponse;
     }
 
     /**

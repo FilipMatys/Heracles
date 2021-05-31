@@ -95,6 +95,18 @@ export class HeliosConfig {
     }
 
     /**
+     * Debug
+     * @description Whether to debug
+     */
+    public static get debug(): boolean {
+        // Ensure initialization
+        this.ensureInitialization();
+
+        // Return value
+        return this._instance._debug;
+    }
+
+    /**
      * Runtime timeout
      * @description Timeout of runtime in ms
      */
@@ -121,6 +133,7 @@ export class HeliosConfig {
     private _version: string;
     private _ssl: boolean;
     private _runtimeTimeout: number;
+    private _debug: boolean;
 
     /**
      * Constructor
@@ -136,6 +149,7 @@ export class HeliosConfig {
         this._defaultCustomHeaders = config.defaultCustomHeaders || {};
         this._ssl = !!config.ssl;
         this._runtimeTimeout = config.runtimeTimeout;
+        this._debug = !!config.debug;
     }
 
     /**
