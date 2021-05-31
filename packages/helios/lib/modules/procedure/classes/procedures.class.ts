@@ -35,7 +35,7 @@ export class HeliosProcedures {
      */
     public static get CustomOrdersDocuments(): HeliosProcedure<HeliosCustomOrdersDocumentsProcedureParameters> {
         // Make sure custom orders documents is set
-        this.customOrdersDocuments = this.customOrdersDocuments || new HeliosProcedure("CustomOrdersDocuments", HeliosCustomOrdersDocumentsProcedureParameters);
+        this.customOrdersDocuments = this.customOrdersDocuments || new HeliosProcedure(this.buildName("CustomOrdersDocuments"), HeliosCustomOrdersDocumentsProcedureParameters);
 
         // Return customer orders documents
         return this.customOrdersDocuments;
@@ -50,7 +50,7 @@ export class HeliosProcedures {
      */
     public static get CustomOrdersTransactions(): HeliosProcedure<HeliosCustomOrdersTransactionsProcedureParameters> {
         // Make sure custom orders transactions is set
-        this.customOrdersTransactions = this.customOrdersTransactions || new HeliosProcedure("CustomOrdersTransactions", HeliosCustomOrdersTransactionsProcedureParameters);
+        this.customOrdersTransactions = this.customOrdersTransactions || new HeliosProcedure(this.buildName("CustomOrdersTransactions"), HeliosCustomOrdersTransactionsProcedureParameters);
 
         // Return customer orders transactions
         return this.customOrdersTransactions;
@@ -65,7 +65,7 @@ export class HeliosProcedures {
      */
     public static get MerchandiseManagementDocuments(): HeliosProcedure<HeliosMerchandiseManagementDocumentsProcedureParameters> {
         // Make sure documents is set
-        this.merchandiseManagementDocuments = this.merchandiseManagementDocuments || new HeliosProcedure("MerchandiseManagementDocuments", HeliosMerchandiseManagementDocumentsProcedureParameters);
+        this.merchandiseManagementDocuments = this.merchandiseManagementDocuments || new HeliosProcedure(this.buildName("MerchandiseManagementDocuments"), HeliosMerchandiseManagementDocumentsProcedureParameters);
 
         // Return merchandise management documents
         return this.merchandiseManagementDocuments;
@@ -80,7 +80,7 @@ export class HeliosProcedures {
      */
     public static get MerchandiseManagementDocumentsRecalc(): HeliosProcedure<HeliosMerchandiseManagementDocumentsRecalcProcedureParameters> {
         // Make sure documents is set
-        this.merchandiseManagementDocumentsRecalc = this.merchandiseManagementDocumentsRecalc || new HeliosProcedure("MerchandiseManagementDocumentsRecalc", HeliosMerchandiseManagementDocumentsRecalcProcedureParameters);
+        this.merchandiseManagementDocumentsRecalc = this.merchandiseManagementDocumentsRecalc || new HeliosProcedure(this.buildName("MerchandiseManagementDocumentsRecalc"), HeliosMerchandiseManagementDocumentsRecalcProcedureParameters);
 
         // Return merchandise management documents recalc
         return this.merchandiseManagementDocumentsRecalc;
@@ -95,7 +95,7 @@ export class HeliosProcedures {
      */
     public static get MerchandiseManagementTransactions(): HeliosProcedure<HeliosMerchandiseManagementTransactionsProcedureParameters> {
         // Make sure transactions is set
-        this.merchandiseManagementTransactions = this.merchandiseManagementTransactions || new HeliosProcedure("MerchandiseManagementTransactions", HeliosMerchandiseManagementTransactionsProcedureParameters);
+        this.merchandiseManagementTransactions = this.merchandiseManagementTransactions || new HeliosProcedure(this.buildName("MerchandiseManagementTransactions"), HeliosMerchandiseManagementTransactionsProcedureParameters);
 
         // Return merchandise management transactions
         return this.merchandiseManagementTransactions;
