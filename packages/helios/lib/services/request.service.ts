@@ -14,8 +14,10 @@ import { HeliosRequestPayload } from "../classes/request-payload.class";
 
 // Constants
 import { HeliosRequestMethod } from "../constants/request-method.const";
-import { Debug } from "../utilities/debug.utility";
 
+// Utilities
+import { Debug } from "../utilities/debug.utility";
+import { Queue } from "../utilities/queue.utility";
 
 /**
  * Request service
@@ -133,10 +135,10 @@ export abstract class RequestService {
         const startDate = new Date();
 
         // Log start
-        Debug.log(startDate, method, "Sending request");
+        Debug.log(startDate, method, `Sending request`);
 
         // Fetch response
-        const rResponse = await fetch(url, { method: "get", headers: headers });
+        const rResponse = await Queue.enqueue(() => fetch(url, { method: "get", headers: headers }));
 
         // Set end date
         const endDate = new Date();
@@ -182,7 +184,7 @@ export abstract class RequestService {
         Debug.log(startDate, method, "Sending request");
 
         // Fetch response
-        const rResponse = await fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
+        const rResponse = await Queue.enqueue(() => fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers }));
 
         // Set end date
         const endDate = new Date();

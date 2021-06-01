@@ -119,6 +119,18 @@ export class HeliosConfig {
     }
 
     /**
+     * Delay between requests
+     * @description Delay between requests in ms
+     */
+    public static get delayBetweenRequests(): number {
+        // Ensure initialization
+        this.ensureInitialization();
+
+        // Return value
+        return this._instance._delayBetweenRequests;
+    }
+
+    /**
      * Instance
      * @description Configuration instance
      */
@@ -134,6 +146,7 @@ export class HeliosConfig {
     private _ssl: boolean;
     private _runtimeTimeout: number;
     private _debug: boolean;
+    private _delayBetweenRequests: number;
 
     /**
      * Constructor
@@ -150,6 +163,7 @@ export class HeliosConfig {
         this._ssl = !!config.ssl;
         this._runtimeTimeout = config.runtimeTimeout;
         this._debug = !!config.debug;
+        this._delayBetweenRequests = config.delayBetweenRequests || 0;
     }
 
     /**
@@ -173,4 +187,4 @@ export class HeliosConfig {
         // Throw error
         throw new Error("[@calf/helios@HeliosConfig]: Configuration not initialized, did you forget to initialize?");
     }
-} 
+}

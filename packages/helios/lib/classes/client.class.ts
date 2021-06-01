@@ -15,6 +15,12 @@ import { HeliosConfig } from "./config.class";
 export class HeliosClient {
 
     /**
+     * Disable constructor
+     * @description Make client a singleton
+     */
+    private constructor() { }
+
+    /**
      * eServer
      * @description eServer service
      */

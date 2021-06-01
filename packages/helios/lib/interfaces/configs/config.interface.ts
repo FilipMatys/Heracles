@@ -60,4 +60,10 @@ export interface IHeliosConfig {
      * @description Whether to output debug info
      */
     debug?: boolean;
+
+    /**
+     * Delay between requests
+     * @description Delay between requests in ms
+     */
+    delayBetweenRequests?: number;
 }
