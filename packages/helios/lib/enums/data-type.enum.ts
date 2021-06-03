@@ -10,6 +10,11 @@ export class HeliosDataType {
     public static readonly INTEGER: string = "ftInteger";
 
     /**
+     * Small Integer
+     */
+    public static readonly SMALL_INTEGER: string = "ftSmallint";
+
+    /**
      * Float
      */
     public static readonly FLOAT: string = "ftFloat";

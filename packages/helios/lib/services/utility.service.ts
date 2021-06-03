@@ -59,6 +59,7 @@ export class UtilityService {
         switch (type) {
             // Integer and byte
             case HeliosDataType.BYTE:
+            case HeliosDataType.SMALL_INTEGER:
             case HeliosDataType.INTEGER:
                 // Parse integer
                 return value ? parseInt(value) : undefined;
