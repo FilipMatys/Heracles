@@ -57,7 +57,8 @@ export class UtilityService {
     public parseValueFromHelios(value: string, type: string): any {
         // Check data type
         switch (type) {
-            // Integer
+            // Integer and byte
+            case HeliosDataType.BYTE:
             case HeliosDataType.INTEGER:
                 // Parse integer
                 return value ? parseInt(value) : undefined;
