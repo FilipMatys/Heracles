@@ -1,0 +1,35 @@
+{
+  "name": "@calf/gopay",
+  "version": "0.0.1-alpha",
+  "description": "GoPay module of Calf framework.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha -r ts-node/register test/test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FilipMatys/Calf.git"
+  },
+  "keywords": [
+    "calf",
+    "framework",
+    "gopay"
+  ],
+  "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node-fetch": "^2.5.10",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "rxjs": "^6.6.3",
+    "ts-node": "^6.2.0",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
