@@ -132,13 +132,19 @@ export abstract class RequestService {
         const headers = await this.parseRequestConfigHeaders(config);
 
         // Init start date
-        const startDate = new Date();
+        let startDate = new Date();
 
-        // Log start
-        Debug.log(startDate, method, `Sending request`);
+        // Log queue
+        Debug.log(startDate, method, `Queueing request`);
 
         // Fetch response
-        const rResponse = await Queue.enqueue(() => fetch(url, { method: "get", headers: headers }));
+        const rResponse = await Queue.enqueue(() => {
+            // Log send
+            Debug.log(startDate = new Date(), method, `Sending request`);
+
+            // Return fetch
+            return fetch(url, { method: "get", headers: headers });
+        });
 
         // Set end date
         const endDate = new Date();
@@ -178,13 +184,19 @@ export abstract class RequestService {
         const headers = await this.parseRequestConfigHeaders(config);
 
         // Init start date
-        const startDate = new Date();
+        let startDate = new Date();
 
-        // Log start
-        Debug.log(startDate, method, "Sending request");
+        // Log queue
+        Debug.log(startDate, method, `Queueing request`);
 
         // Fetch response
-        const rResponse = await Queue.enqueue(() => fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers }));
+        const rResponse = await Queue.enqueue(() => {
+            // Log queue
+            Debug.log(startDate = new Date(), method, `Sending request`);
+
+            // Fetch result
+            return fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
+        });
 
         // Set end date
         const endDate = new Date();
