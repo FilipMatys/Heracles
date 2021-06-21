@@ -67,7 +67,7 @@ export class UtilityService {
             // Float
             case HeliosDataType.FLOAT:
                 // Parse float
-                return value ? parseFloat(value) : undefined;
+                return value ? parseFloat(value.replace(/,/g, ".")) : undefined;
 
             // DateTime
             case HeliosDataType.DATE_TIME:
