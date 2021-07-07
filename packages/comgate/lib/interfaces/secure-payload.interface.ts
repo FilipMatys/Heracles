@@ -8,5 +8,5 @@ export interface ISecurePayload {
      * Secure string
      * @description Password of the terminal
      */
-    secureString: string;
+    secureString?: string;
 }

@@ -42,7 +42,7 @@ export class ComGate {
      */
     protected get host(): string {
         // Return host
-        return `${this.config.url}:${this.config.port}`;
+        return `${this.config.url}:${this.config.port}/paya`;
     }
 
     /**
@@ -73,8 +73,11 @@ export class ComGate {
      * @param payload 
      */
     public async terminal(payload: ITerminalStatusPayload): Promise<ITerminalStatusResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
-        return this.service.post([this.host, "terminal"].join(), payload);
+        return this.service.post([this.host, "terminal"].join("/"), payload);
     }
 
     /**
@@ -83,6 +86,9 @@ export class ComGate {
      * @param payload 
      */
     public async payment(payload: IStartPaymentPayload): Promise<ITransactionResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "payment"].join("/"), payload);
     }
@@ -93,6 +99,9 @@ export class ComGate {
      * @param payload 
      */
     public async refund(payload: IStartRefundPayload): Promise<ITransactionResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "refund"].join("/"), payload);
     }
@@ -104,6 +113,9 @@ export class ComGate {
      * @returns 
      */
     public async reverse(payload: IStartReversePayload): Promise<ITransactionResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "reverse"].join("/"), payload);
     }
@@ -115,6 +127,9 @@ export class ComGate {
      * @returns 
      */
     public async closing(payload: IStartClosingPayload): Promise<ITransactionResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "closing"].join("/"), payload);
     }
@@ -125,6 +140,9 @@ export class ComGate {
      * @param payload 
      */
     public async status(payload: IStatusPayload): Promise<IStatusResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "status"].join("/"), payload);
     }
@@ -136,6 +154,9 @@ export class ComGate {
      * @returns 
      */
     public async result<TResult extends ITransactionResultResponse>(payload: IResultPayload): Promise<TResult> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "result"].join("/"), payload);
     }
@@ -146,6 +167,9 @@ export class ComGate {
      * @param payload 
      */
     public async confirm(payload: IConfirmPayload): Promise<IConfirmResponse> {
+        // Add secure string to payload
+        payload.secureString = payload.secureString || this.config.password;
+
         // Make post request
         return this.service.post([this.host, "confirm"].join("/"), payload);
     }
